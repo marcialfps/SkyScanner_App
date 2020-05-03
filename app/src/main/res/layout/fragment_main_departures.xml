@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/departuresCard"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="0dp"
         android:background="@color/lightBlue"
         app:cardBackgroundColor="@color/lightBlue"
         app:cardCornerRadius="2dp"
@@ -34,14 +34,14 @@
 
                 <TextView
                     android:id="@+id/txDeparturesTableTitle"
-                    tools:text="@string/departures_departures"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-black"
                     android:padding="5dp"
                     android:text="@string/departures_departures"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="@string/departures_departures" />
             </TableRow>
 
             <TableRow

@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/weatherCard"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="180dp"
         android:background="@color/lightBlue"
         app:cardBackgroundColor="@color/lightBlue"
         app:cardCornerRadius="2dp"
