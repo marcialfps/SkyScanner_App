@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SkyScanner</string>
+
+
+
+    <!--  Weather  -->
+    <string name="weather_default_temperature" translatable="false">24ºc</string>
+    <string name="weather_default_city">London</string>
+    <string name="weather_status">Weather Status</string>
+
+
 </resources>
