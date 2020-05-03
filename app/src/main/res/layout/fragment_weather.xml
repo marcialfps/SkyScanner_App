@@ -36,6 +36,7 @@
                     android:fontFamily="sans-serif-light"
                     android:paddingStart="6dp"
                     android:paddingEnd="1dp"
+                    android:text="@string/weather_default_city"
                     android:textSize="28sp"
                     app:autoSizeTextType="none"
                     tools:text="@string/weather_default_city" />
@@ -46,6 +47,7 @@
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
+                    android:text="@string/weather_default_temperature"
                     android:textAlignment="gravity"
                     android:textSize="60sp"
                     tools:text="@string/weather_default_temperature" />
@@ -59,7 +61,8 @@
                 android:baselineAlignBottom="false"
                 android:contentDescription="@string/weather_status"
                 android:textAlignment="center"
-                tools:srcCompat="@drawable/example_0" />
+                app:srcCompat="@drawable/weather_example_icon_0"
+                tools:srcCompat="@drawable/weather_example_icon_0" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
