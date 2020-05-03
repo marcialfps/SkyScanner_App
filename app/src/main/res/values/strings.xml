@@ -9,4 +9,16 @@
     <string name="weather_status">Weather Status</string>
 
 
+    <!--  Arrivals  -->
+    <string name="arrivals_arrivals">Arrivals</string>
+    <string name="arrivals_from">From</string>
+    <string name="arrivals_time_arrival">ETA</string>
+
+    <!--  Departures  -->
+    <string name="departures_departures">Departures</string>
+    <string name="departures_to">To</string>
+    <string name="departures_time_departure">ETD</string>
+
+
+
 </resources>

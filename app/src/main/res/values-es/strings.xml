@@ -9,4 +9,15 @@
     <string name="weather_status">Estado del tiempo</string>
 
 
+    <!--  Arrivals  -->
+    <string name="arrivals_arrivals">Llegadas</string>
+    <string name="arrivals_from">Origen</string>
+    <string name="arrivals_time_arrival">Hora de llegada</string>
+
+    <!--  Departures  -->
+    <string name="departures_departures">Salidas</string>
+    <string name="departures_to">Destino</string>
+    <string name="departures_time_departure">Hora de salida</string>
+
+
 </resources>

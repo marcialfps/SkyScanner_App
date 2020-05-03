@@ -11,6 +11,7 @@
         android:layout_height="160dp"
         android:background="@color/lightBlue"
         app:cardBackgroundColor="@color/lightBlue"
+        app:cardCornerRadius="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
