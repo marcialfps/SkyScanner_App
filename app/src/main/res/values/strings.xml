@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">SkyScanner</string>
+    <string name="login">Login</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create an account</string>
+    <string name="go">Go</string>
+    <string name="username">Username</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="have_account">I have an account</string>
+    <string name="next">Next</string>
+    <string name="register">Register</string>
+    <string name="error_login_empty">You must introduce user and password</string>
+    <string name="error_login_credentials">The credentials are not correct</string>
+    <string name="error_register_empty">You must complete all the fields</string>
 </resources>
