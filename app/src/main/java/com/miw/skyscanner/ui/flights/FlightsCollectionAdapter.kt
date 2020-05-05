@@ -16,8 +16,8 @@ class FlightsCollectionAdapter (activity: FragmentActivity, private val itemsCou
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> DemoFragment(R.layout.fragment_main_departures)
-            else -> DemoFragment(R.layout.fragment_main_arrivals)
+            0 -> DemoFragment(R.layout.fragment_main_arrivals)
+            else -> DemoFragment(R.layout.fragment_main_departures)
         }
     }
 }
