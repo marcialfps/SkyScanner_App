@@ -2,7 +2,6 @@
     <string name="app_name">SkyScanner</string>
 
 
-
     <!--  Weather  -->
     <string name="weather_default_temperature" translatable="false">24ºc</string>
     <string name="weather_default_city">London</string>
@@ -18,7 +17,6 @@
     <string name="departures_departures">Departures</string>
     <string name="departures_to">To</string>
     <string name="departures_time_departure">ETD</string>
-
 
 
 </resources>
