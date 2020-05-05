@@ -18,6 +18,29 @@ class FlightsFragment : Fragment() {
 
     private lateinit var tabNames: Map<Int, String>
     private lateinit var flightsCollectionAdapter: FlightsCollectionAdapter
+    // Event handlers for the tabs
+    private val flightsPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) {
+            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            // Do not allow refresh while changing tabs for usability
+            when (0.0.compareTo(positionOffset) == 0){
+                true -> flightsSwipeLayout.isEnabled = true
+                false -> flightsSwipeLayout.isEnabled = false
+            }
+        }
+
+        override fun onPageSelected(position: Int) {
+            Toast.makeText(
+                activity, "Tab selected: ${tabNames[position]}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     // Inflate the fragment containing the ViewPager and the arrivals/departures tabs
     override fun onCreateView(
@@ -26,6 +49,11 @@ class FlightsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_flights, container, false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        flightsViewPager.unregisterOnPageChangeCallback(flightsPageChangeCallback)
     }
 
     // Setup the fragment
@@ -40,32 +68,7 @@ class FlightsFragment : Fragment() {
         if (activity != null){
             flightsCollectionAdapter = FlightsCollectionAdapter(activity!!, NUMBER_OF_TABS)
             flightsViewPager.adapter = flightsCollectionAdapter
-
-            // Pager events
-            flightsViewPager.registerOnPageChangeCallback (
-                object : ViewPager2.OnPageChangeCallback() {
-
-                    override fun onPageScrolled(
-                        position: Int,
-                        positionOffset: Float,
-                        positionOffsetPixels: Int
-                    ) {
-                        super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                        // Do not allow refresh while changing tabs for usability
-                        when (0.0.compareTo(positionOffset) == 0){
-                            true -> flightsSwipeLayout.isEnabled = true
-                            false -> flightsSwipeLayout.isEnabled = false
-                        }
-                    }
-
-                    override fun onPageSelected(position: Int) {
-                        Toast.makeText(
-                            activity, "Tab: ${tabNames[position]}",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                }
-            )
+            flightsViewPager.registerOnPageChangeCallback (flightsPageChangeCallback)
         }
     }
 

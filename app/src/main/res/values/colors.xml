@@ -6,4 +6,5 @@
 
     <!--  Custom  -->
     <color name="lightBlue">#C4D3D8</color>
+    <color name="lightGrey">#EEE</color>
 </resources>
