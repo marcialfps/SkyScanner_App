@@ -1,10 +1,16 @@
 package com.miw.skyscanner
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.miw.skyscanner.fragments.LoginFragment
 import com.miw.skyscanner.fragments.RegisterFragment
 import kotlinx.android.synthetic.main.activity_form.*
+
+fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(this, message, duration).show()
+}
 
 class FormActivity : AppCompatActivity(),
     LoginFragment.OnLoginFragmentInteractionListener,
