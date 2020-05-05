@@ -14,10 +14,16 @@
         app:tabMode="fixed"
         app:tabTextColor="@android:color/white" />
 
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/flightsViewPager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/flightsSwipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </androidx.viewpager2.widget.ViewPager2>
+        android:layout_height="match_parent">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/flightsViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </androidx.viewpager2.widget.ViewPager2>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </LinearLayout>
