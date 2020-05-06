@@ -1,18 +1,25 @@
 package com.miw.skyscanner.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.utils.WSUtils
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.login_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.ksoap2.transport.HttpResponseException
 import java.lang.Exception
 
 class LoginFragment : Fragment() {
@@ -53,30 +60,29 @@ class LoginFragment : Fragment() {
         if (user.isEmpty() or password.isEmpty()) {
             txError.text = getString(R.string.error_login_empty)
         } else {
-            //Send request to the service
-            loginUser().execute(user, password)
+            layoutLoading.visibility = View.VISIBLE
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    val result = CallWebService().callLogin(user, password)
+                    if (result != null) {
+                        withContext(Dispatchers.Main) {
+                            txError.text = "LOGIN CORRECT TO-DO"
+                        }
+                    }
+                } catch (e1: HttpResponseException) {
+                    withContext(Dispatchers.Main) {
+                        txError.text = if (e1.statusCode === 403) "The credentials are not valid"
+                            else "Unexpected error (${e1.statusCode})"
+                    }
+                    Log.v("response", e1.toString())
+                } finally {
+                    layoutLoading.visibility = View.INVISIBLE
+                }
+            }
         }
     }
 
     interface OnLoginFragmentInteractionListener {
         fun onRegisterButtonClick()
-    }
-
-    inner class loginUser: AsyncTask<String, String, String>() {
-        override fun doInBackground(vararg params: String?): String {
-            val response = CallWebService().callLogin(params[0], params[1])
-            Log.v("response", "response== $response")
-            return response
-        }
-
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
-            Log.v("response", "OnPostresponse== $result")
-            try {
-                Log.i("response","Login correct")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 }

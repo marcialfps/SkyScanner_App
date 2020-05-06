@@ -8,6 +8,9 @@
     <string name="username">Username</string>
     <string name="name">Name</string>
     <string name="surname">Surname</string>
+    <string name="email">Email</string>
+    <string name="airport_code">Airport code</string>
+    <string name="password_repeat">Repeat password</string>
     <string name="have_account">I have an account</string>
     <string name="next">Next</string>
     <string name="register">Register</string>

@@ -11,6 +11,7 @@ class WSUtils {
         const val SOAP_TIMEOUT = 30000
         const val SOAP_NAMESPACE = "http://ws.skyscanner/"
         const val METHOD_LOGIN = "Login"
+        const val METHOD_REGISTER = "AddUser"
 
         fun isConnected(context: Context): Boolean {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

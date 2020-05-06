@@ -9,13 +9,12 @@ import org.ksoap2.transport.HttpsTransportSE
 import java.lang.Exception
 
 class CallWebService {
-    fun callLogin(input1: String?, input2: String?) : String {
+    fun callAPI(propertiesMap: Map<String, Any>, methodName: String): String {
         var result = ""
-        val soapAction = WSUtils.SOAP_NAMESPACE + WSUtils.METHOD_LOGIN
-        val soapObject = SoapObject(WSUtils.SOAP_NAMESPACE, WSUtils.METHOD_LOGIN)
+        val soapAction = WSUtils.SOAP_NAMESPACE + methodName
+        val soapObject = SoapObject(WSUtils.SOAP_NAMESPACE, methodName)
 
-        soapObject.addProperty("username", input1)
-        soapObject.addProperty("password", input1)
+        propertiesMap.forEach { k, v -> soapObject.addProperty(k, v) }
 
         val envelope = SoapSerializationEnvelope(SoapEnvelope.VER11)
         envelope.setOutputSoapObject(soapObject)
@@ -27,14 +26,18 @@ class CallWebService {
         val sslConnection = SSLConnection()
         sslConnection.allowAllSSL()
 
-        try {
-            httpsTransportSE.call(soapAction, envelope)
-            val soapPrimitive = envelope.response
-            result = soapPrimitive.toString()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
+        httpsTransportSE.call(soapAction, envelope)
+        val soapPrimitive = envelope.response
+        result = soapPrimitive.toString()
         return result
     }
+
+    fun callLogin(input1: String, input2: String) =
+        callAPI(mapOf("username" to input1, "password" to input2), WSUtils.METHOD_LOGIN)
+
+    fun callRegister(username: String, name: String, surname: String, email: String,
+                     airportCode: String, password: String) =
+        callAPI(mapOf("username" to username, "name" to name, "surname" to surname,
+            "mail" to email, "airport" to airportCode, "password" to password), WSUtils.METHOD_REGISTER)
+
 }
