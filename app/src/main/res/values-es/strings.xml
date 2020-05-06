@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SkyScanner</string>
+
+
+
+    <!--  Weather  -->
+    <string name="weather_default_city">Londres</string>
+    <string name="weather_status">Estado del tiempo</string>
+
+
+    <!--  Arrivals  -->
+    <string name="arrivals_arrivals">Llegadas</string>
+    <string name="arrivals_from">Origen</string>
+    <string name="arrivals_time_arrival">Hora de llegada</string>
+    <string name="arrivals_distance_left">%1$f km hasta el destino</string>
+
+    <!--  Departures  -->
+    <string name="departures_departures">Salidas</string>
+    <string name="departures_to">Destino</string>
+    <string name="departures_time_departure">Hora de salida</string>
+    <string name="departures_distance_covered">%1$f km desde la salida</string>
+
+    <!--  Other  -->
+    <string name="icon_landing">Icono de avión aterrizando</string>
+    <string name="icon_takeoff">Icono de avión despegando</string>
+
+
+</resources>

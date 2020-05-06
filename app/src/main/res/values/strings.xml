@@ -1,5 +1,32 @@
 <resources>
     <string name="app_name">SkyScanner</string>
+
+
+    <!--  Weather  -->
+    <string name="weather_default_temperature" translatable="false">24ºc</string>
+    <string name="weather_default_city">London</string>
+    <string name="weather_default_time" translatable="false">12:00</string>
+    <string name="weather_status">Weather Status</string>
+
+
+    <!--  Arrivals  -->
+    <string name="arrivals_arrivals">Arrivals</string>
+    <string name="arrivals_from">From</string>
+    <string name="arrivals_time_arrival">ETA</string>
+    <string name="arrivals_distance_left">%1$f km to destination</string>
+
+    <!--  Departures  -->
+    <string name="departures_departures">Departures</string>
+    <string name="departures_to">To</string>
+    <string name="departures_time_departure">ETD</string>
+    <string name="departures_distance_covered">%1$f km from destination</string>
+
+
+    <!--  Other  -->
+    <string name="icon_landing">Plane landing icon</string>
+    <string name="icon_takeoff">Plane taking off icon</string>
+
+    <!-- Login and register -->
     <string name="login">Login</string>
     <string name="user">User</string>
     <string name="password">Password</string>
