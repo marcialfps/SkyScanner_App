@@ -40,4 +40,7 @@ class CallWebService {
         callAPI(mapOf("username" to username, "name" to name, "surname" to surname,
             "mail" to email, "airport" to airportCode, "password" to password), WSUtils.METHOD_REGISTER)
 
+    //Add a new method for each call. It must receive the params and create a map with the
+    //property name in the WS.
+
 }

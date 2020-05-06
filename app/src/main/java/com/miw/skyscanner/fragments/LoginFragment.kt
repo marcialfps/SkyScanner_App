@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
         if (context is OnLoginFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context debe implementar OnFirstFragmentInteractionListener")
+            throw RuntimeException("$context must implement OnLoginFragmentInteractionListener")
         }
     }
 
@@ -71,7 +71,7 @@ class LoginFragment : Fragment() {
                     }
                 } catch (e1: HttpResponseException) {
                     withContext(Dispatchers.Main) {
-                        txError.text = if (e1.statusCode === 403) "The credentials are not valid"
+                        txError.text = if (e1.statusCode === 403) getString(R.string.error_login_credentials)
                             else "Unexpected error (${e1.statusCode})"
                     }
                     Log.v("response", e1.toString())

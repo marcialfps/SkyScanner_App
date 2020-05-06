@@ -43,7 +43,7 @@ class RegisterFragment : Fragment() {
         if (context is OnRegisterFragmentInteractionListener) {
             listener = context
         } else {
-            throw RuntimeException("$context debe implementar OnSecondFragmentInteractionListener")
+            throw RuntimeException("$context debe implementar OnRegisterFragmentInteractionListener")
         }
     }
 
@@ -79,8 +79,8 @@ class RegisterFragment : Fragment() {
 
         when {
             email.isEmpty() or airportCode.isEmpty() or password.isEmpty()
-                    or passwordRepeat.isEmpty() -> txErrorRegister.text = "You must complete all the fields"
-            password != passwordRepeat -> txErrorRegister.text = "Passwords are not equal"
+                    or passwordRepeat.isEmpty() -> txErrorRegister.text = getString(R.string.error_register_empty)
+            password != passwordRepeat -> txErrorRegister.text = getString(R.string.error_register_passwords)
             else -> callToRegister()
         }
     }
@@ -99,7 +99,7 @@ class RegisterFragment : Fragment() {
             } catch (e1: HttpResponseException) {
                 withContext(Dispatchers.Main) {
                     txErrorRegister.text = when(e1.statusCode) {
-                        409 -> "The user already exists"
+                        409 -> getString(R.string.error_register_user_exist)
                         else -> "Unexpected error (${e1.statusCode})"
                     }
                 }

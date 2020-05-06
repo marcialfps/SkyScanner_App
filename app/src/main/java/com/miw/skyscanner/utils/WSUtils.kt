@@ -13,6 +13,8 @@ class WSUtils {
         const val METHOD_LOGIN = "Login"
         const val METHOD_REGISTER = "AddUser"
 
+        //Add a constant with the name of each method
+
         fun isConnected(context: Context): Boolean {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = cm.activeNetworkInfo

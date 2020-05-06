@@ -17,4 +17,6 @@
     <string name="error_login_empty">You must introduce user and password</string>
     <string name="error_login_credentials">The credentials are not correct</string>
     <string name="error_register_empty">You must complete all the fields</string>
+    <string name="error_register_passwords">Passwords are not equal</string>
+    <string name="error_register_user_exist">The user already exists</string>
 </resources>
