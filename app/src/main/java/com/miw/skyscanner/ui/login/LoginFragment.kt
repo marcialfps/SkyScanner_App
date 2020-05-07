@@ -1,18 +1,15 @@
-package com.miw.skyscanner.fragments
+package com.miw.skyscanner.ui.login
 
 import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
-import com.miw.skyscanner.utils.WSUtils
+import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.login_fragment.*
 import kotlinx.coroutines.CoroutineScope
@@ -20,7 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
-import java.lang.Exception
 
 class LoginFragment : Fragment() {
 
@@ -67,6 +63,10 @@ class LoginFragment : Fragment() {
                     if (result != null) {
                         withContext(Dispatchers.Main) {
                             txError.text = "LOGIN CORRECT TO-DO"
+                            val intent = Intent(context, MainActivity::class.java).apply {
+                                putExtra("username", "todo")
+                            }
+                            startActivity(intent)
                         }
                     }
                 } catch (e1: HttpResponseException) {

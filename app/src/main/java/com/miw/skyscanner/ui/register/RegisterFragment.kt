@@ -1,4 +1,4 @@
-package com.miw.skyscanner.fragments
+package com.miw.skyscanner.ui.register
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
-import com.miw.skyscanner.model.User
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.register_fragment.*
 import kotlinx.android.synthetic.main.register_fragment.buttonRegister

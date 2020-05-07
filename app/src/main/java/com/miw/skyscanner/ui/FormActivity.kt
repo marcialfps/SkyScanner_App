@@ -1,11 +1,10 @@
-package com.miw.skyscanner
+package com.miw.skyscanner.ui
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import com.miw.skyscanner.fragments.LoginFragment
-import com.miw.skyscanner.fragments.RegisterFragment
+import com.miw.skyscanner.R
+import com.miw.skyscanner.ui.login.LoginFragment
+import com.miw.skyscanner.ui.register.RegisterFragment
 import kotlinx.android.synthetic.main.activity_form.*
 
 class FormActivity : AppCompatActivity(),
@@ -19,7 +18,9 @@ class FormActivity : AppCompatActivity(),
     }
 
     private fun initialize() {
-        supportFragmentManager.beginTransaction().add(fragment_container.id, LoginFragment())
+        supportFragmentManager.beginTransaction().add(fragment_container.id,
+            LoginFragment()
+        )
             .commit()
     }
 

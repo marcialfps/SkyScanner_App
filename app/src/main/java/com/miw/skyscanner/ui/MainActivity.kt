@@ -1,9 +1,10 @@
-package com.miw.skyscanner
+package com.miw.skyscanner.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.flights.FlightsFragment
 import com.miw.skyscanner.ui.home.HomeFragment
 import com.miw.skyscanner.ui.home.HomeWeatherFragment
@@ -39,22 +40,22 @@ class MainActivity : AppCompatActivity() {
         bottomMenu.setOnNavigationItemSelectedListener {
             currentItem = it.itemId
             when(currentItem){
-                R.id.navigation_home-> {
+                R.id.navigation_home -> {
                     loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_map-> {
+                R.id.navigation_map -> {
                     loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_flights-> {
+                R.id.navigation_flights -> {
                     loadFragment(FlightsFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
-                R.id.navigation_weather-> {
+                R.id.navigation_weather -> {
                     loadFragment(HomeWeatherFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
