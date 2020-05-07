@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">SkyScanner</string>
 
+    <!--  Bottom menu  -->
+    <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_map">Map</string>
+    <string name="bottom_menu_flights">Flights</string>
+    <string name="bottom_menu_weather">Weather</string>
 
     <!--  Weather  -->
     <string name="weather_default_temperature" translatable="false">24ºc</string>
