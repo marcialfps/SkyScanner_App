@@ -2,7 +2,11 @@
 <resources>
     <string name="app_name">SkyScanner</string>
 
-
+    <!--  Bottom menu  -->
+    <string name="bottom_menu_home">Inicio</string>
+    <string name="bottom_menu_map">Mapa</string>
+    <string name="bottom_menu_flights">Vuelos</string>
+    <string name="bottom_menu_weather">Tiempo</string>
 
     <!--  Weather  -->
     <string name="weather_default_city">Londres</string>

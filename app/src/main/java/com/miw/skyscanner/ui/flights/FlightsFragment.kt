@@ -21,24 +21,17 @@ class FlightsFragment : Fragment() {
     // Event handlers for the tabs
     private val flightsPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
 
-        override fun onPageScrolled(
-            position: Int,
-            positionOffset: Float,
-            positionOffsetPixels: Int
-        ) {
-            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+        override fun onPageScrollStateChanged(state: Int) {
             // Do not allow refresh while changing tabs for usability
-            when (0.0.compareTo(positionOffset) == 0){
-                true -> flightsSwipeLayout.isEnabled = true
-                false -> flightsSwipeLayout.isEnabled = false
-            }
+            val enabled: Boolean = state == ViewPager2.SCROLL_STATE_IDLE
+            flightsSwipeLayout.isEnabled = enabled
         }
 
         override fun onPageSelected(position: Int) {
-            Toast.makeText(
-                activity, "Tab selected: ${tabNames[position]}",
-                Toast.LENGTH_SHORT
-            ).show()
+//            Toast.makeText(
+//                activity, "Tab selected: ${tabNames[position]}",
+//                Toast.LENGTH_SHORT
+//            ).show()
         }
     }
 
@@ -51,8 +44,9 @@ class FlightsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_flights, container, false)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+
+    override fun onDestroyView() {
+        super.onDestroyView()
         flightsViewPager.unregisterOnPageChangeCallback(flightsPageChangeCallback)
     }
 
