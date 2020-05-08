@@ -57,12 +57,12 @@ class CallWebService {
         }
     }
 
-    fun callGetForecast(airportCode: String, time: Long): List<Forecast> {
+    fun callGetForecast(airportCode: String): List<Forecast> {
         val forecasts = mutableListOf<Forecast>()
-        val response = callAPI(mapOf("aiportCode" to airportCode, "time" to time),
-            WSUtils.METHOD_GET_WEATHER_BY_AIRPORT)
+        val response = callAPI(mapOf("aiportCode" to airportCode),
+            WSUtils.METHOD_GET_WEATHER_FORECAST_BY_AIRPORT)
         val xmlDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response)
-        val forecastList = xmlDoc.getElementsByTagName("GetWeatherByAirportResult")
+        val forecastList = xmlDoc.getElementsByTagName("Weather")
 
         for (i in 0 until forecastList.length) {
             val forecastNode = forecastList.item(i)
