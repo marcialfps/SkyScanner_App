@@ -10,14 +10,11 @@ import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.fragment_register.buttonRegister
-import kotlinx.android.synthetic.main.fragment_register.txPassword
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
-import java.lang.RuntimeException
 
 const val MIN_USERNAME_LENGTH = 5
 const val MIN_PASSWORD_LENGTH = 5

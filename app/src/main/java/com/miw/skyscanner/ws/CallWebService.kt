@@ -6,15 +6,14 @@ import org.ksoap2.SoapEnvelope
 import org.ksoap2.serialization.SoapObject
 import org.ksoap2.serialization.SoapSerializationEnvelope
 import org.ksoap2.transport.HttpsTransportSE
-import java.lang.Exception
 
 class CallWebService {
-    fun callAPI(propertiesMap: Map<String, Any>, methodName: String): String {
-        var result = ""
+    private fun callAPI(propertiesMap: Map<String, Any>, methodName: String): String {
+        val result: String
         val soapAction = WSUtils.SOAP_NAMESPACE + methodName
         val soapObject = SoapObject(WSUtils.SOAP_NAMESPACE, methodName)
 
-        propertiesMap.forEach { k, v -> soapObject.addProperty(k, v) }
+        propertiesMap.forEach { (k, v) -> soapObject.addProperty(k, v) }
 
         val envelope = SoapSerializationEnvelope(SoapEnvelope.VER11)
         envelope.setOutputSoapObject(soapObject)
