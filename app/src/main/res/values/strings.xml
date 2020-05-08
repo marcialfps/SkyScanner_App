@@ -16,12 +16,14 @@
 
     <!--  Arrivals  -->
     <string name="arrivals_arrivals">Arrivals</string>
+    <string name="arrivals_incoming">Incoming arrivals</string>
     <string name="arrivals_from">From</string>
     <string name="arrivals_time_arrival">ETA</string>
     <string name="arrivals_distance_left">%1$f km to destination</string>
 
     <!--  Departures  -->
     <string name="departures_departures">Departures</string>
+    <string name="departures_incoming">Upcoming departures</string>
     <string name="departures_to">To</string>
     <string name="departures_time_departure">ETD</string>
     <string name="departures_distance_covered">%1$f km from destination</string>

@@ -15,12 +15,14 @@
 
     <!--  Arrivals  -->
     <string name="arrivals_arrivals">Llegadas</string>
+    <string name="arrivals_incoming">Próximas llegadas</string>
     <string name="arrivals_from">Origen</string>
     <string name="arrivals_time_arrival">Hora de llegada</string>
     <string name="arrivals_distance_left">%1$f km hasta el destino</string>
 
     <!--  Departures  -->
     <string name="departures_departures">Salidas</string>
+    <string name="departures_incoming">Próximas salidas</string>
     <string name="departures_to">Destino</string>
     <string name="departures_time_departure">Hora de salida</string>
     <string name="departures_distance_covered">%1$f km desde la salida</string>

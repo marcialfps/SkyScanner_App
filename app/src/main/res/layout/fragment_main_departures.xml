@@ -9,8 +9,9 @@
         android:id="@+id/departuresCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/lightBlue"
-        app:cardBackgroundColor="@color/lightBlue"
+        android:background="@color/lightGrey"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="8dp"
         app:cardCornerRadius="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,17 +30,19 @@
                 android:id="@+id/departuresRow1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#699DD8"
-                android:gravity="center_horizontal">
+                android:background="@drawable/table_border_head"
+                android:gravity="center_horizontal"
+                >
 
                 <TextView
                     android:id="@+id/txDeparturesTableTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-medium"
                     android:padding="5dp"
-                    android:text="@string/departures_departures"
+                    android:text="@string/departures_incoming"
                     android:textAlignment="center"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
                     tools:text="@string/departures_departures" />
             </TableRow>
@@ -48,7 +51,9 @@
                 android:id="@+id/departuresRow2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="6dp">
+                android:padding="6dp"
+                android:background="@drawable/table_border"
+                >
 
                 <TextView
                     android:id="@+id/textView2"
@@ -72,7 +77,9 @@
                 android:id="@+id/departuresRow3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="6dp">
+                android:padding="6dp"
+                android:background="@drawable/table_border"
+                >
 
                 <TextView
                     android:id="@+id/textView4"
@@ -97,7 +104,9 @@
                 android:id="@+id/departuresRow4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="6dp">
+                android:padding="6dp"
+                android:background="@drawable/table_border"
+                >
 
                 <TextView
                     android:id="@+id/textView6"

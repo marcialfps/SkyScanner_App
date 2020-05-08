@@ -24,7 +24,7 @@
     <FrameLayout
         android:id="@+id/arrivalsFragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="25dp"
@@ -37,7 +37,7 @@
     <FrameLayout
         android:id="@+id/departuresFragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
