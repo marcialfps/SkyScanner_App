@@ -19,7 +19,13 @@ import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
 import java.lang.RuntimeException
 
+const val MIN_USERNAME_LENGTH = 5
+const val MIN_PASSWORD_LENGTH = 5
+
+
 class RegisterFragment : Fragment() {
+
+    private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
 
     private lateinit var listener: OnRegisterFragmentInteractionListener
     var username = ""
@@ -62,9 +68,16 @@ class RegisterFragment : Fragment() {
         name = txName.text.toString()
         surname = txName.text.toString()
 
-        if (!(username.isEmpty() or name.isEmpty() or surname.isEmpty())) {
-            layoutFirst.visibility = View.INVISIBLE
-            layoutSecond.visibility = View.VISIBLE
+        when {
+            username.isBlank() or name.isBlank() or surname.isBlank() -> {
+                txErrorRegister1.text = getString(R.string.error_register_empty)
+            }
+            username.length < MIN_USERNAME_LENGTH -> txErrorRegister1.text =
+                getString(R.string.error_register_username_short, MIN_USERNAME_LENGTH)
+            else -> {
+                layoutFirst.visibility = View.INVISIBLE
+                layoutSecond.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -75,9 +88,15 @@ class RegisterFragment : Fragment() {
         val passwordRepeat = txPasswordRepeat.text.toString()
 
         when {
-            email.isEmpty() or airportCode.isEmpty() or password.isEmpty()
-                    or passwordRepeat.isEmpty() -> txErrorRegister.text = getString(R.string.error_register_empty)
-            password != passwordRepeat -> txErrorRegister.text = getString(R.string.error_register_passwords)
+            email.isBlank() or airportCode.isBlank() or password.isBlank()
+                    or passwordRepeat.isBlank()
+            -> txErrorRegister2.text = getString(R.string.error_register_empty)
+
+            !email.matches(emailPattern) -> txErrorRegister2.text = getString(R.string.error_register_email)
+            password != passwordRepeat -> txErrorRegister2.text = getString(R.string.error_register_passwords)
+            password.length < MIN_PASSWORD_LENGTH -> txErrorRegister2.text =
+                getString(R.string.error_register_password_short, MIN_PASSWORD_LENGTH)
+
             else -> callToRegister()
         }
     }
@@ -89,11 +108,11 @@ class RegisterFragment : Fragment() {
                 val result = CallWebService().callRegister(username, name, surname, email,
                     airportCode, password)
                 withContext(Dispatchers.Main) {
-                    txErrorRegister.text = "REGISTER CORRECT TO-DO"
+                    txErrorRegister2.text = "REGISTER CORRECT TO-DO"
                 }
             } catch (e1: HttpResponseException) {
                 withContext(Dispatchers.Main) {
-                    txErrorRegister.text = when(e1.statusCode) {
+                    txErrorRegister2.text = when(e1.statusCode) {
                         409 -> getString(R.string.error_register_user_exist)
                         else -> "Unexpected error (${e1.statusCode})"
                     }

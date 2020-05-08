@@ -30,5 +30,6 @@
         app:layout_constraintEnd_toEndOf="@+id/fragment_container"
         app:layout_constraintStart_toStartOf="@+id/fragment_container"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@mipmap/custom_launcher_foreground"
+        android:contentDescription="@string/app_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

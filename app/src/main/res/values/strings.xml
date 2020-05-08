@@ -43,9 +43,12 @@
     <string name="register">Register</string>
     <string name="error_login_empty">You must introduce user and password</string>
     <string name="error_login_credentials">The credentials are not correct</string>
-    <string name="error_register_empty">You must complete all the fields</string>
+    <string name="error_register_empty">You must fill in all the fields</string>
     <string name="error_register_passwords">Passwords are not equal</string>
+    <string name="error_register_password_short">Passwords must contain at least %1$d characters</string>
     <string name="error_register_user_exist">The user already exists</string>
+    <string name="error_register_username_short">User names must contain at least %1$d characters</string>
+    <string name="error_register_email">Introduce a valid email</string>
 
     <!--  Other  -->
     <string name="icon_landing">Plane landing icon</string>

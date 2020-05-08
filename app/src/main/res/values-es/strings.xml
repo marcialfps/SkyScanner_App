@@ -44,7 +44,10 @@
     <string name="error_login_credentials">Las credenciales no son correctas</string>
     <string name="error_register_empty">Debes rellenar todos los campos</string>
     <string name="error_register_passwords">Las contraseñas no coinciden</string>
+    <string name="error_register_password_short">La contraseña debe contener %1$d caracteres</string>
     <string name="error_register_user_exist">El usuario ya existe</string>
+    <string name="error_register_username_short">El nombre de usuario debe contener %1$d caracteres</string>
+    <string name="error_register_email">Introduce un email válido</string>
 
     <!--  Other  -->
     <string name="icon_landing">Icono de avión aterrizando</string>
