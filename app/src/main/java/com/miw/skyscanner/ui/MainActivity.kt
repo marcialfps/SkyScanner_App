@@ -23,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         init()
     }
 
@@ -38,8 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        loadFragment(HomeFragment())
+        title = resources.getString(R.string.bottom_menu_home)
         setUpNavigation()
+        loadFragment(HomeFragment())
+
     }
 
     private fun setUpNavigation() {
@@ -68,23 +69,29 @@ class MainActivity : AppCompatActivity() {
             }
 
             currentItem = it.itemId
+
+            // Change action bar title and foreground fragment
             when(currentItem){
                 R.id.navigation_home -> {
+                    title = resources.getString(R.string.bottom_menu_home)
                     loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.navigation_map -> {
+                    title = resources.getString(R.string.bottom_menu_map)
                     loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.navigation_flights -> {
+                    title = resources.getString(R.string.bottom_menu_flights)
                     loadFragment(FlightsFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.navigation_weather -> {
+                    title = resources.getString(R.string.bottom_menu_weather)
                     loadFragment(HomeWeatherFragment())
                     return@setOnNavigationItemSelectedListener true
                 }

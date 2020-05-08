@@ -10,4 +10,5 @@
     <color name="lightBlue">#C4D3D8</color>
     <color name="lightGrey">#EEE</color>
     <color name="lightBlack">#37000000</color>
+    <color name="inactive">#ccc</color>
 </resources>
