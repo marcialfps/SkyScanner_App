@@ -11,6 +11,7 @@ import com.miw.skyscanner.ui.flights.FlightsCollectionAdapter
 import com.miw.skyscanner.ui.flights.FlightsFragment
 import com.miw.skyscanner.ui.home.HomeFragment
 import com.miw.skyscanner.ui.home.HomeWeatherFragment
+import com.miw.skyscanner.ui.map.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_flights.*
 import kotlinx.android.synthetic.main.fragment_flights_list.*
@@ -80,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.navigation_map -> {
                     title = resources.getString(R.string.bottom_menu_map)
-                    loadFragment(HomeFragment())
+                    loadFragment(MapFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
