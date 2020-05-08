@@ -15,6 +15,7 @@
         android:fullBackupContent="true">
         <activity
             android:name=".ui.FormActivity"
+            android:screenOrientation="nosensor"
             android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
@@ -23,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity"/>
+        <activity android:name=".ui.MainActivity"
+            android:screenOrientation="nosensor" />
     </application>
 
 </manifest>

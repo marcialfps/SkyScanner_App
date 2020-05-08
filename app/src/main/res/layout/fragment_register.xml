@@ -126,11 +126,11 @@
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:hint="@string/username"
+                android:importantForAutofill="no"
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txRegister"
-                android:importantForAutofill="no" />
+                app:layout_constraintTop_toBottomOf="@+id/txRegister" />
 
             <EditText
                 android:id="@+id/txName"

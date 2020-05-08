@@ -28,6 +28,7 @@ class FlightsFragment : Fragment() {
         }
 
         override fun onPageSelected(position: Int) {
+            flightsCollectionAdapter.currentFragment = position
 //            Toast.makeText(
 //                activity, "Tab selected: ${tabNames[position]}",
 //                Toast.LENGTH_SHORT

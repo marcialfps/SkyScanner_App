@@ -8,14 +8,19 @@ import com.miw.skyscanner.ui.flights.list.FlightsListFragment
 class FlightsCollectionAdapter (activity: FragmentActivity, private val itemsCount: Int) :
     FragmentStateAdapter(activity) {
 
+    var currentFragment: Int = 0
+    var innerFragments: MutableList<FlightsListFragment> = mutableListOf()
+
     override fun getItemCount(): Int {
         return itemsCount
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> FlightsListFragment(isArrivals = true) // Arrivals list
-            else -> FlightsListFragment(isArrivals = false) // Departures list
+        val fragment = when (position) {
+            0 -> FlightsListFragment(isArrivals = true)
+            else -> FlightsListFragment(isArrivals = false)
         }
+        innerFragments.add(fragment)
+        return fragment
     }
 }
