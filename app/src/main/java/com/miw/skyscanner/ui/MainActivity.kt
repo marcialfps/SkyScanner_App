@@ -14,6 +14,7 @@ import com.miw.skyscanner.ui.map.MapFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_flights.*
 import kotlinx.android.synthetic.main.fragment_flights_list.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,8 +47,19 @@ class MainActivity : AppCompatActivity() {
     private fun setUpNavigation() {
         bottomMenu.setOnNavigationItemSelectedListener {
 
-            // Of the user clicks the current menu item, do nothing
+            // Of the user clicks the current menu item, do not change fragments
             if (currentItem == it.itemId) {
+
+
+                // If the user clicks the current menu item and we are in home screen,
+                // scroll to top
+                if (currentItem == R.id.navigation_home) {
+                    currentFragment.homeScrollView.smoothScrollTo(0,0)
+                }
+
+
+
+
                 // If the user clicks the current menu item and we are in the flights list,
                 // scroll to top both arrivals and departures lists
                 if (currentItem == R.id.navigation_flights) {
