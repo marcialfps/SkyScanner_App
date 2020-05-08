@@ -4,14 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.autofill.AutofillValue
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.ws.CallWebService
-import kotlinx.android.synthetic.main.login_fragment.*
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,7 +32,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.login_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onAttach(context: Context) {
@@ -47,6 +52,9 @@ class LoginFragment : Fragment() {
     private fun initialize() {
         buttonRegister.setOnClickListener { listener.onRegisterButtonClick() }
         buttonGo.setOnClickListener { login() }
+        txPassword.setOnEditorActionListener (SubmitOnEditorActionListener(this))
+        txUser.setAutofillHints(View.AUTOFILL_HINT_USERNAME)
+        txPassword.setAutofillHints(View.AUTOFILL_HINT_PASSWORD)
     }
 
     private fun login() {
@@ -60,18 +68,16 @@ class LoginFragment : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val result = CallWebService().callLogin(user, password)
-                    if (result != null) {
-                        withContext(Dispatchers.Main) {
-                            txError.text = "LOGIN CORRECT TO-DO"
-                            val intent = Intent(context, MainActivity::class.java).apply {
-                                putExtra("username", "todo")
-                            }
-                            startActivity(intent)
+                    withContext(Dispatchers.Main) {
+                        txError.text = "LOGIN CORRECT TO-DO"
+                        val intent = Intent(context, MainActivity::class.java).apply {
+                            putExtra("username", "todo")
                         }
+                        startActivity(intent)
                     }
                 } catch (e1: HttpResponseException) {
                     withContext(Dispatchers.Main) {
-                        txError.text = if (e1.statusCode === 403) getString(R.string.error_login_credentials)
+                        txError.text = if (e1.statusCode == 403) getString(R.string.error_login_credentials)
                             else "Unexpected error (${e1.statusCode})"
                     }
                     Log.v("response", e1.toString())
@@ -84,5 +90,16 @@ class LoginFragment : Fragment() {
 
     interface OnLoginFragmentInteractionListener {
         fun onRegisterButtonClick()
+    }
+
+    // Login when submitting the password edit text
+    class SubmitOnEditorActionListener (private val loginFragment: LoginFragment) : TextView.OnEditorActionListener {
+        override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+            return when (actionId) {
+                EditorInfo.IME_ACTION_SEND -> {loginFragment.login(); true
+                }
+                else -> false
+            }
+        }
     }
 }

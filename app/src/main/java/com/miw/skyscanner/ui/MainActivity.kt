@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         if (currentItem != R.id.navigation_home)
             bottomMenu.selectedItemId = R.id.navigation_home
         else
-            super.onBackPressed()
+            moveTaskToBack(true)
 
     }
 

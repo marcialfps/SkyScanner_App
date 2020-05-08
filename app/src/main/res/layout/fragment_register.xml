@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -39,7 +38,8 @@
                 android:layout_marginTop="30dp"
                 android:ems="10"
                 android:hint="@string/email"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/txAirport"
@@ -47,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/airport_code"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/txPassword"
@@ -55,7 +56,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/txPasswordRepeat"
@@ -64,7 +66,8 @@
                 android:layout_marginBottom="30dp"
                 android:ems="10"
                 android:hint="@string/password_repeat"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:importantForAutofill="no" />
 
             <TextView
                 android:id="@+id/txErrorRegister"
@@ -85,7 +88,7 @@
 
                 <Button
                     android:id="@+id/buttonRegister"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/go" />
@@ -126,7 +129,8 @@
                 android:inputType="textPersonName"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txRegister" />
+                app:layout_constraintTop_toBottomOf="@+id/txRegister"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/txName"
@@ -138,7 +142,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/txSurname"
                 app:layout_constraintEnd_toEndOf="@+id/txUsername"
                 app:layout_constraintStart_toStartOf="@+id/txUsername"
-                app:layout_constraintTop_toBottomOf="@+id/txUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/txUsername"
+                android:importantForAutofill="no" />
 
             <EditText
                 android:id="@+id/txSurname"
@@ -150,7 +155,8 @@
                 android:inputType="textPersonName"
                 app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
                 app:layout_constraintEnd_toEndOf="@+id/txName"
-                app:layout_constraintStart_toStartOf="@+id/txName" />
+                app:layout_constraintStart_toStartOf="@+id/txName"
+                android:importantForAutofill="no" />
 
             <Button
                 android:id="@+id/buttonLogin"
@@ -179,7 +185,7 @@
             android:id="@+id/layoutLoadingRegister"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cardview_shadow_start_color"
+            android:background="@color/lightBlack"
             android:visibility="invisible">
 
             <ProgressBar

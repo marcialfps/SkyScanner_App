@@ -25,6 +25,27 @@
     <string name="departures_time_departure">Hora de salida</string>
     <string name="departures_distance_covered">%1$f km desde la salida</string>
 
+    <!-- Login and register -->
+    <string name="login">Iniciar sesión</string>
+    <string name="user">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="create_account">Crear una cuenta</string>
+    <string name="go">Ir</string>
+    <string name="username">Nombre de usuario</string>
+    <string name="name">Nombre</string>
+    <string name="surname">Apellido</string>
+    <string name="email">Email</string>
+    <string name="airport_code">Código de aeropuerto</string>
+    <string name="password_repeat">Repetir contraseña</string>
+    <string name="have_account">Ya tengo cuenta</string>
+    <string name="next">Siguiente</string>
+    <string name="register">Registro</string>
+    <string name="error_login_empty">Debes introducir usuario y contraseña</string>
+    <string name="error_login_credentials">Las credenciales no son correctas</string>
+    <string name="error_register_empty">Debes rellenar todos los campos</string>
+    <string name="error_register_passwords">Las contraseñas no coinciden</string>
+    <string name="error_register_user_exist">El usuario ya existe</string>
+
     <!--  Other  -->
     <string name="icon_landing">Icono de avión aterrizando</string>
     <string name="icon_takeoff">Icono de avión despegando</string>

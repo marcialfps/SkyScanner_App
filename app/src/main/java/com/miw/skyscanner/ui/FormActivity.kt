@@ -29,7 +29,6 @@ class FormActivity : AppCompatActivity(),
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
         fragmentTransaction.replace(fragment_container.id, registerFragment)
-        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
@@ -38,7 +37,6 @@ class FormActivity : AppCompatActivity(),
         val fragmentTransaction = supportFragmentManager.beginTransaction()
 
         fragmentTransaction.replace(fragment_container.id, loginFragment)
-        fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 

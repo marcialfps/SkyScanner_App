@@ -26,11 +26,6 @@
     <string name="departures_time_departure">ETD</string>
     <string name="departures_distance_covered">%1$f km from destination</string>
 
-
-    <!--  Other  -->
-    <string name="icon_landing">Plane landing icon</string>
-    <string name="icon_takeoff">Plane taking off icon</string>
-
     <!-- Login and register -->
     <string name="login">Login</string>
     <string name="user">User</string>
@@ -51,4 +46,9 @@
     <string name="error_register_empty">You must complete all the fields</string>
     <string name="error_register_passwords">Passwords are not equal</string>
     <string name="error_register_user_exist">The user already exists</string>
+
+    <!--  Other  -->
+    <string name="icon_landing">Plane landing icon</string>
+    <string name="icon_takeoff">Plane taking off icon</string>
+
 </resources>
