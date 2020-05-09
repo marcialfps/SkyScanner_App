@@ -13,6 +13,9 @@ class WSUtils {
         const val METHOD_LOGIN = "Login"
         const val METHOD_REGISTER = "AddUser"
 
+        // Planes & Airports
+        const val METHOD_PLANES_CLOSE_TO_AIRPORT = "GetPlanesCloseToAirport"
+
         //Add a constant with the name of each method
 
         fun isConnected(context: Context): Boolean {

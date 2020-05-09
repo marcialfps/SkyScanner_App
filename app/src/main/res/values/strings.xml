@@ -52,6 +52,10 @@
     <string name="error_register_username_short">User names must contain at least %1$d characters</string>
     <string name="error_register_email">Introduce a valid email</string>
 
+    <!--  Map  -->
+    <string name="map_loading">Fetching airplanes nearby…</string>
+    <string name="map_loading_error">Could not get airplanes data</string>
+
     <!--  Other  -->
     <string name="icon_landing">Plane landing icon</string>
     <string name="icon_takeoff">Plane taking off icon</string>

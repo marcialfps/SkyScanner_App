@@ -51,6 +51,10 @@
     <string name="error_register_username_short">El nombre de usuario debe contener %1$d caracteres</string>
     <string name="error_register_email">Introduce un email válido</string>
 
+    <!--  Map  -->
+    <string name="map_loading">Buscando aviones cercanos…</string>
+    <string name="map_loading_error">No se pudieron actualizar los aviones</string>
+
     <!--  Other  -->
     <string name="icon_landing">Icono de avión aterrizando</string>
     <string name="icon_takeoff">Icono de avión despegando</string>

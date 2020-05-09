@@ -1,7 +1,7 @@
 package com.miw.skyscanner.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.login.LoginFragment
 import com.miw.skyscanner.ui.register.RegisterFragment
