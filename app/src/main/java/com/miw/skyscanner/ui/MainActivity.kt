@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.miw.skyscanner.R
+import com.miw.skyscanner.model.User
 import com.miw.skyscanner.ui.flights.FlightsCollectionAdapter
 import com.miw.skyscanner.ui.flights.FlightsFragment
 import com.miw.skyscanner.ui.home.HomeFragment
@@ -35,14 +36,12 @@ class MainActivity : AppCompatActivity() {
             bottomMenu.selectedItemId = R.id.navigation_home
         else
             moveTaskToBack(true)
-
     }
 
     private fun init() {
         title = resources.getString(R.string.bottom_menu_home)
         setUpNavigation()
         loadFragment(HomeFragment())
-
     }
 
     private fun setUpNavigation() {

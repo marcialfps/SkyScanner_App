@@ -2,6 +2,7 @@ package com.miw.skyscanner.ws
 
 import android.util.Log
 import com.miw.skyscanner.model.Forecast
+import com.miw.skyscanner.model.User
 import com.miw.skyscanner.utils.SSLConnection
 import com.miw.skyscanner.utils.WSUtils
 import org.ksoap2.SoapEnvelope
@@ -37,19 +38,22 @@ class CallWebService {
 
         httpsTransportSE.call(soapAction, envelope)
         return envelope
-        /*val soapPrimitive = envelope.response
-        result = soapPrimitive.toString()
-        return result*/
     }
 
-    private fun callAPIString(propertiesMap: Map<String, Any>, methodName: String): String {
-        val envelope = callAPI(propertiesMap, methodName)
-        val soapPrimitive = envelope.response
-        return soapPrimitive.toString()
+    fun callLogin(username: String, password: String): User {
+        val envelope = callAPI(mapOf("username" to username, "password" to password), WSUtils.METHOD_LOGIN)
+        val response = envelope.response as SoapObject
+        val user = User()
+        with (response) {
+            user.username = getPrimitivePropertyAsString("Username")
+            user.name = getPrimitivePropertyAsString("Name")
+            user.surname = getPrimitivePropertyAsString("Surname")
+            user.password = getPrimitivePropertyAsString("Password")
+            user.email = getPrimitivePropertyAsString("Mail")
+            user.airportCode = getPrimitivePropertyAsString("Airport")
+        }
+        return user
     }
-
-    fun callLogin(input1: String, input2: String) =
-        callAPI(mapOf("username" to input1, "password" to input2), WSUtils.METHOD_LOGIN)
 
     fun callRegister(username: String, name: String, surname: String, email: String,
                      airportCode: String, password: String) =

@@ -1,4 +1,10 @@
 package com.miw.skyscanner.model
 
-data class User(val username: String, val name: String, val surname: String, val email: String,
-                val airportCode: String, val password: String)
+class User {
+    lateinit var username: String
+    lateinit var name: String
+    lateinit var surname: String
+    lateinit var email: String
+    lateinit var airportCode: String
+    lateinit var password: String
+}

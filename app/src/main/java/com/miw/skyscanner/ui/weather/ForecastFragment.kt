@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Forecast
+import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.utils.configureImage
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_forecast.*
@@ -45,7 +46,11 @@ class ForecastFragment : Fragment() {
     private fun getForecast() {
        CoroutineScope(Dispatchers.IO).launch {
             try {
-                val result = CallWebService().callWeather("LEMD")
+                val result = context?.let { Session(it).airport }?.let {
+                    CallWebService().callWeather(
+                        it
+                    )
+                }
                 if (result != null) {
                     withContext(Dispatchers.Main) {
                         forecasts = result

@@ -15,6 +15,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.MainActivity
+import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.CoroutineScope
@@ -69,10 +70,14 @@ class LoginFragment : Fragment() {
                 try {
                     val result = CallWebService().callLogin(user, password)
                     withContext(Dispatchers.Main) {
-                        txError.text = "LOGIN CORRECT TO-DO"
-                        val intent = Intent(context, MainActivity::class.java).apply {
-                            putExtra("username", "todo")
+                        context?.let {
+                            Session(it).username = result.username
+                            Session(it).name = result.name
+                            Session(it).surname = result.surname
+                            Session(it).email = result.email
+                            Session(it).airport = result.airportCode
                         }
+                        val intent = Intent(context, MainActivity::class.java)
                         startActivity(intent)
                     }
                 } catch (e1: HttpResponseException) {
