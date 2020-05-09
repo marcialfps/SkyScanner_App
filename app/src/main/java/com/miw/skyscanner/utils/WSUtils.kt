@@ -17,6 +17,7 @@ class WSUtils {
 
         // Planes & Airports
         const val METHOD_PLANES_CLOSE_TO_AIRPORT = "GetPlanesCloseToAirport"
+        const val METHOD_AIRPORT_BY_CODE= "GetAirportByCode"
 
         //Add a constant with the name of each method
 

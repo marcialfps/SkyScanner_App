@@ -1,6 +1,7 @@
 package com.miw.skyscanner.ws
 
 import android.util.Log
+import com.miw.skyscanner.model.Airport
 import com.miw.skyscanner.model.Forecast
 import com.miw.skyscanner.model.Plane
 import com.miw.skyscanner.model.PlaneStatus
@@ -104,7 +105,6 @@ class CallWebService {
         val envelope = callAPI(propertiesMap, WSUtils.METHOD_PLANES_CLOSE_TO_AIRPORT)
         val response: SoapObject = envelope.response as SoapObject
         val planesCount = response.propertyCount
-        Log.v("response", planesCount.toString())
 
         val planes = mutableListOf<Plane>()
 
@@ -125,16 +125,26 @@ class CallWebService {
                 arrivalDistance =
                     soapPlane.getPrimitivePropertyAsString("ArrivalDistance").toIntOrNull()
             }
-
             planes.add(plane)
         }
-
         return planes.toList()
-
     }
 
     fun callGetPlanesClose(airportCode: String): List<Plane> {
         return callAPIPlanesClose(
+            mapOf("airportCode" to airportCode)
+        )
+    }
+
+    private fun callAPIAirportByCode(propertiesMap: Map<String, Any>): Airport {
+        val envelope = callAPI(propertiesMap, WSUtils.METHOD_AIRPORT_BY_CODE)
+        val response: SoapObject = envelope.response as SoapObject
+
+        return Airport(response)
+    }
+
+    fun callGetAirportByCode(airportCode: String): Airport {
+        return callAPIAirportByCode(
             mapOf("airportCode" to airportCode)
         )
     }

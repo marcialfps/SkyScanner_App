@@ -57,6 +57,9 @@
     <!--  Map  -->
     <string name="map_loading">Buscando aviones cercanos…</string>
     <string name="map_loading_error">No se pudieron actualizar los aviones</string>
+    <string name="map_aircraft">Aeronave %1$s</string>
+    <string name="map_aircraft_unknown">Aeronave desconocida</string>
+
 
     <!--  Other  -->
     <string name="icon_landing">Icono de avión aterrizando</string>

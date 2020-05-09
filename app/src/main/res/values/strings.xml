@@ -59,6 +59,8 @@
     <!--  Map  -->
     <string name="map_loading">Fetching airplanes nearby…</string>
     <string name="map_loading_error">Could not get airplanes data</string>
+    <string name="map_aircraft">Aircraft %1$s</string>
+    <string name="map_aircraft_unknown">Unknown aircraft</string>
 
     <!--  Other  -->
     <string name="icon_landing">Plane landing icon</string>

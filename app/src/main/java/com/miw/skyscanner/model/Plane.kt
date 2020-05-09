@@ -1,8 +1,10 @@
 package com.miw.skyscanner.model
 
+import com.miw.skyscanner.R
+import java.lang.StringBuilder
 import kotlin.properties.Delegates
 
-class Plane (var planeStatus: PlaneStatus? = null, var cIcao24: String? = null, var departureAirport : Airport? = null,
+class Plane (var planeStatus: PlaneStatus? = null, cIcao24: String? = null, var departureAirport : Airport? = null,
              var departureAirportCode: String? = null, var arrivalAirportCode: String? = null,
              var arrivalAirport: Airport? = null, var forecast: Forecast? = null,
              var departureTime: Int? = null, var arrivalTime: Int? = null, var departureDistance: Int? = null,
