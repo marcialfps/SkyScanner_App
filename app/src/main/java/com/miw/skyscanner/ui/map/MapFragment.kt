@@ -89,15 +89,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     private suspend fun getPlanesClose (): List<Plane> {
-//        val planes = CoroutineScope(Dispatchers.IO).async {
-//            webService.callPlanesCloseToAirport(EXAMPLE_AIRPORT_CODE)
-//        }
-//        return try {
-//            planes.await()
-//        } catch (e: Exception){
-//            throw e
-//            emptyList()
-//        }
-        return emptyList<Plane>()
+        val planes = CoroutineScope(Dispatchers.IO).async {
+            webService.callGetPlanesClose(EXAMPLE_AIRPORT_CODE)
+        }
+        return try {
+            planes.await()
+        } catch (e: Exception){
+            throw e
+            emptyList()
+        }
     }
 }

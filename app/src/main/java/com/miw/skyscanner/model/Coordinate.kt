@@ -2,20 +2,22 @@ package com.miw.skyscanner.model
 
 import android.util.Log
 import com.google.android.gms.maps.model.LatLng
+import com.miw.skyscanner.utils.ConversionHelper
+import org.ksoap2.serialization.SoapObject
 import kotlin.properties.Delegates
 
-class Coordinate (cLatitude: Double, cLongitude: Double) {
+class Coordinate (cLatitude: Double?, cLongitude: Double?) {
 
     // Prevent invalid values
-    var latitude: Double = 0.0
+    var latitude: Double? = 0.0
         set(value) {
-            field = if (value < -90 || value > 90) 0.0
+            field = if (value == null || value < -90 || value > 90) 0.0
             else value
         }
 
-    var longitude: Double = 0.0
+    var longitude: Double? = 0.0
         set(value) {
-            field = if (value < -180 || value > 180) 0.0
+            field = if (value == null || value < -180 || value > 180) 0.0
             else value
         }
 
@@ -25,7 +27,12 @@ class Coordinate (cLatitude: Double, cLongitude: Double) {
     }
 
     fun getLatLng(): LatLng {
-        return LatLng(latitude, longitude)
+        return LatLng(latitude!!, longitude!!)
+    }
+
+    constructor(soapCoordinate: SoapObject) : this(null, null) {
+        latitude = soapCoordinate.getPrimitivePropertyAsString("Latitude").toDoubleOrNull()
+        longitude = soapCoordinate.getPrimitivePropertyAsString("Longitude").toDoubleOrNull()
     }
 
 
