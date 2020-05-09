@@ -11,7 +11,10 @@
     <!--  Weather  -->
     <string name="weather_default_city">Londres</string>
     <string name="weather_status">Estado del tiempo</string>
-
+    <string name="error_forecast">No podemos obtener el pronóstico. Inténtalo más tarde.</string>
+    <string name="humidity">humedad</string>
+    <string name="winds">vientos</string>
+    <string name="degrees">grados</string>
 
     <!--  Arrivals  -->
     <string name="arrivals_arrivals">Llegadas</string>

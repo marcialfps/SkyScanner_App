@@ -12,6 +12,8 @@ class WSUtils {
         const val SOAP_NAMESPACE = "http://ws.skyscanner/"
         const val METHOD_LOGIN = "Login"
         const val METHOD_REGISTER = "AddUser"
+        const val METHOD_GET_WEATHER_BY_AIRPORT = "GetWeatherByAirport"
+        const val METHOD_GET_WEATHER_FORECAST_BY_AIRPORT = "GetFullWeatherForecastByAirport"
 
         // Planes & Airports
         const val METHOD_PLANES_CLOSE_TO_AIRPORT = "GetPlanesCloseToAirport"
