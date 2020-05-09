@@ -36,8 +36,6 @@ class ForecastFragment : Fragment() {
     private lateinit var selectedForecast: Forecast
     private lateinit var forecasts: List<Forecast>
 
-    override fun onAttach(context: Context)  = super.onAttach(context)
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         getForecast()
@@ -46,7 +44,7 @@ class ForecastFragment : Fragment() {
     private fun getForecast() {
        CoroutineScope(Dispatchers.IO).launch {
             try {
-                val result = CallWebService().callGetForecast("LEMD")
+                val result = CallWebService().callWeather("LEMD")
                 if (result != null) {
                     withContext(Dispatchers.Main) {
                         forecasts = result

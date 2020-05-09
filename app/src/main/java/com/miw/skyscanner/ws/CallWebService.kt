@@ -48,38 +48,6 @@ class CallWebService {
         return soapPrimitive.toString()
     }
 
-    private fun callAPIWeather(propertiesMap: Map<String, Any>, methodName: String): List<Forecast> {
-        val envelope = callAPI(propertiesMap, methodName)
-        val response: SoapObject = envelope.response as SoapObject
-        val forecastCount = response.propertyCount
-        Log.v("response", forecastCount.toString())
-
-        val forecasts = mutableListOf<Forecast>()
-
-        for (i in 0 until forecastCount) {
-            var soapWeather: SoapObject = response.getProperty(i) as SoapObject
-            val forecast = Forecast()
-            with(forecast) {
-                time = parseLong(soapWeather.getPrimitivePropertyAsString("Time"))
-                main = soapWeather.getPrimitivePropertyAsString("Main")
-                description = soapWeather.getPrimitivePropertyAsString("Description")
-                temperature = parseDouble(soapWeather.getPrimitivePropertyAsString("Temperature"))
-                temperatureMax = parseDouble(soapWeather.getPrimitivePropertyAsString("TemperatureMax"))
-                temperatureMin = parseDouble(soapWeather.getPrimitivePropertyAsString("TemperatureMin"))
-                pressure = parseInt(soapWeather.getPrimitivePropertyAsString("Pressure"))
-                humidity = parseInt(soapWeather.getPrimitivePropertyAsString("Humidity"))
-                windSpeed = parseDouble(soapWeather.getPrimitivePropertyAsString("WindSpeed"))
-                windDirection = parseDouble(soapWeather.getPrimitivePropertyAsString("WindDirection"))
-                cloudiness = parseInt(soapWeather.getPrimitivePropertyAsString("Cloudiness"))
-            }
-
-            forecasts.add(forecast)
-        }
-
-        return forecasts.toList()
-
-    }
-
     fun callLogin(input1: String, input2: String) =
         callAPI(mapOf("username" to input1, "password" to input2), WSUtils.METHOD_LOGIN)
 
@@ -88,22 +56,46 @@ class CallWebService {
         callAPI(mapOf("username" to username, "name" to name, "surname" to surname,
             "mail" to email, "airport" to airportCode, "password" to password), WSUtils.METHOD_REGISTER)
 
-   /* fun callCurrentWeather(airportCode: String): Forecast {
-        val response = callAPI(mapOf("airportCode" to airportCode),
+    fun callCurrentWeather(airportCode: String) : Forecast {
+        val envelope = callAPI(mapOf("airportCode" to airportCode),
             WSUtils.METHOD_GET_WEATHER_BY_AIRPORT)
-        val xmlDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(response)
-        val forecastResponse = xmlDoc.getElementsByTagName("GetWeatherByAirportResult").item(0)
+        val response: SoapObject = envelope.response as SoapObject
+        return convertToForecast(response)
+    }
 
-        with (forecastResponse as Element) {
-            return convertToForecast(forecastResponse)
+    fun callWeather(airportCode: String): List<Forecast> {
+        val envelope = callAPI(mapOf("airportCode" to airportCode),
+            WSUtils.METHOD_GET_WEATHER_FORECAST_BY_AIRPORT)
+        val response: SoapObject = envelope.response as SoapObject
+        val forecastCount = response.propertyCount
+        Log.v("response", forecastCount.toString())
+
+        val forecasts = mutableListOf<Forecast>()
+
+        for (i in 0 until forecastCount) {
+            var soapWeather: SoapObject = response.getProperty(i) as SoapObject
+            forecasts.add(convertToForecast(soapWeather))
         }
-    }*/
 
-    fun callGetForecast(airportCode: String): List<Forecast> {
-        return callAPIWeather(
-                mapOf("airportCode" to airportCode),
-                WSUtils.METHOD_GET_WEATHER_FORECAST_BY_AIRPORT
-            )
+        return forecasts.toList()
+    }
+
+    private fun convertToForecast(soapObject: SoapObject): Forecast {
+        val forecast = Forecast()
+        with(forecast) {
+            time = parseLong(soapObject.getPrimitivePropertyAsString("Time"))
+            main = soapObject.getPrimitivePropertyAsString("Main")
+            description = soapObject.getPrimitivePropertyAsString("Description")
+            temperature = parseDouble(soapObject.getPrimitivePropertyAsString("Temperature"))
+            temperatureMax = parseDouble(soapObject.getPrimitivePropertyAsString("TemperatureMax"))
+            temperatureMin = parseDouble(soapObject.getPrimitivePropertyAsString("TemperatureMin"))
+            pressure = parseInt(soapObject.getPrimitivePropertyAsString("Pressure"))
+            humidity = parseInt(soapObject.getPrimitivePropertyAsString("Humidity"))
+            windSpeed = parseDouble(soapObject.getPrimitivePropertyAsString("WindSpeed"))
+            windDirection = parseDouble(soapObject.getPrimitivePropertyAsString("WindDirection"))
+            cloudiness = parseInt(soapObject.getPrimitivePropertyAsString("Cloudiness"))
+        }
+        return forecast
     }
 
     //Add a new method for each call. It must receive the params and create a map with the
