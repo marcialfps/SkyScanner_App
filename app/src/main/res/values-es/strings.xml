@@ -59,7 +59,8 @@
     <string name="map_loading_error">No se pudieron actualizar los aviones</string>
     <string name="map_aircraft">Aeronave %1$s</string>
     <string name="map_aircraft_unknown">Aeronave desconocida</string>
-
+    <string name="map_unavailable">Información no disponible</string>
+    <string name="map_speed">Velovidad: %1$.2f m/s</string>
 
     <!--  Other  -->
     <string name="icon_landing">Icono de avión aterrizando</string>

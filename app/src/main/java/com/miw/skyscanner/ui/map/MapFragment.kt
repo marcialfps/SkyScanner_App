@@ -23,6 +23,7 @@ import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.coroutines.*
 import java.lang.StringBuilder
+import java.util.*
 import kotlin.reflect.KMutableProperty
 
 
@@ -62,13 +63,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             // Initial camera and zoom //TODO should be focused on the logged user airport
             map.moveCamera(CameraUpdateFactory.newLatLngZoom
                 (LatLng(EXAMPLE_LATITUDE, EXAMPLE_LONGITUDE), ZOOM_LEVEL))
+            // Fetching info toast
+            Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG).show()
             googleMap.setOnMapLoadedCallback { updateMap() }
         }
     }
 
     private fun updateMap () {
-        // Fetching info toast
-        Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG).show()
         runBlocking {
             withContext(Dispatchers.IO){
                 planesOnMap = fetchPlanes().map { MapPlane(context, it) }
@@ -101,8 +102,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private fun fetchPlanes(): List<Plane> {
         // Fetch planes nearby and filter the ones with location not set to null
         return try {
-            val a = webService.callGetAirportByCode("LEMD")
-            Log.e("AIRPORT", a.toString())
             webService.callGetPlanesClose(EXAMPLE_AIRPORT_CODE).filter {
                 it.planeStatus?.location != null
             }
@@ -111,26 +110,29 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    class MapPlane (val context: Context?, private val plane: Plane) {
+    class MapPlane (val context: Context?, plane: Plane) {
 
         val status = plane.planeStatus
 
-        val markerTitle: () -> String? = {
-            if (plane.planeStatus == null) context?.getString(R.string.map_aircraft_unknown)
-            else context?.getString(R.string.map_aircraft, plane.planeStatus?.icao24)
+        val markerTitle: () -> String = {
+            if (context != null) {
+                if (status != null)
+                    context.getString(R.string.map_aircraft, status.icao24)
+                else
+                    context.getString(R.string.map_aircraft_unknown)
+            }
+            else "Marker"
         }
 
-        // TODO
         val markerDescription: () -> String? = {
-//            val sb = StringBuilder()
-//
-//            for (prop in PlaneStatus::class.members.filterIsInstance<KMutableProperty<*>>()) {
-//                println("${prop.name} = ${prop.}")
-//            }
-//
-//            sb.toString()
-            ""
 
+            if (context != null) {
+                if (status?.speed != null){
+                    context.getString(R.string.map_speed, status.speed)}
+                else
+                    context.getString(R.string.map_unavailable)
+            }
+            else ""
         }
     }
 }
