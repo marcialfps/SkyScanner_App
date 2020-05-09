@@ -20,12 +20,14 @@
 
     <!--  Arrivals  -->
     <string name="arrivals_arrivals">Arrivals</string>
+    <string name="arrivals_incoming">Incoming arrivals</string>
     <string name="arrivals_from">From</string>
     <string name="arrivals_time_arrival">ETA</string>
     <string name="arrivals_distance_left">%1$f km to destination</string>
 
     <!--  Departures  -->
     <string name="departures_departures">Departures</string>
+    <string name="departures_incoming">Upcoming departures</string>
     <string name="departures_to">To</string>
     <string name="departures_time_departure">ETD</string>
     <string name="departures_distance_covered">%1$f km from destination</string>
@@ -47,9 +49,18 @@
     <string name="register">Register</string>
     <string name="error_login_empty">You must introduce user and password</string>
     <string name="error_login_credentials">The credentials are not correct</string>
-    <string name="error_register_empty">You must complete all the fields</string>
+    <string name="error_register_empty">You must fill in all the fields</string>
     <string name="error_register_passwords">Passwords are not equal</string>
+    <string name="error_register_password_short">Passwords must contain at least %1$d characters</string>
     <string name="error_register_user_exist">The user already exists</string>
+    <string name="error_register_username_short">User names must contain at least %1$d characters</string>
+    <string name="error_register_email">Introduce a valid email</string>
+
+    <!--  Map  -->
+    <string name="map_loading">Fetching airplanes nearby…</string>
+    <string name="map_loading_error">Could not get airplanes data</string>
+    <string name="map_aircraft">Aircraft %1$s</string>
+    <string name="map_aircraft_unknown">Unknown aircraft</string>
 
     <!--  Other  -->
     <string name="icon_landing">Plane landing icon</string>

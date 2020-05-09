@@ -9,10 +9,11 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/arrivalsCard"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/lightBlue"
-        app:cardBackgroundColor="@color/lightBlue"
+        android:layout_height="wrap_content"
+        android:background="@color/lightGrey"
+        app:cardBackgroundColor="@android:color/white"
         app:cardCornerRadius="2dp"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,17 +31,20 @@
                 android:id="@+id/arrivalsRow1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#699DD8"
-                android:gravity="center_horizontal">
+                android:background="@drawable/table_border_head"
+                android:gravity="center_horizontal"
+
+                >
 
                 <TextView
                     android:id="@+id/txArrivalsTableTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
+                    android:fontFamily="sans-serif-medium"
                     android:padding="5dp"
-                    android:text="@string/arrivals_arrivals"
+                    android:text="@string/arrivals_incoming"
                     android:textAlignment="center"
+                    android:textColor="@android:color/white"
                     android:textSize="18sp"
                     tools:text="@string/arrivals_arrivals" />
             </TableRow>
@@ -49,7 +53,9 @@
                 android:id="@+id/arrivalsRow2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="6dp">
+                android:padding="6dp"
+                android:background="@drawable/table_border"
+                >
 
                 <TextView
                     android:id="@+id/textView2"
@@ -58,7 +64,8 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
                     android:text="Barcelona"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -66,14 +73,17 @@
                     android:layout_height="wrap_content"
                     android:text="10:00"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    />
             </TableRow>
 
             <TableRow
                 android:id="@+id/arrivalsRow3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="6dp">
+                android:padding="6dp"
+                android:background="@drawable/table_border"
+                >
 
                 <TextView
                     android:id="@+id/textView4"
@@ -82,7 +92,8 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
                     android:text="Bilbao"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -90,7 +101,8 @@
                     android:layout_height="wrap_content"
                     android:text="12:15"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    />
 
             </TableRow>
 
@@ -98,7 +110,9 @@
                 android:id="@+id/arrivalsRow4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="6dp">
+                android:padding="6dp"
+                android:background="@drawable/table_border"
+                >
 
                 <TextView
                     android:id="@+id/textView6"
@@ -108,7 +122,8 @@
                     android:layout_marginEnd="1dp"
                     android:text="Alicante"
                     android:textAlignment="textStart"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -116,7 +131,8 @@
                     android:layout_height="wrap_content"
                     android:text="19:30"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    />
             </TableRow>
 
         </TableLayout>

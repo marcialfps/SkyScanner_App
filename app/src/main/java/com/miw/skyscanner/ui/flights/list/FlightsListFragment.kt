@@ -41,7 +41,7 @@ class FlightsListFragment (private val isArrivals: Boolean) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        flightsListRecyclerView.layoutManager = SmoothScrollLayoutManager(context, 60f)
+        flightsListRecyclerView.layoutManager = SmoothScrollLayoutManager(context, 30f)
         flightsListRecyclerView.adapter = FlightsListAdapter(activity!!, items, isArrivals)
     }
 

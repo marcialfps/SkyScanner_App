@@ -1,5 +1,6 @@
 package com.miw.skyscanner.utils
 
+import android.annotation.SuppressLint
 import android.util.Log
 import java.security.KeyManagementException
 import java.security.NoSuchAlgorithmException
@@ -8,10 +9,12 @@ import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
 
+// accept proprietary SSL certificates
+@SuppressLint("TrustAllX509TrustManager", "BadHostnameVerifier")
 class SSLConnection {
     private var trustManagers: Array<TrustManager>? = null
 
-    class _FakeX509TrustManager : X509TrustManager {
+    class FakeX509TrustManager : X509TrustManager {
         @Throws(CertificateException::class)
         override fun checkClientTrusted(
             arg0: Array<X509Certificate?>?,
@@ -27,23 +30,19 @@ class SSLConnection {
         }
 
         override fun getAcceptedIssuers(): Array<X509Certificate> {
-            return _AcceptedIssuers
+            return AcceptedIssuers
         }
 
         companion object {
-            private val _AcceptedIssuers: Array<X509Certificate> = arrayOf<X509Certificate>()
+            private val AcceptedIssuers: Array<X509Certificate> = arrayOf()
         }
     }
 
     fun allowAllSSL() {
-        HttpsURLConnection.setDefaultHostnameVerifier(object : HostnameVerifier {
-            override fun verify(hostname: String?, session: SSLSession?): Boolean {
-                return true
-            }
-        })
+        HttpsURLConnection.setDefaultHostnameVerifier { _, _ -> true }
         val context: SSLContext
         if (trustManagers == null) {
-            trustManagers = arrayOf(_FakeX509TrustManager())
+            trustManagers = arrayOf(FakeX509TrustManager())
         }
         try {
             context = SSLContext.getInstance("TLS")

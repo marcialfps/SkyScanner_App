@@ -15,6 +15,10 @@ class WSUtils {
         const val METHOD_GET_WEATHER_BY_AIRPORT = "GetWeatherByAirport"
         const val METHOD_GET_WEATHER_FORECAST_BY_AIRPORT = "GetFullWeatherForecastByAirport"
 
+        // Planes & Airports
+        const val METHOD_PLANES_CLOSE_TO_AIRPORT = "GetPlanesCloseToAirport"
+        const val METHOD_AIRPORT_BY_CODE= "GetAirportByCode"
+
         //Add a constant with the name of each method
 
         fun isConnected(context: Context): Boolean {
