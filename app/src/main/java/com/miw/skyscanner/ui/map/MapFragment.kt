@@ -2,6 +2,7 @@ package com.miw.skyscanner.ui.map
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,10 @@ import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Coordinate
 import com.miw.skyscanner.model.Plane
 import kotlinx.android.synthetic.main.fragment_map.*
+import java.util.*
 import kotlin.concurrent.fixedRateTimer
+import kotlin.math.PI
+import kotlin.math.atan2
 import kotlin.properties.Delegates
 
 
@@ -24,20 +28,25 @@ const val EXAMPLE_LONGITUDE: Double = -73.7781391
 const val EXAMPLE_AIRPORT_CODE: String = "KJFK"
 const val ZOOM_LEVEL: Float = 8f
 const val POLYLINE_STROKE_WIDTH_PX = 12f
+const val TIME_BETWEEN_REQUESTS:Long = 4500
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
+    var previousPlanesOnMap: List<MapPlane> = emptyList()
     var planesOnMap: List<MapPlane> by Delegates.observable(listOf()) {
         _, oldList, newList ->
         if (newList.isEmpty()) notifyError()
         else {
+            if (oldList.isNotEmpty())
+                previousPlanesOnMap = oldList
+            updateTrailsAndRotation (previousPlanesOnMap)
             updateMarkers()
-            drawTrails(oldList)
         }
     }
     private var markersOnMap: MutableList<Marker> = mutableListOf()
     var dataNeedsRefresh: Boolean = true
+    private lateinit var interval: Timer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +65,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         mapView.getMapAsync(this)
     }
 
+    override fun onStop() {
+        super.onStop()
+        interval.cancel()
+    }
+
     override fun onMapReady(map: GoogleMap?) {
         if (map != null) {
             googleMap = map
@@ -65,18 +79,14 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             map.uiSettings.isCompassEnabled = true
             // Fetching info toast
             Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG).show()
-            googleMap.setOnMapLoadedCallback {
-                fixedRateTimer("refreshTimer", true, 0, 3000){
-                    if (dataNeedsRefresh) updateMapData()
-                }
-            }
+            googleMap.setOnMapLoadedCallback {startUpdateInterval()}
         }
     }
 
-    private fun updateMapData(){
-        // Update the list of planes, which is an observable that will trigger
-        // the update of the map markers
-        UpdateMapTask(this).execute()
+    private fun startUpdateInterval () {
+        interval = fixedRateTimer("refreshTimer", true, 0, TIME_BETWEEN_REQUESTS){
+            if (dataNeedsRefresh) UpdateMapTask(this@MapFragment).execute()
+        }
     }
 
     private fun updateMarkers() {
@@ -88,25 +98,44 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             val marker: Marker = googleMap.addMarker(
                 MarkerOptions().position(Coordinate(it.status?.location?.latitude,
                     it.status?.location?.longitude).getLatLng())
+                    .rotation(it.rotation)
                     .title(it.markerTitle()).snippet(it.markerDescription())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker_2))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker_2)                    )
             )
             markersOnMap.add(marker)
         }
     }
 
-    private fun drawTrails(oldPositions: List<MapPlane>) {
-        val updatedPlanes = oldPositions.intersect(planesOnMap)
+    private fun updateTrailsAndRotation(oldPositions: List<MapPlane>) {
+        // Planes that were present in the last iteration and now, so must be updated
+        val updatedPlanes: Set<MapPlane> = oldPositions.intersect(planesOnMap)
+        // Planes that were present in the last iteration but not now, and must be removed
+        val missingPlanes: Set<MapPlane> = oldPositions.toSet() - updatedPlanes
+        Log.e ("MISSING: ", missingPlanes.toString())
+        updateTrails(oldPositions, updatedPlanes, missingPlanes)
+        updateRotations(oldPositions, updatedPlanes)
+
+    }
+
+    private fun updateTrails(oldPositions: List<MapPlane>, updatedPlanes: Set<MapPlane>,
+                             missingPlanes: Set<MapPlane>) {
+
+        // Purge old trails
+        missingPlanes.forEach {it.clearTrail()}
+
+        // Create new trails
         updatedPlanes.forEach {plane ->
 
-            val strokeStart:LatLng? = oldPositions.find {
-                it.status?.icao24 == plane.status?.icao24 }?.status?.location?.getLatLng()
+            val outdatedPlane: MapPlane? = oldPositions.find {
+                it.status?.icao24 == plane.status?.icao24 }
 
-            val strokeEnd:LatLng? = planesOnMap.find {
-                it.status?.icao24 == plane.status?.icao24 }?.status?.location?.getLatLng()
+            val updatedPlane:MapPlane? = planesOnMap.find {
+                it.status?.icao24 == plane.status?.icao24 }
 
-            if (strokeStart != null && strokeEnd != null) {
-                googleMap.addPolyline(
+
+            if (outdatedPlane != null && updatedPlane != null) {
+                updatedPlane.trail = outdatedPlane.trail
+                val trail = googleMap.addPolyline(
                     PolylineOptions()
                         .clickable(false)
                         .visible(true)
@@ -115,24 +144,54 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         .jointType(JointType.ROUND)
                         .endCap(RoundCap())
                         .add(
-                            strokeStart, strokeEnd
+                            outdatedPlane.status?.location?.getLatLng(),
+                            updatedPlane.status?.location?.getLatLng()
                         )
                 )
+                updatedPlane.trail.add(trail)
             }
         }
+    }
 
+    private fun updateRotations (oldPositions: List<MapPlane>, updatedPlanes: Set<MapPlane>) {
+        updatedPlanes.forEach {plane ->
 
+            // New and old positions
+            val updatedPlane: MapPlane? = planesOnMap.find {
+                it.status?.icao24 == plane.status?.icao24 }
+
+            val outdatedPlane: MapPlane? = oldPositions.find {
+                it.status?.icao24 == plane.status?.icao24 }
+
+            // If we have enough info, calculate the rotation
+            if (updatedPlane?.status?.location != null && outdatedPlane?.status?.location != null){
+                val deltaX =
+                    updatedPlane.status.location!!.longitude!! - outdatedPlane.status.location!!.longitude!!
+                val deltaY =
+                    updatedPlane.status.location!!.latitude!! - outdatedPlane.status.location!!.latitude!!
+
+                if (deltaX == 0.0 && deltaY == 0.0)
+                    updatedPlane.rotation = outdatedPlane.rotation
+                else
+                    updatedPlane.rotation = (atan2(deltaX, deltaY) * 180 / PI).toFloat()
+            }
+
+        }
     }
 
     private fun notifyError () {
         // Error info toast
-        if (planesOnMap.isEmpty())
+        if (planesOnMap.isEmpty()) {
             Toast.makeText(activity, getString(R.string.map_loading_error), Toast.LENGTH_LONG).show()
+//            googleMap.clear()
+        }
     }
 
     class MapPlane (val context: Context?, plane: Plane) {
 
         val status = plane.planeStatus
+        var rotation: Float = 0f
+        var trail: MutableList<Polyline> = mutableListOf()
 
         val markerTitle: () -> String = {
             if (context != null) {
@@ -155,6 +214,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             else ""
         }
 
+        fun clearTrail () {
+            trail.forEach { it.remove()}
+        }
+
         // Equals depends on the icao code
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
@@ -168,7 +231,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
 
         override fun hashCode(): Int {
-            return status?.icao24.hashCode() ?: 0
+            return status?.icao24.hashCode()
         }
 
     }
