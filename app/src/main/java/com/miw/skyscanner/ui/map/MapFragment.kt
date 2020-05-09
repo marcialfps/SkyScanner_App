@@ -26,8 +26,8 @@ import java.lang.StringBuilder
 import kotlin.reflect.KMutableProperty
 
 
-const val EXAMPLE_LATITUDE: Double = 40.4927751
-const val EXAMPLE_LONGITUDE: Double = -3.5933761
+const val EXAMPLE_LATITUDE: Double = 40.6413111
+const val EXAMPLE_LONGITUDE: Double = -73.7781391
 const val EXAMPLE_AIRPORT_CODE: String = "KJFK"
 const val ZOOM_LEVEL: Float = 8f
 
