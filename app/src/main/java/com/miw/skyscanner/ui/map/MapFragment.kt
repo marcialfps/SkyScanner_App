@@ -111,7 +111,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val updatedPlanes: Set<MapPlane> = oldPositions.intersect(planesOnMap)
         // Planes that were present in the last iteration but not now, and must be removed
         val missingPlanes: Set<MapPlane> = oldPositions.toSet() - updatedPlanes
-        Log.e ("MISSING: ", missingPlanes.toString())
         updateTrails(oldPositions, updatedPlanes, missingPlanes)
         updateRotations(oldPositions, updatedPlanes)
 

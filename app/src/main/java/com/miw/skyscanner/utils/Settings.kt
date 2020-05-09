@@ -2,7 +2,6 @@ package com.miw.skyscanner.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.miw.skyscanner.model.User
 
 class Session(context: Context) {
     companion object {

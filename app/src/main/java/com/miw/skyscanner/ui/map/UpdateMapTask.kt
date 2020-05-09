@@ -1,9 +1,8 @@
 package com.miw.skyscanner.ui.map
 
 import android.os.AsyncTask
-import android.util.Log
+import com.miw.skyscanner.ui.map.MapFragment.MapPlane
 import com.miw.skyscanner.ws.CallWebService
-import com.miw.skyscanner.ui.map.MapFragment.MapPlane as MapPlane
 
 class UpdateMapTask(private val mapFragment: MapFragment) : AsyncTask<Void, Void, List<MapPlane>>() {
 

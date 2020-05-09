@@ -1,11 +1,7 @@
 package com.miw.skyscanner.ws
 
 import android.util.Log
-import com.miw.skyscanner.model.Airport
-import com.miw.skyscanner.model.Forecast
-import com.miw.skyscanner.model.User
-import com.miw.skyscanner.model.Plane
-import com.miw.skyscanner.model.PlaneStatus
+import com.miw.skyscanner.model.*
 import com.miw.skyscanner.utils.SSLConnection
 import com.miw.skyscanner.utils.WSUtils
 import org.ksoap2.SoapEnvelope

@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.miw.skyscanner.R
-import com.miw.skyscanner.model.User
 import com.miw.skyscanner.ui.flights.FlightsCollectionAdapter
 import com.miw.skyscanner.ui.flights.FlightsFragment
 import com.miw.skyscanner.ui.home.HomeFragment
-import com.miw.skyscanner.ui.home.HomeWeatherFragment
 import com.miw.skyscanner.ui.map.MapFragment
 import com.miw.skyscanner.ui.weather.ForecastFragment
 import kotlinx.android.synthetic.main.activity_main.*
