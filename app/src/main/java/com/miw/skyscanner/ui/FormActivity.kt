@@ -1,16 +1,11 @@
 package com.miw.skyscanner.ui
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.view.MotionEvent
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.login.LoginFragment
 import com.miw.skyscanner.ui.register.RegisterFragment
 import kotlinx.android.synthetic.main.activity_form.*
-import kotlinx.android.synthetic.main.fragment_register.*
 
 class FormActivity : AppCompatActivity(),
     LoginFragment.OnLoginFragmentInteractionListener,

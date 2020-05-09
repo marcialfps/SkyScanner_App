@@ -1,20 +1,13 @@
 package com.miw.skyscanner.ws
 
 import android.util.Log
-import com.miw.skyscanner.model.Airport
-import com.miw.skyscanner.model.Forecast
-import com.miw.skyscanner.model.User
-import com.miw.skyscanner.model.Plane
-import com.miw.skyscanner.model.PlaneStatus
+import com.miw.skyscanner.model.*
 import com.miw.skyscanner.utils.SSLConnection
 import com.miw.skyscanner.utils.WSUtils
 import org.ksoap2.SoapEnvelope
 import org.ksoap2.serialization.SoapObject
 import org.ksoap2.serialization.SoapSerializationEnvelope
 import org.ksoap2.transport.HttpsTransportSE
-import java.lang.Double.parseDouble
-import java.lang.Integer.parseInt
-import java.lang.Long.parseLong
 
 class CallWebService {
     private fun callAPI(propertiesMap: Map<String, Any>, methodName: String): SoapSerializationEnvelope {
@@ -77,7 +70,7 @@ class CallWebService {
         val envelope = callAPI(mapOf("airportCode" to airportCode),
             WSUtils.METHOD_GET_WEATHER_BY_AIRPORT)
         val response: SoapObject = envelope.response as SoapObject
-        return convertToForecast(response)
+        return Forecast(response)
     }
 
     fun callWeather(airportCode: String): List<Forecast> {
@@ -91,29 +84,12 @@ class CallWebService {
 
         for (i in 0 until forecastCount) {
             var soapWeather: SoapObject = response.getProperty(i) as SoapObject
-            forecasts.add(convertToForecast(soapWeather))
+            forecasts.add(Forecast(soapWeather))
         }
 
         return forecasts.toList()
     }
 
-    private fun convertToForecast(soapObject: SoapObject): Forecast {
-        val forecast = Forecast()
-        with(forecast) {
-            time = parseLong(soapObject.getPrimitivePropertyAsString("Time"))
-            main = soapObject.getPrimitivePropertyAsString("Main")
-            description = soapObject.getPrimitivePropertyAsString("Description")
-            temperature = parseDouble(soapObject.getPrimitivePropertyAsString("Temperature"))
-            temperatureMax = parseDouble(soapObject.getPrimitivePropertyAsString("TemperatureMax"))
-            temperatureMin = parseDouble(soapObject.getPrimitivePropertyAsString("TemperatureMin"))
-            pressure = parseInt(soapObject.getPrimitivePropertyAsString("Pressure"))
-            humidity = parseInt(soapObject.getPrimitivePropertyAsString("Humidity"))
-            windSpeed = parseDouble(soapObject.getPrimitivePropertyAsString("WindSpeed"))
-            windDirection = parseDouble(soapObject.getPrimitivePropertyAsString("WindDirection"))
-            cloudiness = parseInt(soapObject.getPrimitivePropertyAsString("Cloudiness"))
-        }
-        return forecast
-    }
 
     // Airports and planes
     private fun callAPIPlanesClose(propertiesMap: Map<String, Any>): List<Plane> {
@@ -125,22 +101,32 @@ class CallWebService {
 
         for (i in 0 until planesCount) {
             val soapPlane: SoapObject = response.getProperty(i) as SoapObject
-            val plane = Plane()
 
-            // The API only returns the planes' statuses and other limited info
-            with (plane){
-                planeStatus =
-                    PlaneStatus(soapPlane.getProperty("Status") as SoapObject)
-                departureTime =
-                    soapPlane.getPrimitivePropertyAsString("DepartureTime").toIntOrNull()
-                arrivalTime =
-                    soapPlane.getPrimitivePropertyAsString("ArrivalTime").toIntOrNull()
-                departureDistance =
-                    soapPlane.getPrimitivePropertyAsString("DepartureDistance").toIntOrNull()
-                arrivalDistance =
-                    soapPlane.getPrimitivePropertyAsString("ArrivalDistance").toIntOrNull()
-            }
+            // We only need the planes' statuses to place them on map
+            val plane = Plane(
+                planeStatus = PlaneStatus(soapPlane.getProperty("Status") as SoapObject)
+            )
             planes.add(plane)
+        }
+        return planes.toList()
+    }
+
+    private fun callAPIPlanesByAirport(isArrival: Boolean, propertiesMap: Map<String, Any>): List<Plane> {
+
+        // Fetch arrivals or departures depending on what we need
+        val envelope: SoapSerializationEnvelope =
+            if (isArrival) callAPI(propertiesMap, WSUtils.METHOD_PLANES_BY_ARRIVAL)
+            else callAPI(propertiesMap, WSUtils.METHOD_PLANES_BY_DEPARTURE)
+
+        // Parse results
+
+        val response: SoapObject = envelope.response as SoapObject
+        val planesCount = response.propertyCount
+        val planes = mutableListOf<Plane>()
+
+        for (i in 0 until planesCount) {
+            val soapPlane: SoapObject = response.getProperty(i) as SoapObject
+            planes.add(Plane(soapPlane))
         }
         return planes.toList()
     }
@@ -154,13 +140,19 @@ class CallWebService {
     private fun callAPIAirportByCode(propertiesMap: Map<String, Any>): Airport {
         val envelope = callAPI(propertiesMap, WSUtils.METHOD_AIRPORT_BY_CODE)
         val response: SoapObject = envelope.response as SoapObject
-
         return Airport(response)
     }
 
-    fun callGetAirportByCode(airportCode: String): Airport {
+    private fun callGetAirportByCode(airportCode: String): Airport {
         return callAPIAirportByCode(
             mapOf("airportCode" to airportCode)
+        )
+    }
+
+    private fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String): List<Plane> {
+        return callAPIPlanesByAirport( isArrival,
+            mapOf(
+                (if (isArrival)"arrivalAirportCode" else "departureAirportCode") to airportCode)
         )
     }
 

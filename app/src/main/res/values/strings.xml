@@ -61,6 +61,8 @@
     <string name="map_loading_error">Could not get airplanes data</string>
     <string name="map_aircraft">Aircraft %1$s</string>
     <string name="map_aircraft_unknown">Unknown aircraft</string>
+    <string name="map_unavailable">Information unavailable</string>
+    <string name="map_speed">Speed: %1$.2f m/s</string>
 
     <!--  Other  -->
     <string name="icon_landing">Plane landing icon</string>

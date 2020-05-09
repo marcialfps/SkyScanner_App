@@ -1,7 +1,6 @@
 package com.miw.skyscanner.utils
 
 import android.content.Context
-import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -21,6 +20,8 @@ class WSUtils {
         // Planes & Airports
         const val METHOD_PLANES_CLOSE_TO_AIRPORT = "GetPlanesCloseToAirport"
         const val METHOD_AIRPORT_BY_CODE= "GetAirportByCode"
+        const val METHOD_PLANES_BY_ARRIVAL= "GetPlanesByArrival"
+        const val METHOD_PLANES_BY_DEPARTURE= "GetPlanesByDeparture"
 
         //Add a constant with the name of each method
 
