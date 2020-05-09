@@ -52,6 +52,6 @@
     <!--  Other  -->
     <string name="icon_landing">Icono de avión aterrizando</string>
     <string name="icon_takeoff">Icono de avión despegando</string>
-
+    <string name="hello">Hola</string>
 
 </resources>

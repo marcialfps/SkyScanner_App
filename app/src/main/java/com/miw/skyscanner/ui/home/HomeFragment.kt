@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.User
+import kotlinx.android.synthetic.main.fragment_main.*
+import com.miw.skyscanner.utils.Session
 
 class HomeFragment : Fragment() {
 
@@ -28,5 +30,10 @@ class HomeFragment : Fragment() {
         transaction.add(R.id.arrivalsFragmentContainer, HomeArrivalsFragment())
         transaction.add(R.id.departuresFragmentContainer, HomeDeparturesFragment())
         transaction.commit()
+        initialize()
+    }
+
+    private fun initialize() {
+       // txAirport.text = context?.let { Session(it).airport }
     }
 }
