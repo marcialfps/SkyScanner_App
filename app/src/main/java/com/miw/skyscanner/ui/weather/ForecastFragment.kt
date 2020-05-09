@@ -19,7 +19,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
-import java.lang.Exception
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,24 +36,10 @@ class ForecastFragment : Fragment() {
     private lateinit var selectedForecast: Forecast
     private lateinit var forecasts: List<Forecast>
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-       /* if (context is OnLoginFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException("$context must implement OnLoginFragmentInteractionListener")
-        }*/
-    }
+    override fun onAttach(context: Context)  = super.onAttach(context)
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        initialize()
-
-    }
-
-    private fun initialize() {
-        /*buttonRegister.setOnClickListener { listener.onRegisterButtonClick() }
-        buttonGo.setOnClickListener { login() }*/
         getForecast()
     }
 
@@ -68,6 +53,8 @@ class ForecastFragment : Fragment() {
                         selectedForecast = forecasts[0]
                         val dayFormatter = SimpleDateFormat("dd")
                         val today = dayFormatter.format(selectedForecast.time*1000)
+                        var counterTomorrow = 0
+                        var counterTAfterTomorrow = 0
                         forecasts.forEachIndexed { index, forecast ->
                             if (index < 5) {
                                 val formatter = SimpleDateFormat("HH:mm")
@@ -81,13 +68,16 @@ class ForecastFragment : Fragment() {
                             }
 
                             val day = dayFormatter.format(forecast.time*1000)
-                            Log.v("response", day)
-                            if (day.toInt() === today.toInt()+1) {
+
+                            if (day.toInt() === today.toInt()+1 && counterTomorrow === 0) {
+                                Log.v("response", "${day.toInt()} === ${today.toInt()+1}")
                                 configureImage(forecast, imageTomorrow)
                                 configureWeekDay(forecast, txTomorrow)
-                            } else if (day === today+2) {
+                                counterTomorrow++
+                            } else if (day.toInt() === today.toInt()+2 && counterTAfterTomorrow === 0) {
                                 configureImage(forecast, imageAfterTomorrow)
                                 configureWeekDay(forecast, txAfterTomorrow)
+                                counterTAfterTomorrow++
                             }
                         }
 
@@ -99,10 +89,10 @@ class ForecastFragment : Fragment() {
                 }
             } catch (e1: HttpResponseException) {
                 withContext(Dispatchers.Main) {
-                    /*txError.text = if (e1.statusCode === 403) getString(R.string.error_login_credentials)
-                    else "Unexpected error (${e1.statusCode})"*/
+                    txErrorForecast.text = getString(R.string.error_forecast)
+                    progressBar.visibility = View.INVISIBLE
                 }
-                Log.v("response", e1.toString())
+                Log.e("forecastFragment", e1.toString())
             }
         }
 
@@ -121,22 +111,19 @@ class ForecastFragment : Fragment() {
     }
 
     private fun showForecast() {
-        try {
-            val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-            txCity.text = "Madrid TO-DO"
-            txTime.text =
-                "${df.format(Date(selectedForecast.time * 1000))}, ${selectedForecast.description}"
-            txTemperature.text = selectedForecast.temperature.toInt().toString()
-            txPrecipation.text = "${selectedForecast.humidity.toString()}% humidity"
-            txWind.text = "${selectedForecast.windSpeed} m/s winds"
-            txPressure.text = "${selectedForecast.pressure} hPa"
-            txWindDirection.text = "${selectedForecast.windDirection} degrees"
-            txTempMin.text = "${selectedForecast.temperatureMin} ºC"
-            txTempMax.text = "${selectedForecast.temperatureMax} ºC"
-            configureImage(selectedForecast, imageSky)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        val dateFormatter = SimpleDateFormat("EEE, HH:mm")
+        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
+        txCity.text = "Madrid TO-DO"
+        txTime.text =
+            "${dateFormatter.format(Date(selectedForecast.time * 1000))}, ${selectedForecast.description}"
+        txTemperature.text = selectedForecast.temperature.toInt().toString()
+        txPrecipation.text = "${selectedForecast.humidity.toString()}% ${getString(R.string.humidity)}"
+        txWind.text = "${selectedForecast.windSpeed} m/s ${getString(R.string.winds)}"
+        txPressure.text = "${selectedForecast.pressure} hPa"
+        txWindDirection.text = "${selectedForecast.windDirection} ${getString(R.string.degrees)}"
+        txTempMin.text = "${selectedForecast.temperatureMin} ºC"
+        txTempMax.text = "${selectedForecast.temperatureMax} ºC"
+        configureImage(selectedForecast, imageSky)
     }
 
     //https://openweathermap.org/weather-conditions
@@ -159,6 +146,6 @@ class ForecastFragment : Fragment() {
 
     private fun configureWeekDay(forecast: Forecast, textWeekDay: TextView) {
         val weekDayFormatter = SimpleDateFormat("EEEE")
-        textWeekDay.text = weekDayFormatter.format(selectedForecast.time*1000).toUpperCase()
+        textWeekDay.text = weekDayFormatter.format(forecast.time*1000).toUpperCase()
     }
 }

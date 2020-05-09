@@ -106,22 +106,6 @@ class CallWebService {
             )
     }
 
-    private fun convertToForecast(element: Element): Forecast {
-        val forecast = Forecast()
-        forecast.time = parseLong(element.getElementsByTagName("Time").item(0).textContent)
-        forecast.main = element.getElementsByTagName("Main").item(0).textContent
-        forecast.description = element.getElementsByTagName("Description").item(0).textContent
-        forecast.temperature = parseDouble(element.getElementsByTagName("Temperature").item(0).textContent)
-        forecast.temperatureMax = parseDouble(element.getElementsByTagName("TemperatureMax").item(0).textContent)
-        forecast.temperatureMin = parseDouble(element.getElementsByTagName("TemperatureMin").item(0).textContent)
-        forecast.pressure = parseInt(element.getElementsByTagName("Pressure").item(0).textContent)
-        forecast.humidity = parseInt(element.getElementsByTagName("Humidity").item(0).textContent)
-        forecast.windSpeed = parseDouble(element.getElementsByTagName("WindSpeed").item(0).textContent)
-        forecast.windDirection = parseDouble(element.getElementsByTagName("WindDirection").item(0).textContent)
-        forecast.cloudiness = parseInt(element.getElementsByTagName("Cloudiness").item(0).textContent)
-        return forecast
-    }
-
     //Add a new method for each call. It must receive the params and create a map with the
     //property name in the WS.
 
