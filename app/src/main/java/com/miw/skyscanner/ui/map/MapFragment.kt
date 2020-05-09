@@ -54,14 +54,26 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             googleMap = map
             // Initial camera and zoom //TODO should be focused on the logged user airport
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(EXAMPLE_LATITUDE, EXAMPLE_LONGITUDE), ZOOM_LEVEL))
-            updateMap()
+            // Fetching info toast
+            Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG).show()
+            runBlocking {
+                withContext(Dispatchers.IO){
+                    updateMap()
+                }
+            }
         }
     }
 
     private fun updateMap () {
-        // Fetching info toast
-        Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG).show()
 
+        var planes: List<Plane> = emptyList()
+        runBlocking {
+            withContext(Dispatchers.IO){
+                planes = getPlanesClose()
+            }
+        }
+
+        Log.e("PLANES: ", planes.toString())
 //        try {
 //            getPlanesClose()
 //        }
@@ -69,23 +81,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 //            Toast.makeText(activity, getString(R.string.map_loading_error), Toast.LENGTH_LONG).show()
 //        }
 
-        googleMap.addMarker(
-            MarkerOptions().position(Coordinate(EXAMPLE_LATITUDE, EXAMPLE_LONGITUDE).getLatLng())
-                .title("Marker in Spain")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker))
-        )
+//        googleMap.addMarker(
+//            MarkerOptions().position(Coordinate(EXAMPLE_LATITUDE, EXAMPLE_LONGITUDE).getLatLng())
+//                .title("Marker in Spain")
+//                .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker))
+//        )
     }
 
     private suspend fun getPlanesClose (): List<Plane> {
-        val planes = CoroutineScope(Dispatchers.IO).async {
-            webService.callPlanesCloseToAirport(EXAMPLE_AIRPORT_CODE)
-        }
-
-        return try {
-            planes.await()
-        } catch (e: Exception){
-            emptyList()
-        }
-
+//        val planes = CoroutineScope(Dispatchers.IO).async {
+//            webService.callPlanesCloseToAirport(EXAMPLE_AIRPORT_CODE)
+//        }
+//        return try {
+//            planes.await()
+//        } catch (e: Exception){
+//            throw e
+//            emptyList()
+//        }
+        return emptyList<Plane>()
     }
 }
