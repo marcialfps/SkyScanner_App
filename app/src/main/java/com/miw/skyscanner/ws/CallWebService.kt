@@ -111,6 +111,26 @@ class CallWebService {
         return planes.toList()
     }
 
+    private fun callAPIPlanesByAirport(isArrival: Boolean, propertiesMap: Map<String, Any>): List<Plane> {
+
+        // Fetch arrivals or departures depending on what we need
+        val envelope: SoapSerializationEnvelope =
+            if (isArrival) callAPI(propertiesMap, WSUtils.METHOD_PLANES_BY_ARRIVAL)
+            else callAPI(propertiesMap, WSUtils.METHOD_PLANES_BY_DEPARTURE)
+
+        // Parse results
+
+        val response: SoapObject = envelope.response as SoapObject
+        val planesCount = response.propertyCount
+        val planes = mutableListOf<Plane>()
+
+        for (i in 0 until planesCount) {
+            val soapPlane: SoapObject = response.getProperty(i) as SoapObject
+            planes.add(Plane(soapPlane))
+        }
+        return planes.toList()
+    }
+
     fun callGetPlanesClose(airportCode: String): List<Plane> {
         return callAPIPlanesClose(
             mapOf("airportCode" to airportCode)
@@ -120,13 +140,19 @@ class CallWebService {
     private fun callAPIAirportByCode(propertiesMap: Map<String, Any>): Airport {
         val envelope = callAPI(propertiesMap, WSUtils.METHOD_AIRPORT_BY_CODE)
         val response: SoapObject = envelope.response as SoapObject
-
         return Airport(response)
     }
 
-    fun callGetAirportByCode(airportCode: String): Airport {
+    private fun callGetAirportByCode(airportCode: String): Airport {
         return callAPIAirportByCode(
             mapOf("airportCode" to airportCode)
+        )
+    }
+
+    private fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String): List<Plane> {
+        return callAPIPlanesByAirport( isArrival,
+            mapOf(
+                (if (isArrival)"arrivalAirportCode" else "departureAirportCode") to airportCode)
         )
     }
 
