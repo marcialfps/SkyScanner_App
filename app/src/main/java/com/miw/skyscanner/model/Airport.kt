@@ -16,7 +16,7 @@ class Airport (
         phone = soapAirport.getPrimitivePropertyAsString("Phone")
         postalCode = soapAirport.getPrimitivePropertyAsString("PostalCode")
         location = Coordinate(soapAirport.getProperty("Location") as SoapObject)
-        forecast = null // TODO create the forecast object from the received data
+        forecast = Forecast(soapAirport.getProperty("Weather") as SoapObject)
     }
 
     override fun toString(): String {

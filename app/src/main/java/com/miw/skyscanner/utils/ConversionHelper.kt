@@ -1,5 +1,11 @@
 package com.miw.skyscanner.utils
 
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.*
+
 // Additional methods to help when building model entities from SOAP responses
 class ConversionHelper {
     companion object {
@@ -23,6 +29,12 @@ class ConversionHelper {
                 input.equals("false", ignoreCase = true) -> false
                 else -> null
             }
+        }
+
+        fun dateFromTimestamp (input: Int?): LocalDateTime? {
+            if (input == null) return input
+            return Instant.ofEpochSecond(input.toLong())
+                .atZone(ZoneId.systemDefault()).toLocalDateTime()
         }
     }
 }
