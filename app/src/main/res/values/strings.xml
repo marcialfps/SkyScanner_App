@@ -32,7 +32,7 @@
     <string name="departures_incoming">Upcoming departures</string>
     <string name="departures_to">To</string>
     <string name="departures_time_departure">ETD</string>
-    <string name="departures_distance_covered">%1$d km from destination</string>
+    <string name="departures_distance_covered">%1$d km away from destination</string>
 
     <!-- Login and register -->
     <string name="login">Login</string>

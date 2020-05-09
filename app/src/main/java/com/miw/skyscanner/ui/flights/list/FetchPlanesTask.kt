@@ -12,7 +12,12 @@ class FetchPlanesTask(private val flightsListFragment: FlightsListFragment) :
     private val webService = CallWebService()
     override fun doInBackground(vararg params: Boolean?): List<Plane> {
         return try {
-            webService.callGetPlanesByAirport(params[0]!!, EXAMPLE_AIRPORT_CODE)
+            // Use the thread to also filter incomplete flights that we will not show
+            webService.callGetPlanesByAirport(params[0]!!, EXAMPLE_AIRPORT_CODE).filter {
+                it.arrivalAirportCode != null && it.departureAirportCode != null &&
+                        it.arrivalTime != null && it.departureTime != null &&
+                                it.arrivalDistance != null && it.departureDistance != null
+            }
         } catch (e: Exception){
             emptyList()
         }

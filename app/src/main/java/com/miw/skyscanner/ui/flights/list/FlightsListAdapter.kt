@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Plane
+import java.time.format.DateTimeFormatter
 
 
 class FlightsListAdapter(context: Context, private val data: List<Plane>,
@@ -18,6 +19,7 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private val flightCardDescriptionArrivals = context.getString(R.string.arrivals_distance_left)
     private val flightCardDescriptionDepartures = context.getString(R.string.departures_distance_covered)
+    private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
@@ -45,28 +47,25 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
             // Bind the data received to the view created
             val plane = data[position]
 
-            var airportCode: String? = null
-            var distanceInformation: Int? = null
-            var timeInformation: String? = null
+            val airportCode: String
+            val distanceInformation: Int
+            val timeInformation: String
             // If the plane has the data we need, we show it
             if (isArrivals){
-                if (plane.departureAirportCode != null && plane.departureDistance != null
-                    && plane.departureTime != null) {
-                    airportCode = plane.departureAirportCode
-                    distanceInformation = plane.departureDistance
-                    timeInformation = "${plane.departureTime!!.hour}:${plane.departureTime!!.minute}"
-                }
+                // We have filtered the results after recovering the data from the API,
+                // so we can force calls
+                airportCode = plane.departureAirportCode!!
+                distanceInformation = plane.departureDistance!!
+                timeInformation = formatter.format(plane.departureTime)
             }
-            else if (plane.arrivalAirportCode != null && plane.arrivalDistance != null
-                && plane.arrivalTime != null) {
-                airportCode = plane.arrivalAirportCode
-                distanceInformation = plane.arrivalDistance
-                timeInformation = "${plane.arrivalTime!!.hour}:${plane.arrivalTime!!.minute}"
+            else {
+                airportCode = plane.arrivalAirportCode!!
+                distanceInformation = plane.arrivalDistance!!
+                timeInformation = formatter.format(plane.arrivalTime)
             }
 
-            if (airportCode != null &&
-                distanceInformation != null && timeInformation != null) {
-
+            // If the date was formatted correctly, show the data
+            if (timeInformation != null) {
                 holder.textAirport.text = airportCode
                 holder.textDescription.text =
                     if (isArrivals) String.format(flightCardDescriptionArrivals, distanceInformation)

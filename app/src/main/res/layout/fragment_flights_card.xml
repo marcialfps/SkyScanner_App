@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/arrivals_distance_left"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="@+id/flightsArrivalsCardImage"
                 app:layout_constraintStart_toStartOf="@+id/txFlightsArrivalsCardAirport"
                 app:layout_constraintTop_toBottomOf="@+id/txFlightsArrivalsCardAirport"
