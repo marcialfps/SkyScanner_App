@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
+import com.miw.skyscanner.utils.configureImage
 import com.miw.skyscanner.ws.CallWebService
+import kotlinx.android.synthetic.main.fragment_main_weather.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,14 +37,15 @@ class HomeWeatherFragment : Fragment() {
                 val result = CallWebService().callCurrentWeather("LEMD")
                 if (result != null) {
                     withContext(Dispatchers.Main) {
-
+                        txWeatherTemperature.text = "${result.temperature.toInt()} ºc"
+                        configureImage(result, weatherImage)
                     }
                 }
             } catch (e1: HttpResponseException) {
                 withContext(Dispatchers.Main) {
 
                 }
-                Log.e("forecastFragment", e1.toString())
+                Log.e("homeWeatherFragment", e1.toString())
             }
         }
     }
