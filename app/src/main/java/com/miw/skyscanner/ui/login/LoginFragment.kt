@@ -66,6 +66,7 @@ class LoginFragment : Fragment() {
             txError.text = getString(R.string.error_login_empty)
         } else {
             layoutLoading.visibility = View.VISIBLE
+            changeFormEnabled(false)
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val result = CallWebService().callLogin(user, password)
@@ -84,6 +85,7 @@ class LoginFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         txError.text = if (e1.statusCode == 403) getString(R.string.error_login_credentials)
                             else "Unexpected error (${e1.statusCode})"
+                        changeFormEnabled(true)
                     }
                     Log.v("response", e1.toString())
                 } finally {
@@ -91,6 +93,13 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun changeFormEnabled(isEnabled: Boolean) {
+        txUser.isEnabled = isEnabled
+        txPassword.isEnabled = isEnabled
+        buttonGo.isEnabled = isEnabled
+        buttonRegister.isEnabled = isEnabled
     }
 
     interface OnLoginFragmentInteractionListener {
