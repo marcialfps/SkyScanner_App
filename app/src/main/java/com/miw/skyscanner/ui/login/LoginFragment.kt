@@ -8,15 +8,12 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.autofill.AutofillValue
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.utils.Session
-import com.miw.skyscanner.utils.WSUtils
 import com.miw.skyscanner.utils.isInternetAvailable
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_login.*
