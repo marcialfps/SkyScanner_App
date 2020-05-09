@@ -1,4 +1,4 @@
-package com.miw.skyscanner.fragments
+package com.miw.skyscanner.ui.register
 
 import android.content.Context
 import android.os.Bundle
@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
-import com.miw.skyscanner.model.User
 import com.miw.skyscanner.ws.CallWebService
-import kotlinx.android.synthetic.main.register_fragment.*
-import kotlinx.android.synthetic.main.register_fragment.buttonRegister
-import kotlinx.android.synthetic.main.register_fragment.txPassword
+import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.fragment_register.buttonRegister
+import kotlinx.android.synthetic.main.fragment_register.txPassword
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +34,7 @@ class RegisterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.register_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
     override fun onAttach(context: Context) {
@@ -63,9 +62,7 @@ class RegisterFragment : Fragment() {
         name = txName.text.toString()
         surname = txName.text.toString()
 
-        if (username.isEmpty() or name.isEmpty() or surname.isEmpty()) {
-
-        } else {
+        if (!(username.isEmpty() or name.isEmpty() or surname.isEmpty())) {
             layoutFirst.visibility = View.INVISIBLE
             layoutSecond.visibility = View.VISIBLE
         }
@@ -91,10 +88,8 @@ class RegisterFragment : Fragment() {
             try {
                 val result = CallWebService().callRegister(username, name, surname, email,
                     airportCode, password)
-                if (result != null) {
-                    withContext(Dispatchers.Main) {
-                        txErrorRegister.text = "REGISTER CORRECT TO-DO"
-                    }
+                withContext(Dispatchers.Main) {
+                    txErrorRegister.text = "REGISTER CORRECT TO-DO"
                 }
             } catch (e1: HttpResponseException) {
                 withContext(Dispatchers.Main) {

@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">SkyScanner</string>
 
+    <!--  Bottom menu  -->
+    <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_map">Map</string>
+    <string name="bottom_menu_flights">Flights</string>
+    <string name="bottom_menu_weather">Weather</string>
 
     <!--  Weather  -->
     <string name="weather_default_temperature" translatable="false">24ºc</string>
@@ -20,11 +25,6 @@
     <string name="departures_to">To</string>
     <string name="departures_time_departure">ETD</string>
     <string name="departures_distance_covered">%1$f km from destination</string>
-
-
-    <!--  Other  -->
-    <string name="icon_landing">Plane landing icon</string>
-    <string name="icon_takeoff">Plane taking off icon</string>
 
     <!-- Login and register -->
     <string name="login">Login</string>
@@ -46,4 +46,9 @@
     <string name="error_register_empty">You must complete all the fields</string>
     <string name="error_register_passwords">Passwords are not equal</string>
     <string name="error_register_user_exist">The user already exists</string>
+
+    <!--  Other  -->
+    <string name="icon_landing">Plane landing icon</string>
+    <string name="icon_takeoff">Plane taking off icon</string>
+
 </resources>

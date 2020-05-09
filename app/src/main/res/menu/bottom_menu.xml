@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/baseline_home_white_24dp"
+        android:title="@string/bottom_menu_home"
+        />
+
+    <item
+        android:id="@+id/navigation_map"
+        android:icon="@drawable/baseline_map_white_24dp"
+        android:title="@string/bottom_menu_map"/>
+
+    <item
+        android:id="@+id/navigation_flights"
+        android:icon="@drawable/baseline_flight_white_24dp"
+        android:title="@string/bottom_menu_flights"/>
+
+    <item
+        android:id="@+id/navigation_weather"
+        android:icon="@drawable/baseline_cloud_white_24dp"
+        android:title="@string/bottom_menu_weather"/>
+
+</menu>

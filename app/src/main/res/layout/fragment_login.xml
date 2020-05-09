@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
@@ -27,9 +26,11 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
+            android:autofillHints="username"
             android:ems="10"
             android:hint="@string/user"
-            android:inputType="textPersonName"
+            android:importantForAutofill="yes"
+            android:inputType="textNoSuggestions|textPersonName|text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txLogin" />
@@ -44,7 +45,11 @@
             app:layout_constraintBottom_toTopOf="@+id/txError"
             app:layout_constraintEnd_toEndOf="@+id/txUser"
             app:layout_constraintStart_toStartOf="@+id/txUser"
-            app:layout_constraintTop_toBottomOf="@+id/txUser" />
+            app:layout_constraintTop_toBottomOf="@+id/txUser"
+            android:autofillHints="password"
+            android:imeOptions="actionSend"
+            android:imeActionLabel="@string/login"
+            />
 
         <Button
             android:id="@+id/buttonRegister"
@@ -83,7 +88,7 @@
             android:id="@+id/layoutLoading"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cardview_shadow_start_color"
+            android:background="@color/lightBlack"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
