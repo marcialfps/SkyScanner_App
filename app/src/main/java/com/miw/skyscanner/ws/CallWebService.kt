@@ -83,7 +83,7 @@ class CallWebService {
         val forecasts = mutableListOf<Forecast>()
 
         for (i in 0 until forecastCount) {
-            var soapWeather: SoapObject = response.getProperty(i) as SoapObject
+            val soapWeather: SoapObject = response.getProperty(i) as SoapObject
             forecasts.add(Forecast(soapWeather))
         }
 
@@ -143,7 +143,7 @@ class CallWebService {
         return Airport(response)
     }
 
-    private fun callGetAirportByCode(airportCode: String): Airport {
+    fun callGetAirportByCode(airportCode: String): Airport {
         return callAPIAirportByCode(
             mapOf("airportCode" to airportCode)
         )
