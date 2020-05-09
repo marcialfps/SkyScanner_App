@@ -24,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.coroutines.*
 import java.lang.StringBuilder
 import java.util.*
+import kotlin.properties.Delegates
 import kotlin.reflect.KMutableProperty
 
 
@@ -34,11 +35,13 @@ const val ZOOM_LEVEL: Float = 8f
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private val webService = CallWebService()
     private lateinit var googleMap: GoogleMap
-    private var planesOnMap: List<MapPlane> = listOf()
+    var planesOnMap: List<MapPlane> by Delegates.observable(listOf()) {
+        _, _, newList ->
+        if (newList.isEmpty()) notifyError()
+        else updateMarkers()
+    }
     private var markersOnMap: MutableList<Marker> = mutableListOf()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,22 +68,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 (LatLng(EXAMPLE_LATITUDE, EXAMPLE_LONGITUDE), ZOOM_LEVEL))
             // Fetching info toast
             Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG).show()
-            googleMap.setOnMapLoadedCallback { updateMap() }
+            googleMap.setOnMapLoadedCallback {
+                UpdateMapTask(this).execute()
+            }
         }
     }
 
-    private fun updateMap () {
-        runBlocking {
-            withContext(Dispatchers.IO){
-                planesOnMap = fetchPlanes().map { MapPlane(context, it) }
-            }
-        }
+    private fun notifyError () {
         // Error info toast
         if (planesOnMap.isEmpty())
             Toast.makeText(activity, getString(R.string.map_loading_error), Toast.LENGTH_LONG).show()
-
-        else updateMarkers()
-
     }
 
     private fun updateMarkers() {
@@ -96,17 +93,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker))
             )
             markersOnMap.add(marker)
-        }
-    }
-
-    private fun fetchPlanes(): List<Plane> {
-        // Fetch planes nearby and filter the ones with location not set to null
-        return try {
-            webService.callGetPlanesClose(EXAMPLE_AIRPORT_CODE).filter {
-                it.planeStatus?.location != null
-            }
-        } catch (e: Exception){
-            emptyList()
         }
     }
 
