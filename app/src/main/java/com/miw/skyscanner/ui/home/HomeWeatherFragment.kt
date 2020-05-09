@@ -18,6 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeWeatherFragment : Fragment() {
 
@@ -45,6 +48,9 @@ class HomeWeatherFragment : Fragment() {
                 if (result != null) {
                     withContext(Dispatchers.Main) {
                         txWeatherTemperature.text = "${result.temperature.toInt()} ºc"
+                        val dateFormatter = SimpleDateFormat("HH:mm, EEE dd MMM YYYY")
+                        txDate.text = dateFormatter.format(Date())
+                        txWeatherLocation.text = context?.let { Session(it).city }
                         configureImage(result, weatherImage)
                     }
                 }

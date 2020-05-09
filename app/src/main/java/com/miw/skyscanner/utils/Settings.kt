@@ -12,6 +12,8 @@ class Session(context: Context) {
         const val SESSION_SURNAME = "Surname"
         const val SESSION_EMAIL = "Email"
         const val SESSION_AIRPORT = "Airport"
+        const val SESSION_AIRPORT_NAME = "AirportName"
+        const val SESSION_CITY = "City"
         const val PREF_DEFAULT: String = ""
     }
     private val preferences: SharedPreferences =
@@ -54,6 +56,22 @@ class Session(context: Context) {
         set(value) {
             val editor = preferences.edit()
             editor.putString(SESSION_AIRPORT, value)
+            editor.apply()
+        }
+
+    var airportName: String
+        get() = preferences.getString(SESSION_AIRPORT_NAME, PREF_DEFAULT) ?: PREF_DEFAULT
+        set(value) {
+            val editor = preferences.edit()
+            editor.putString(SESSION_AIRPORT_NAME, value)
+            editor.apply()
+        }
+
+    var city: String
+        get() = preferences.getString(SESSION_CITY, PREF_DEFAULT) ?: PREF_DEFAULT
+        set(value) {
+            val editor = preferences.edit()
+            editor.putString(SESSION_CITY, value)
             editor.apply()
         }
 }

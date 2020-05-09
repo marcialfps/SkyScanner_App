@@ -67,5 +67,6 @@
     <string name="icon_takeoff">Plane taking off icon</string>
     <string name="hello">Hello</string>
     <string name="no_internet_connection">You are not connected to Internet</string>
+    <string name="logout">Log out</string>
 
 </resources>

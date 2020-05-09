@@ -116,8 +116,7 @@ class ForecastFragment : Fragment() {
 
     private fun showForecast() {
         val dateFormatter = SimpleDateFormat("EEE, HH:mm")
-        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-        txCity.text = "Madrid TO-DO"
+        txCity.text = context?.let { Session(it).city }
         txTime.text =
             "${dateFormatter.format(Date(selectedForecast.time * 1000))}, ${selectedForecast.description}"
         txTemperature.text = selectedForecast.temperature.toInt().toString()

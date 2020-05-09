@@ -82,14 +82,17 @@ class LoginFragment : Fragment() {
             changeFormEnabled(false)
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val result = CallWebService().callLogin(user, password)
+                    val login = CallWebService().callLogin(user, password)
+                    val airport = CallWebService().callGetAirportByCode(login.airportCode)
                     withContext(Dispatchers.Main) {
                         context?.let {
-                            Session(it).username = result.username
-                            Session(it).name = result.name
-                            Session(it).surname = result.surname
-                            Session(it).email = result.email
-                            Session(it).airport = result.airportCode
+                            Session(it).username = login.username
+                            Session(it).name = login.name
+                            Session(it).surname = login.surname
+                            Session(it).email = login.email
+                            Session(it).airport = login.airportCode
+                            Session(it).airportName = airport.name ?: ""
+                            Session(it).city = airport.city ?: ""
                         }
                         val intent = Intent(context, MainActivity::class.java)
                         startActivity(intent)

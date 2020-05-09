@@ -30,11 +30,10 @@
             <TableRow
                 android:id="@+id/arrivalsRow1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/table_border_head"
-                android:gravity="center_horizontal"
 
-                >
+                android:textAlignment="viewStart">
 
                 <TextView
                     android:id="@+id/txArrivalsTableTitle"
@@ -43,9 +42,10 @@
                     android:fontFamily="sans-serif-medium"
                     android:padding="5dp"
                     android:text="@string/arrivals_incoming"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
+                    android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
                     tools:text="@string/arrivals_arrivals" />
             </TableRow>
 
@@ -53,9 +53,8 @@
                 android:id="@+id/arrivalsRow2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="6dp"
                 android:background="@drawable/table_border"
-                >
+                android:padding="6dp">
 
                 <TextView
                     android:id="@+id/textView2"
@@ -64,8 +63,8 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
                     android:text="Barcelona"
-                    android:textSize="18sp"
-                    />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView3"
@@ -73,8 +72,8 @@
                     android:layout_height="wrap_content"
                     android:text="10:00"
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
             </TableRow>
 
             <TableRow
@@ -92,8 +91,8 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
                     android:text="Bilbao"
-                    android:textSize="18sp"
-                    />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView5"
@@ -101,8 +100,8 @@
                     android:layout_height="wrap_content"
                     android:text="12:15"
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
 
             </TableRow>
 
@@ -122,8 +121,8 @@
                     android:layout_marginEnd="1dp"
                     android:text="Alicante"
                     android:textAlignment="textStart"
-                    android:textSize="18sp"
-                    />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/textView7"
@@ -131,10 +130,38 @@
                     android:layout_height="wrap_content"
                     android:text="19:30"
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/arrivalsRow5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/table_border"
+                android:padding="6dp">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:text="Lanzarote"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="19:35"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
             </TableRow>
 
         </TableLayout>
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

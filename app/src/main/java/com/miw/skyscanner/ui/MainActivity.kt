@@ -1,6 +1,12 @@
 package com.miw.skyscanner.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.ImageButton
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -13,12 +19,13 @@ import com.miw.skyscanner.ui.home.HomeFragment
 import com.miw.skyscanner.ui.home.HomeWeatherFragment
 import com.miw.skyscanner.ui.map.MapFragment
 import com.miw.skyscanner.ui.weather.ForecastFragment
+import com.miw.skyscanner.utils.Session
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_flights.*
 import kotlinx.android.synthetic.main.fragment_flights_list.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HomeFragment.OnLogoutClickListener {
 
     private var currentItem: Int = R.id.navigation_home
     private lateinit var currentFragment: Fragment
@@ -123,4 +130,18 @@ class MainActivity : AppCompatActivity() {
 
         currentFragment = fragment
     }
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout -> {
+                val editor = deleteSharedPreferences(Session.PREFS_NAME)
+                val intent = Intent(this, FormActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent)
+                finish()
+                true
+            }
+            else -> false
+        }
+    }
+
 }

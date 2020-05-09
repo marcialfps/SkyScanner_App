@@ -9,12 +9,12 @@
         android:id="@+id/weatherCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/lightBlue"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/lightBlue"
-        app:cardCornerRadius="2dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,14 +24,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/weatherInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="8"
+                android:layout_weight="50"
                 android:orientation="vertical">
 
                 <TextView
@@ -42,37 +41,54 @@
                     android:fontFamily="sans-serif-light"
                     android:maxLength="27"
                     android:maxLines="2"
-                    android:paddingStart="6dp"
-                    android:paddingEnd="1dp"
                     android:text="@string/weather_default_city"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-                    android:textSize="28sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                    android:textColor="@color/colorSecondaryLight"
                     app:autoSizeTextType="none"
                     tools:text="@string/weather_default_city" />
 
                 <TextView
-                    android:id="@+id/txWeatherTemperature"
+                    android:id="@+id/txDate"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center"
-                    android:text="@string/weather_default_temperature"
-                    android:textAlignment="gravity"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                    android:textSize="60sp"
-                    tools:text="@string/weather_default_temperature" />
+                    android:layout_height="wrap_content"
+                    android:text="19:30, sáb. 09 may. 2020"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/colorSecondaryLight" />
+
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/weatherImage"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:baselineAlignBottom="false"
-                android:contentDescription="@string/weather_status"
-                android:textAlignment="center"
-                app:srcCompat="@drawable/few_clouds"
-                tools:srcCompat="@drawable/few_clouds" />
+                android:layout_weight="1"
+                android:baselineAligned="false">
+
+                <ImageView
+                    android:id="@+id/weatherImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:baselineAlignBottom="false"
+                    android:contentDescription="@string/weather_status"
+                    android:textAlignment="center"
+                    app:srcCompat="@drawable/few_clouds"
+                    tools:srcCompat="@drawable/few_clouds" />
+
+                <TextView
+                    android:id="@+id/txWeatherTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/weather_default_temperature"
+                    android:textAlignment="viewEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                    android:textColor="@color/colorSecondaryLight"
+                    android:textSize="34sp"
+                    tools:text="@string/weather_default_temperature" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

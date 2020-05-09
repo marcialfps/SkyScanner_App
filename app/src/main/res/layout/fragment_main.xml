@@ -7,64 +7,86 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <ImageButton
+        android:id="@+id/buttonTools"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorSecondaryLight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/tools" />
+
+    <TextView
+        android:id="@+id/txAirport"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/colorSecondaryLight"
+        android:padding="10dp"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toStartOf="@+id/buttonTools"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonTools" />
+
     <ScrollView
         android:id="@+id/homeScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/weatherFragmentContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/txAirport">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_marginBottom="0dp"
             android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txAirport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Airport Madrid Barajas"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <FrameLayout
-                android:id="@+id/weatherFragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="15dp"
-                android:minHeight="150dp">
-
-            </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/arrivalsFragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="35dp"
-                android:layout_marginEnd="15dp"
-                android:minHeight="200dp">
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1">
 
             </FrameLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/airplane" />
 
             <FrameLayout
                 android:id="@+id/departuresFragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="30dp"
-                android:minHeight="200dp">
+                android:layout_marginTop="10dp"
+                android:layout_weight="1">
 
             </FrameLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/weatherFragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,9 +30,7 @@
                 android:id="@+id/departuresRow1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/table_border_head"
-                android:gravity="center_horizontal"
-                >
+                android:background="@drawable/table_border_head">
 
                 <TextView
                     android:id="@+id/txDeparturesTableTitle"
@@ -41,9 +39,10 @@
                     android:fontFamily="sans-serif-medium"
                     android:padding="5dp"
                     android:text="@string/departures_incoming"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
+                    android:textAlignment="viewStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp"
                     tools:text="@string/departures_departures" />
             </TableRow>
 
@@ -62,6 +61,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
                     android:text="La Palma"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="18sp" />
 
                 <TextView
@@ -70,6 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="15:00"
                     android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
             </TableRow>
 
@@ -88,6 +89,7 @@
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
                     android:text="Mallorca"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="18sp" />
 
                 <TextView
@@ -96,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:text="21:20"
                     android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
 
             </TableRow>
@@ -116,6 +119,7 @@
                     android:layout_marginEnd="1dp"
                     android:text="Lanzarote"
                     android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="18sp" />
 
                 <TextView
@@ -124,6 +128,7 @@
                     android:layout_height="wrap_content"
                     android:text="22:00"
                     android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
             </TableRow>
 
@@ -143,6 +148,7 @@
                     android:layout_marginEnd="1dp"
                     android:text="Lanzarote"
                     android:textAlignment="textStart"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textSize="18sp" />
 
                 <TextView
@@ -151,87 +157,7 @@
                     android:layout_height="wrap_content"
                     android:text="22:00"
                     android:textAlignment="center"
-                    android:textSize="18sp" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/departuresRow7"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="6dp"
-                android:background="@drawable/table_border"
-                >
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="1dp"
-                    android:text="Lanzarote"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="22:00"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/departuresRow8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="6dp"
-                android:background="@drawable/table_border"
-                >
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="1dp"
-                    android:text="Lanzarote"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="22:00"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/departuresRow9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="6dp"
-                android:background="@drawable/table_border"
-                >
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:layout_marginEnd="1dp"
-                    android:text="Lanzarote"
-                    android:textAlignment="textStart"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="22:00"
-                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="18sp" />
             </TableRow>
 

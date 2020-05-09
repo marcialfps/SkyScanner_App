@@ -66,5 +66,6 @@
     <string name="icon_takeoff">Icono de avión despegando</string>
     <string name="hello">Hola</string>
     <string name="no_internet_connection">No estás conectado a Internet</string>
+    <string name="logout">Cerrar sesión</string>
 
 </resources>
