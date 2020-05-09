@@ -42,7 +42,7 @@
     <string name="name">Name</string>
     <string name="surname">Surname</string>
     <string name="email">Email</string>
-    <string name="airport_code">Airport code</string>
+    <string name="airport_code">Airport ICAO code</string>
     <string name="password_repeat">Repeat password</string>
     <string name="have_account">I have an account</string>
     <string name="next">Next</string>
@@ -66,5 +66,6 @@
     <string name="icon_landing">Plane landing icon</string>
     <string name="icon_takeoff">Plane taking off icon</string>
     <string name="hello">Hello</string>
+    <string name="no_internet_connection">You are not connected to Internet</string>
 
 </resources>

@@ -1,25 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/colorSecondaryLight">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLoadingRegister"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/lightBlack"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progressBarRegister"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
         <LinearLayout
             android:id="@+id/layoutSecond"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_margin="10dp"
             android:layout_weight="1"
             android:baselineAligned="false"
             android:orientation="vertical"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/layoutFirst"
-            app:layout_constraintStart_toStartOf="@+id/layoutFirst"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/layoutFirst"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -27,6 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
+                android:layout_weight="1"
                 android:text="@string/register"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
@@ -36,72 +60,70 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
 
             <EditText
                 android:id="@+id/txAirport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableRight="@drawable/info"
                 android:ems="10"
                 android:hint="@string/airport_code"
-                android:inputType="textPersonName"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/txPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/password"
-                android:inputType="textPassword"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/txPasswordRepeat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/password_repeat"
-                android:inputType="textPassword"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="textPassword" />
 
             <TextView
                 android:id="@+id/txErrorRegister2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorError" />
 
-            <LinearLayout
-                android:id="@+id/layoutButton"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/buttonRegister"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/go" />
-            </LinearLayout>
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/go"
+                android:textColor="@color/colorSecondaryLight" />
 
         </LinearLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:id="@+id/layoutFirst"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:visibility="visible"
+            android:orientation="vertical"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,108 +131,73 @@
 
             <TextView
                 android:id="@+id/txRegister"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="144dp"
-                android:layout_marginEnd="144dp"
+                android:layout_weight="1"
                 android:text="@string/register"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
             <EditText
                 android:id="@+id/txUsername"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/username"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txRegister" />
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/txName"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/name"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toTopOf="@+id/txSurname"
-                app:layout_constraintEnd_toEndOf="@+id/txUsername"
-                app:layout_constraintStart_toStartOf="@+id/txUsername"
-                app:layout_constraintTop_toBottomOf="@+id/txUsername"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
 
             <EditText
                 android:id="@+id/txSurname"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/surname"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toTopOf="@+id/buttonLogin"
-                app:layout_constraintEnd_toEndOf="@+id/txName"
-                app:layout_constraintStart_toStartOf="@+id/txName"
-                android:importantForAutofill="no" />
+                android:importantForAutofill="no"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/txErrorRegister1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_weight="1"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/colorError"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txSurname" />
+                android:textColor="@color/colorError" />
 
             <Button
                 android:id="@+id/buttonLogin"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
                 android:text="@string/have_account"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintBottom_toTopOf="@+id/buttonNext"
-                app:layout_constraintEnd_toEndOf="@+id/txSurname"
-                app:layout_constraintStart_toStartOf="@+id/txSurname" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             <Button
                 android:id="@+id/buttonNext"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimaryDark"
                 android:text="@string/next"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
-                app:layout_constraintStart_toStartOf="@+id/buttonLogin" />
+                android:textColor="@color/colorSecondaryLight" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutLoadingRegister"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/lightBlack"
-            android:visibility="invisible">
-
-            <ProgressBar
-                android:id="@+id/progressBarRegister"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:indeterminate="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

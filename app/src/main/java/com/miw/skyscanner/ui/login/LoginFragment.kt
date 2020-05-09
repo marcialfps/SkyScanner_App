@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.utils.Session
+import com.miw.skyscanner.utils.WSUtils
+import com.miw.skyscanner.utils.isInternetAvailable
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.CoroutineScope
@@ -56,6 +58,17 @@ class LoginFragment : Fragment() {
         txPassword.setOnEditorActionListener (SubmitOnEditorActionListener(this))
         txUser.setAutofillHints(View.AUTOFILL_HINT_USERNAME)
         txPassword.setAutofillHints(View.AUTOFILL_HINT_PASSWORD)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            context?.let {
+                if(!isInternetAvailable(it)) {
+                    withContext(Dispatchers.Main) {
+                        txError.text = getString(R.string.no_internet_connection)
+                        changeFormEnabled(false)
+                    }
+                }
+            }
+        }
     }
 
     private fun login() {

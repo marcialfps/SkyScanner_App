@@ -53,9 +53,25 @@ class CallWebService {
     }
 
     fun callRegister(username: String, name: String, surname: String, email: String,
-                     airportCode: String, password: String) =
-        callAPI(mapOf("username" to username, "name" to name, "surname" to surname,
-            "mail" to email, "airport" to airportCode, "password" to password), WSUtils.METHOD_REGISTER)
+                     airportCode: String, password: String): User {
+        val envelope = callAPI(
+            mapOf(
+                "username" to username, "name" to name, "surname" to surname,
+                "mail" to email, "airport" to airportCode, "password" to password
+            ), WSUtils.METHOD_REGISTER
+        )
+        val response = envelope.response as SoapObject
+        val user = User()
+        with (response) {
+            user.username = getPrimitivePropertyAsString("Username")
+            user.name = getPrimitivePropertyAsString("Name")
+            user.surname = getPrimitivePropertyAsString("Surname")
+            user.password = getPrimitivePropertyAsString("Password")
+            user.email = getPrimitivePropertyAsString("Mail")
+            user.airportCode = getPrimitivePropertyAsString("Airport")
+        }
+        return user
+    }
 
     fun callCurrentWeather(airportCode: String) : Forecast {
         val envelope = callAPI(mapOf("airportCode" to airportCode),

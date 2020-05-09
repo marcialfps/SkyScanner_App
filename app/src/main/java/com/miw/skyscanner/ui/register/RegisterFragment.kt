@@ -1,13 +1,19 @@
 package com.miw.skyscanner.ui.register
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
+import com.miw.skyscanner.ui.MainActivity
+import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.CoroutineScope
@@ -58,7 +64,27 @@ class RegisterFragment : Fragment() {
         buttonLogin.setOnClickListener { listener.onLoginButtonClick() }
         buttonNext.setOnClickListener { next() }
         buttonRegister.setOnClickListener { register() }
+        txAirport.onRightDrawableClicked {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.world-airport-codes.com/"))
+            if (activity?.packageManager?.let { it1 -> intent.resolveActivity(it1) } != null) startActivity(intent)
+        }
     }
+
+    fun EditText.onRightDrawableClicked(onClicked: (view: EditText) -> Unit) {
+        this.setOnTouchListener { v, event ->
+            var hasConsumed = false
+            if (v is EditText) {
+                if (event.x >= v.width - v.totalPaddingRight) {
+                    if (event.action == MotionEvent.ACTION_UP) {
+                        onClicked(this)
+                    }
+                    hasConsumed = true
+                }
+            }
+            hasConsumed
+        }
+    }
+
 
     private fun next() {
         username = txUsername.text.toString()
@@ -100,12 +126,21 @@ class RegisterFragment : Fragment() {
 
     private fun callToRegister() {
         layoutLoadingRegister.visibility = View.VISIBLE
+        changeFormEnabled(false)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val result = CallWebService().callRegister(username, name, surname, email,
                     airportCode, password)
                 withContext(Dispatchers.Main) {
-                    txErrorRegister2.text = "REGISTER CORRECT TO-DO"
+                    context?.let {
+                        Session(it).username = result.username
+                        Session(it).name = result.name
+                        Session(it).surname = result.surname
+                        Session(it).email = result.email
+                        Session(it).airport = result.airportCode
+                    }
+                    val intent = Intent(context, MainActivity::class.java)
+                    startActivity(intent)
                 }
             } catch (e1: HttpResponseException) {
                 withContext(Dispatchers.Main) {
@@ -113,12 +148,21 @@ class RegisterFragment : Fragment() {
                         409 -> getString(R.string.error_register_user_exist)
                         else -> "Unexpected error (${e1.statusCode})"
                     }
+                    changeFormEnabled(true)
                 }
                 Log.v("response", e1.toString())
             } finally {
                 layoutLoadingRegister.visibility = View.INVISIBLE
             }
         }
+    }
+
+    private fun changeFormEnabled(isEnabled: Boolean) {
+        txEmail.isEnabled = isEnabled
+        txAirport.isEnabled = isEnabled
+        txPassword.isEnabled = isEnabled
+        txPasswordRepeat.isEnabled = isEnabled
+        buttonRegister.isEnabled = isEnabled
     }
 
     interface OnRegisterFragmentInteractionListener {

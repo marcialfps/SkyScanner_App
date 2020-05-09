@@ -1,111 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    app:cardBackgroundColor="@color/colorSecondaryLight">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutLoading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/lightBlack"
+        android:visibility="invisible"
+        tools:visibility="invisible">
 
-        <TextView
-            android:id="@+id/txLogin"
+        <ProgressBar
+            android:id="@+id/progressBarLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/login"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="@string/login"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <EditText
             android:id="@+id/txUser"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
+            android:layout_weight="1"
             android:autofillHints="username"
             android:ems="10"
             android:hint="@string/user"
             android:importantForAutofill="yes"
-            android:inputType="textNoSuggestions|textPersonName|text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txLogin" />
+            android:inputType="textNoSuggestions|textPersonName|text" />
 
         <EditText
             android:id="@+id/txPassword"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:autofillHints="password"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toTopOf="@+id/txError"
-            app:layout_constraintEnd_toEndOf="@+id/txUser"
-            app:layout_constraintStart_toStartOf="@+id/txUser"
-            app:layout_constraintTop_toBottomOf="@+id/txUser"
-            android:autofillHints="password"
-            android:imeOptions="actionSend"
             android:imeActionLabel="@string/login"
-            />
+            android:imeOptions="actionSend"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/txError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="@color/colorError" />
 
         <Button
             android:id="@+id/buttonRegister"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginBottom="20dp"
+            android:layout_weight="1"
             android:text="@string/create_account"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:layout_constraintBottom_toTopOf="@+id/buttonGo"
-            app:layout_constraintEnd_toEndOf="@+id/txPassword"
-            app:layout_constraintStart_toStartOf="@+id/txPassword" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <Button
             android:id="@+id/buttonGo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="@string/go"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/buttonRegister"
-            app:layout_constraintStart_toStartOf="@+id/buttonRegister" />
-
-        <TextView
-            android:id="@+id/txError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/colorError"
-            app:layout_constraintBottom_toTopOf="@+id/buttonRegister"
-            app:layout_constraintEnd_toEndOf="@+id/txPassword"
-            app:layout_constraintStart_toStartOf="@+id/txPassword" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutLoading"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/lightBlack"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/go"
+            android:textColor="@color/colorSecondaryLight" />
 
-            <ProgressBar
-                android:id="@+id/progressBarLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:visibility="visible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
