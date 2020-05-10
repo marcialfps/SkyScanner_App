@@ -71,6 +71,14 @@
             android:imeOptions="actionSend"
             android:inputType="textPassword" />
 
+        <CheckBox
+            android:id="@+id/checkBoxSession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="@string/save_session" />
+
         <TextView
             android:id="@+id/txError"
             android:layout_width="match_parent"

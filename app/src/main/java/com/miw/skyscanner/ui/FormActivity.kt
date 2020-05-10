@@ -1,10 +1,12 @@
 package com.miw.skyscanner.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.login.LoginFragment
 import com.miw.skyscanner.ui.register.RegisterFragment
+import com.miw.skyscanner.utils.Session
 import kotlinx.android.synthetic.main.activity_form.*
 
 class FormActivity : AppCompatActivity(),
@@ -14,7 +16,13 @@ class FormActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_form)
-        initialize()
+        if(Session(applicationContext).saveSession) {
+            val intent = Intent(applicationContext, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else {
+            initialize()
+        }
     }
 
     private fun initialize() {

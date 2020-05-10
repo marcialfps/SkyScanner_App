@@ -82,6 +82,7 @@ class LoginFragment : Fragment() {
                     //val airport = CallWebService().callGetAirportByCode(login.airportCode)
                     withContext(Dispatchers.Main) {
                         context?.let {
+                            Session(it).saveSession = checkBoxSession.isChecked
                             Session(it).username = login.username
                             Session(it).name = login.name
                             Session(it).surname = login.surname

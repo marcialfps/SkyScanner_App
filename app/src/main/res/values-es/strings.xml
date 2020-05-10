@@ -40,6 +40,7 @@
     <string name="password">Contraseña</string>
     <string name="create_account">Crear una cuenta</string>
     <string name="go">Ir</string>
+    <string name="save_session">Guardar sesión</string>
     <string name="username">Nombre de usuario</string>
     <string name="name">Nombre</string>
     <string name="surname">Apellido</string>

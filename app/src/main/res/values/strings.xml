@@ -48,6 +48,7 @@
     <string name="user">User</string>
     <string name="password">Password</string>
     <string name="create_account">Create an account</string>
+    <string name="save_session">Save session</string>
     <string name="go">Go</string>
     <string name="username">Username</string>
     <string name="name">Name</string>

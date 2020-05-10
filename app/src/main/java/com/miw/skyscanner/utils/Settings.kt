@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 class Session(context: Context) {
     companion object {
         const val PREFS_NAME = "SessionPrefsFile"
+        const val SAVE_SESSION = "SaveSession"
         const val SESSION_USERNAME = "Username"
         const val SESSION_NAME = "Name"
         const val SESSION_SURNAME = "Surname"
@@ -14,9 +15,18 @@ class Session(context: Context) {
         const val SESSION_AIRPORT_NAME = "AirportName"
         const val SESSION_CITY = "City"
         const val PREF_DEFAULT: String = ""
+        const val SAVE_SESSION_DEFAULT: Boolean = false
     }
     private val preferences: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+    var saveSession: Boolean
+        get() = preferences.getBoolean(SAVE_SESSION, SAVE_SESSION_DEFAULT)
+        set(value) {
+            val editor = preferences.edit()
+            editor.putBoolean(SAVE_SESSION, value)
+            editor.apply()
+        }
 
     var username: String
         get() = preferences.getString(SESSION_USERNAME, PREF_DEFAULT) ?: PREF_DEFAULT
