@@ -1,10 +1,7 @@
 package com.miw.skyscanner.model
 
-import android.util.Log
 import com.google.android.gms.maps.model.LatLng
-import com.miw.skyscanner.utils.ConversionHelper
 import org.ksoap2.serialization.SoapObject
-import kotlin.properties.Delegates
 
 class Coordinate (cLatitude: Double?, cLongitude: Double?) {
 

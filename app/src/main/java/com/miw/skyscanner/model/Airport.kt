@@ -1,6 +1,5 @@
 package com.miw.skyscanner.model
 
-import com.miw.skyscanner.utils.ConversionHelper
 import org.ksoap2.serialization.SoapObject
 
 class Airport (

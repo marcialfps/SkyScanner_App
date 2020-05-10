@@ -30,7 +30,6 @@ import kotlin.properties.Delegates
 
 const val EXAMPLE_LATITUDE: Double = 40.6413111
 const val EXAMPLE_LONGITUDE: Double = -73.7781391
-const val EXAMPLE_AIRPORT_CODE: String = "KJFK"
 const val ZOOM_LEVEL: Float = 8f
 const val POLYLINE_STROKE_WIDTH_PX = 12f
 const val TIME_BETWEEN_REQUESTS:Long = 4500
@@ -78,7 +77,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(map: GoogleMap?) {
         if (map != null) {
             googleMap = map
-            // Initial camera and zoom //TODO should be focused on the logged user airport
+            // Initial camera and zoom
             CoroutineScope(Dispatchers.IO).launch {
                 val airport = AirportForecastList.requestAirportInfo(Session(context!!).airport)
                 withContext(Dispatchers.Main) {

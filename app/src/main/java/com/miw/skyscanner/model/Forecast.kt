@@ -1,8 +1,6 @@
 package com.miw.skyscanner.model
 
 import org.ksoap2.serialization.SoapObject
-import java.lang.Double.parseDouble
-import java.lang.Integer.parseInt
 
 class Forecast(var time: Long = 0,  var main: String = "", var description: String = "",
                var temperature: Double = 0.0, var temperatureMax: Double = 0.0,
