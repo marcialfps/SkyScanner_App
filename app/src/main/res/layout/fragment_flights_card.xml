@@ -16,29 +16,38 @@
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
+        android:foregroundGravity="center"
+        android:minHeight="108dp"
         app:cardCornerRadius="2dp"
         app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="NestedWeights">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.30"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="5dp"
                     android:layout_weight="1"
+                    android:foregroundGravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:orientation="vertical">
 
                     <ImageView
@@ -55,6 +64,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="0.25"
                     android:orientation="vertical">
 
