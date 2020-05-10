@@ -1,10 +1,8 @@
 package com.miw.skyscanner.utils
 
-import java.sql.Timestamp
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 

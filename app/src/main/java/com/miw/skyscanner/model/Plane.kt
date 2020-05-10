@@ -5,7 +5,7 @@ import org.ksoap2.serialization.SoapObject
 import java.time.LocalDateTime
 import kotlin.properties.Delegates
 
-class Plane (var planeStatus: PlaneStatus? = null, cIcao24: String? = null, var departureAirport : Airport? = null,
+class Plane (var planeStatus: PlaneStatus? = null, cIcao24: String? = null, private var departureAirport : Airport? = null,
              var departureAirportCode: String? = null, var arrivalAirport: Airport? = null,
              var arrivalAirportCode: String? = null, var forecast: Forecast? = null,
              var departureTime: LocalDateTime? = null, var arrivalTime: LocalDateTime? = null,

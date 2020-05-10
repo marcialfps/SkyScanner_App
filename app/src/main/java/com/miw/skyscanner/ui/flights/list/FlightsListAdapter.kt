@@ -12,7 +12,6 @@ import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Plane
 import com.miw.skyscanner.utils.ConversionHelper
 import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
 
 
 class FlightsListAdapter(context: Context, private val data: List<Plane>,

@@ -6,10 +6,7 @@ import com.miw.skyscanner.data.datasources.DataProvider
 import com.miw.skyscanner.model.Plane
 import com.miw.skyscanner.ui.home.flights.HomeFlightsFragment
 import com.miw.skyscanner.ui.home.flights.NUMBER_OF_FLIGHTS_IN_HOME
-import com.miw.skyscanner.utils.PlaneComparator
 import com.miw.skyscanner.utils.Session
-import com.miw.skyscanner.ws.CallWebService
-import java.time.LocalDateTime
 
 class FetchPlanesTask(private var parentFragment: Fragment,
                       private val forceQueryServer: Boolean = false) :
@@ -44,7 +41,6 @@ class FetchPlanesTask(private var parentFragment: Fragment,
             planes
 
         } catch (e: Exception){
-            throw e
             emptyList()
         }
     }

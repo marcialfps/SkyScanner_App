@@ -122,7 +122,7 @@ class CallWebService {
 
         val response: SoapObject = envelope.response as SoapObject
         val planesCount = response.propertyCount
-        var planes = mutableListOf<Plane>()
+        val planes = mutableListOf<Plane>()
 
         for (i in 0 until planesCount) {
             val soapPlane: SoapObject = response.getProperty(i) as SoapObject

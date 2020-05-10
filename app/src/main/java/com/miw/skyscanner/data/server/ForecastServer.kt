@@ -6,7 +6,7 @@ import com.miw.skyscanner.data.db.ForecastRepository
 import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.ws.CallWebService
 
-class ForecastServer() : ForecastDataSource {
+class ForecastServer : ForecastDataSource {
 
     private val forecastRepository: ForecastRepository = ForecastRepository()
     private val airportRepository: AirportRepository = AirportRepository()
