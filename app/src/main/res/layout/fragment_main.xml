@@ -10,11 +10,14 @@
     <ImageButton
         android:id="@+id/buttonTools"
         style="@style/Widget.AppCompat.ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
+        android:adjustViewBounds="true"
         android:background="@color/colorSecondaryLight"
+        android:cropToPadding="false"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/tools" />
@@ -61,7 +64,7 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/airplane" />

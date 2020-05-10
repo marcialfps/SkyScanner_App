@@ -9,90 +9,110 @@
         android:id="@+id/flightsArrivalsCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="2dp"
         android:clickable="true"
         android:focusable="true"
         android:foreground="?android:attr/selectableItemBackground"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
+        app:cardCornerRadius="2dp"
+        app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
 
-            <ImageView
-                android:id="@+id/flightsArrivalsCardImage"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:contentDescription="@string/icon_landing"
-                android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/baseline_flight_land_black_24dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txFlightsArrivalsCardAirport"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-medium"
-                android:includeFontPadding="false"
-                android:maxLength="16"
-                android:maxLines="1"
-                android:text="@string/weather_default_city"
-                android:textColor="@android:color/black"
-                android:textSize="21sp"
-                app:layout_constraintStart_toEndOf="@+id/flightsArrivalsCardImage"
-                app:layout_constraintTop_toTopOf="@+id/flightsArrivalsCardImage"
-                tools:text="@string/weather_default_city" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txFlightsArrivalsCardTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:fontFamily="sans-serif-black"
-                android:text="@string/weather_default_time"
-                android:textColor="@color/colorBackground"
-                android:textSize="21sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txFlightsArrivalsCardAirport"
-                tools:text="@string/weather_default_time" />
+                    <ImageView
+                        android:id="@+id/flightsArrivalsCardImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:adjustViewBounds="false"
+                        android:contentDescription="@string/icon_landing"
+                        app:srcCompat="@drawable/landing"
+                        tools:srcCompat="@drawable/landing" />
 
-            <TextView
-                android:id="@+id/txFlightsArrivalsCardDistance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/arrivals_distance_left"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txFlightsArrivalsCardAirport"
-                app:layout_constraintTop_toBottomOf="@+id/txFlightsArrivalsCardAirport"
-                tools:text="@string/arrivals_distance_left" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/txFlightsArrivalsCardDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@android:color/secondary_text_light"
-                android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/txFlightsArrivalsCardTime"
-                app:layout_constraintEnd_toEndOf="@+id/txFlightsArrivalsCardTime"
-                app:layout_constraintStart_toStartOf="@+id/txFlightsArrivalsCardTime"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/txFlightsArrivalsCardAirport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-medium"
+                        android:includeFontPadding="false"
+                        android:maxLength="16"
+                        android:maxLines="1"
+                        android:text="@string/weather_default_city"
+                        android:textColor="@android:color/black"
+                        android:textSize="21sp" />
+
+                    <TextView
+                        android:id="@+id/txFlightsArrivalsCardDistance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/arrivals_distance_left"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/txFlightsArrivalsCardDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:gravity="center"
+                    android:textColor="@android:color/secondary_text_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txFlightsArrivalsCardTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:text="@string/weather_default_time"
+                    android:textColor="@color/colorBackground"
+                    android:textSize="21sp" />
+            </LinearLayout>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

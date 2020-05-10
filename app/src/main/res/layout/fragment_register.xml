@@ -74,7 +74,7 @@
                 android:ems="10"
                 android:hint="@string/airport_code"
                 android:importantForAutofill="no"
-                android:inputType="text" />
+                android:inputType="text|textCapCharacters" />
 
             <EditText
                 android:id="@+id/txPassword"
