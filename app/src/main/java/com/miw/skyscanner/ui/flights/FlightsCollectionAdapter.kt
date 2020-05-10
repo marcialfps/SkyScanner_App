@@ -17,8 +17,8 @@ class FlightsCollectionAdapter (activity: FragmentActivity, private val itemsCou
 
     override fun createFragment(position: Int): Fragment {
         val fragment = when (position) {
-            0 -> FlightsListFragment(isArrivals = true)
-            else -> FlightsListFragment(isArrivals = false)
+            0 -> FlightsListFragment(true, this)
+            else -> FlightsListFragment(false, this)
         }
         innerFragments.add(fragment)
         return fragment

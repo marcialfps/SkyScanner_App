@@ -18,6 +18,7 @@
 
     <!--  Arrivals / Departures  -->
     <string name="airport_unknown">Aeropuerto desconocido</string>
+    <string name="flights_fetching">Descargando últimos vuelos…</string>
     <string name="flights_error">No hay ningún vuelo disponible</string>
     <string name="flights_today">Hoy</string>
 
@@ -56,6 +57,7 @@
     <string name="error_register_user_exist">El usuario ya existe</string>
     <string name="error_register_username_short">El nombre de usuario debe contener %1$d caracteres</string>
     <string name="error_register_email">Introduce un email válido</string>
+    <string name="error_register_airport">El código introducido no es válido, consulte en enalce de ayuda</string>
 
     <!--  Map  -->
     <string name="map_loading">Buscando aviones cercanos…</string>

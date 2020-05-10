@@ -20,6 +20,7 @@
 
     <!--  Arrivals / Departures -->
     <string name="airport_unknown">Unknown airport</string>
+    <string name="flights_fetching">Downloading flight data…</string>
     <string name="flights_error">No flights available or found</string>
     <string name="flights_today">Today</string>
 
@@ -58,6 +59,7 @@
     <string name="error_register_user_exist">The user already exists</string>
     <string name="error_register_username_short">User names must contain at least %1$d characters</string>
     <string name="error_register_email">Introduce a valid email</string>
+    <string name="error_register_airport">The airport code you entered is invalid, check the help link</string>
 
     <!--  Map  -->
     <string name="map_loading">Fetching airplanes nearby…</string>

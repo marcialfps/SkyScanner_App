@@ -143,13 +143,13 @@ class CallWebService {
         return Airport(response)
     }
 
-    private fun callGetAirportByCode(airportCode: String): Airport {
+    fun callGetAirportByCode(airportCode: String): Airport {
         return callAPIAirportByCode(
             mapOf("airportCode" to airportCode)
         )
     }
 
-    public fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String): List<Plane> {
+    fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String): List<Plane> {
         return callAPIPlanesByAirport( isArrival,
             mapOf(
                 (if (isArrival)"arrivalAirportCode" else "departureAirportCode") to airportCode)

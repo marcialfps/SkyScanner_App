@@ -6,6 +6,8 @@ import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,13 +15,13 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Plane
-import com.miw.skyscanner.ui.map.EXAMPLE_AIRPORT_CODE
-import com.miw.skyscanner.ws.CallWebService
+import com.miw.skyscanner.ui.flights.FlightsCollectionAdapter
 import kotlinx.android.synthetic.main.fragment_flights_list.*
 import kotlin.properties.Delegates
 
 
-class FlightsListFragment (private val isArrivals: Boolean) : Fragment() {
+class FlightsListFragment (private val isArrivals: Boolean,
+                           private val parent: FlightsCollectionAdapter) : Fragment() {
 
     // List of items that the view must handle
     var planes: List<Plane> by Delegates.observable(listOf()) {
@@ -43,11 +45,17 @@ class FlightsListFragment (private val isArrivals: Boolean) : Fragment() {
     }
 
     private fun showFlightList () {
+        parent.innerFragments[parent.currentFragment]
+            .activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
         flightsListRecyclerView.adapter = FlightsListAdapter(activity!!, planes, isArrivals)
     }
 
     private fun notifyError () {
-        Toast.makeText(context, getString(R.string.flights_error), Toast.LENGTH_LONG).show()
+        parent.innerFragments[parent.currentFragment]
+            .activity?.findViewById<TextView>(R.id.txFlightsError)?.visibility = View.VISIBLE
+        parent.innerFragments[parent.currentFragment]
+            .activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
+        progressBarFlights.visibility = View.INVISIBLE
     }
 
 
