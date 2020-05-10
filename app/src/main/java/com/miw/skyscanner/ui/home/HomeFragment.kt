@@ -7,6 +7,8 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.miw.skyscanner.R
+import com.miw.skyscanner.ui.home.flights.HomeArrivalsFragment
+import com.miw.skyscanner.ui.home.flights.HomeDeparturesFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 import com.miw.skyscanner.utils.Session
 
@@ -36,8 +38,12 @@ class HomeFragment : Fragment() {
         // Create child fragments: weather, arrivals and departures summary
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
         transaction.add(R.id.weatherFragmentContainer, HomeWeatherFragment())
-        transaction.add(R.id.arrivalsFragmentContainer, HomeArrivalsFragment())
-        transaction.add(R.id.departuresFragmentContainer, HomeDeparturesFragment())
+        transaction.add(R.id.arrivalsFragmentContainer,
+            HomeArrivalsFragment()
+        )
+        transaction.add(R.id.departuresFragmentContainer,
+            HomeDeparturesFragment()
+        )
         transaction.commit()
         initialize()
     }

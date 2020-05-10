@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Plane
+import com.miw.skyscanner.utils.ConversionHelper
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -25,8 +26,6 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
     private val flightCardDateToday = context.getString(R.string.flights_today)
     private val primaryColor = context.getColor(R.color.colorPrimary)
     private val altColor = context.getColor(android.R.color.secondary_text_light)
-    private val hourFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
-    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy")
 
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
@@ -63,20 +62,20 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
                 // We have filtered the results after recovering the data from the API,
                 // so we can force calls
                 airportCode = plane.departureAirportCode!!
-                distanceInformation = plane.departureDistance!!
-                date = plane.departureTime!!
+                distanceInformation = plane.arrivalDistance!!
+                date = plane.arrivalTime!!
             }
             else {
                 airportCode = plane.arrivalAirportCode!!
-                distanceInformation = plane.arrivalDistance!!
-                date = plane.arrivalTime!!
+                distanceInformation = plane.departureDistance!!
+                date = plane.departureTime!!
             }
 
             holder.textAirport.text = airportCode
             holder.textDescription.text =
                 if (isArrivals) String.format(flightCardDescriptionArrivals, distanceInformation)
                 else String.format(flightCardDescriptionDepartures, distanceInformation)
-            holder.txTime.text = hourFormatter.format(date)
+            holder.txTime.text = ConversionHelper.formatDateTimeToHour(date)
 
             // If date is today, change appearance
             if (date.truncatedTo(ChronoUnit.DAYS).isEqual(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS))) {
@@ -84,7 +83,7 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
                 holder.txDate.setTextColor(primaryColor)
             }
             else {
-                holder.txDate.text = dateFormatter.format(date)
+                holder.txDate.text = ConversionHelper.formatDateTimeToDate(date)
                 holder.txDate.setTextColor(altColor)
             }
 

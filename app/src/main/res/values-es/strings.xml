@@ -9,7 +9,6 @@
     <string name="bottom_menu_weather">Tiempo</string>
 
     <!--  Weather  -->
-    <!--  Weather  -->
     <string name="weather_default_city">-</string>
     <string name="weather_status">Estado del tiempo</string>
     <string name="error_forecast">No se pudo obtener el pronóstico del tiempo.</string>
