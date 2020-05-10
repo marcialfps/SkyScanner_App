@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_span="2">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/departuresCard"
@@ -20,26 +21,31 @@
 
         <TableLayout
             android:id="@+id/departuresTable"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:baselineAligned="false"
             android:orientation="vertical"
             android:showDividers="middle"
+            android:shrinkColumns="*"
             android:stretchColumns="*">
 
             <TableRow
                 android:id="@+id/departuresRowTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/table_border_head">
+                android:layout_height="wrap_content"
+                android:background="@drawable/table_border_head"
+                android:textAlignment="viewStart"
+                android:weightSum="7">
 
                 <TextView
                     android:id="@+id/txDeparturesTableTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="7"
                     android:fontFamily="sans-serif-medium"
                     android:padding="5dp"
                     android:text="@string/departures_incoming"
-                    android:textAlignment="viewStart"
+                    android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="24sp"
@@ -48,11 +54,11 @@
 
             <TableRow
                 android:id="@+id/departuresRow0"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:padding="6dp"
                 android:background="@drawable/table_border"
-                >
+                android:padding="6dp"
+                android:weightSum="7">
 
                 <TextView
                     android:id="@+id/txDepartureName0"
@@ -60,14 +66,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
+                    android:layout_weight="3"
                     android:text="@string/flight_default_city"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="@string/flight_default_city" />
+
+                <TextView
+                    android:id="@+id/txDepartureDate0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_weight="2"
+                    android:text="@string/flight_default_date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/secondaryTextLight"
+                    android:textSize="12sp"
+                    tools:text="@string/flight_default_date" />
 
                 <TextView
                     android:id="@+id/txDepartureTime0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="@string/flight_default_time"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
@@ -77,11 +100,11 @@
 
             <TableRow
                 android:id="@+id/departuresRow"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:padding="6dp"
                 android:background="@drawable/table_border"
-                >
+                android:padding="6dp"
+                android:weightSum="7">
 
                 <TextView
                     android:id="@+id/txDepartureName1"
@@ -89,14 +112,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
+                    android:layout_weight="3"
                     android:text="@string/flight_default_city"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="@string/flight_default_city" />
+
+                <TextView
+                    android:id="@+id/txDepartureDate1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_weight="2"
+                    android:text="@string/flight_default_date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/secondaryTextLight"
+                    android:textSize="12sp"
+                    tools:text="@string/flight_default_date" />
 
                 <TextView
                     android:id="@+id/txDepartureTime1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="@string/flight_default_time"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
@@ -107,11 +147,11 @@
 
             <TableRow
                 android:id="@+id/departuresRow2"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:padding="6dp"
                 android:background="@drawable/table_border"
-                >
+                android:padding="6dp"
+                android:weightSum="7">
 
                 <TextView
                     android:id="@+id/txDepartureName2"
@@ -119,15 +159,32 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
+                    android:layout_weight="3"
                     android:text="@string/flight_default_city"
                     android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="@string/flight_default_city" />
+
+                <TextView
+                    android:id="@+id/txDepartureDate2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_weight="2"
+                    android:text="@string/flight_default_date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/secondaryTextLight"
+                    android:textSize="12sp"
+                    tools:text="@string/flight_default_date" />
 
                 <TextView
                     android:id="@+id/txDepartureTime2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="@string/flight_default_time"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"
@@ -137,11 +194,11 @@
 
             <TableRow
                 android:id="@+id/departuresRow3"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:padding="6dp"
                 android:background="@drawable/table_border"
-                >
+                android:padding="6dp"
+                android:weightSum="7">
 
                 <TextView
                     android:id="@+id/txDepartureName3"
@@ -149,15 +206,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="1dp"
+                    android:layout_weight="3"
                     android:text="@string/flight_default_city"
-                    android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="@string/flight_default_city" />
+
+                <TextView
+                    android:id="@+id/txDepartureDate3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_weight="2"
+                    android:text="@string/flight_default_date"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:textColor="@color/secondaryTextLight"
+                    android:textSize="12sp"
+                    tools:text="@string/flight_default_date" />
 
                 <TextView
                     android:id="@+id/txDepartureTime3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:text="@string/flight_default_time"
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark"

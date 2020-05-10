@@ -15,6 +15,7 @@ class HomeDeparturesFragment(override var isRefreshing: Boolean = false) : Fragm
 
     override val isArrivals = false
     private lateinit var columnNamesPrefix: String
+    private lateinit var columnDatePrefix: String
     private lateinit var columnHoursPrefix: String
     override var task: FetchPlanesTask? = null
 
@@ -29,6 +30,7 @@ class HomeDeparturesFragment(override var isRefreshing: Boolean = false) : Fragm
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         columnNamesPrefix = resources.getString(R.string.departures_table_prefix_name)
+        columnDatePrefix = resources.getString(R.string.departures_table_prefix_date)
         columnHoursPrefix = resources.getString(R.string.departures_table_prefix_time)
         updateFlights()
     }
@@ -44,13 +46,27 @@ class HomeDeparturesFragment(override var isRefreshing: Boolean = false) : Fragm
             val nameCellId = context?.resources?.getIdentifier(
                 "$columnNamesPrefix$index", "id", activity?.packageName)
 
+            val dateCellId = context?.resources?.getIdentifier(
+                "$columnDatePrefix$index", "id", context?.packageName)
+
             val timeCellId = context?.resources?.getIdentifier(
                 "$columnHoursPrefix$index", "id", activity?.packageName)
 
-            if (nameCellId != null && timeCellId != null) {
+            if (nameCellId != null && dateCellId != null && timeCellId != null) {
                 view?.findViewById<TextView>(nameCellId)?.text = plane.arrivalAirportCode
                 view?.findViewById<TextView>(timeCellId)?.text =
-                    plane.arrivalTime?.let { ConversionHelper.formatDateTimeToHour(it) }
+                    plane.departureTime?.let { ConversionHelper.formatDateTimeToHour(it) }
+
+
+                val dateText = view?.findViewById<TextView>(dateCellId)
+                if (ConversionHelper.isDateToday(plane.departureTime!!)) {
+//                    dateText?.text = resources.getString(R.string.flights_today)
+                    dateText?.setTextColor(resources.getColor(R.color.colorPrimary))
+                }
+                else {
+                    dateText?.text = plane.departureTime?.let { ConversionHelper.formatDateTimeToDate(it) }
+                    dateText?.setTextColor(resources.getColor(R.color.secondaryTextLight))
+                }
             }
         }
     }

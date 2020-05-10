@@ -6,6 +6,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 // Additional methods to help when building model entities from SOAP responses
 class ConversionHelper {
@@ -41,6 +42,11 @@ class ConversionHelper {
 
         fun formatDateTimeToDate (input: LocalDateTime): String {
             return dateFormatter.format(input)
+        }
+
+        fun isDateToday (input: LocalDateTime): Boolean {
+            return input
+                .truncatedTo(ChronoUnit.DAYS).isEqual(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS))
         }
     }
 }

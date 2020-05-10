@@ -21,6 +21,7 @@
     <!--  Arrivals / Departures -->
     <string name="flight_default_city" translatable="false">-</string>
     <string name="flight_default_time" translatable="false">- : -</string>
+    <string name="flight_default_date" translatable="false" />
 
     <string name="airport_unknown">Unknown airport</string>
     <string name="flights_fetching">Downloading flight data…</string>
@@ -33,6 +34,7 @@
     <string name="arrivals_time_arrival">ETA</string>
     <string name="arrivals_distance_left">%1$d km to destination</string>
     <string name="arrivals_table_prefix_name" translatable="false">txArrivalName</string>
+    <string name="arrivals_table_prefix_date" translatable="false">txArrivalDate</string>
     <string name="arrivals_table_prefix_time" translatable="false">txArrivalTime</string>
 
     <string name="departures_departures">Departures</string>
@@ -41,6 +43,7 @@
     <string name="departures_time_departure">ETD</string>
     <string name="departures_distance_covered">%1$d km away from destination</string>
     <string name="departures_table_prefix_name" translatable="false">txDepartureName</string>
+    <string name="departures_table_prefix_date" translatable="false">txDepartureDate</string>
     <string name="departures_table_prefix_time" translatable="false">txDepartureTime</string>
 
     <!-- Login and register -->

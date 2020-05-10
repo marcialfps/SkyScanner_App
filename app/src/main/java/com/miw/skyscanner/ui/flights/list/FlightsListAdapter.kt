@@ -76,7 +76,7 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
             this.txTime.text = ConversionHelper.formatDateTimeToHour(date)
 
             // If date is today, change appearance
-            if (date.truncatedTo(ChronoUnit.DAYS).isEqual(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS))) {
+            if (ConversionHelper.isDateToday(date)) {
                 this.txDate.text = flightCardDateToday
                 this.txDate.setTextColor(primaryColor)
             }
