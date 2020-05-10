@@ -12,9 +12,15 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.miw.skyscanner.R
+import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.model.Coordinate
 import com.miw.skyscanner.model.Plane
+import com.miw.skyscanner.utils.Session
 import kotlinx.android.synthetic.main.fragment_map.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 import kotlin.math.PI
@@ -73,12 +79,25 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         if (map != null) {
             googleMap = map
             // Initial camera and zoom //TODO should be focused on the logged user airport
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom
-                (LatLng(EXAMPLE_LATITUDE, EXAMPLE_LONGITUDE), ZOOM_LEVEL))
-            map.uiSettings.isCompassEnabled = true
-            // Fetching info toast
-            Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG).show()
-            googleMap.setOnMapLoadedCallback {startUpdateInterval()}
+            CoroutineScope(Dispatchers.IO).launch {
+                val airport = AirportForecastList.requestAirportInfo(Session(context!!).airport)
+                withContext(Dispatchers.Main) {
+                    map.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom
+                            (
+                            LatLng(
+                                airport?.location?.latitude ?: EXAMPLE_LATITUDE,
+                                airport?.location?.longitude ?: EXAMPLE_LONGITUDE
+                            ), ZOOM_LEVEL
+                        )
+                    )
+                    map.uiSettings.isCompassEnabled = true
+                    // Fetching info toast
+                    Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG)
+                        .show()
+                    googleMap.setOnMapLoadedCallback { startUpdateInterval() }
+                }
+            }
         }
     }
 

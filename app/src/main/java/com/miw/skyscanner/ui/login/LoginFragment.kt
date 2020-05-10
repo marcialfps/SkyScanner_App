@@ -89,6 +89,7 @@ class LoginFragment : Fragment() {
                             Session(it).email = login.email
                             Session(it).airport = login.airportCode
                             Session(it).airportName = airportInfo?.name ?: ""
+                            Session(it).city = airportInfo?.city ?: ""
                         }
                         val intent = Intent(context, MainActivity::class.java)
                         startActivity(intent)
