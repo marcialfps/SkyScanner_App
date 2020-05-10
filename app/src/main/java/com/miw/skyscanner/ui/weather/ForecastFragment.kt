@@ -112,10 +112,10 @@ class ForecastFragment : Fragment() {
     }
 
     private fun showForecast() {
-        val dateFormatter = SimpleDateFormat("EEE, HH:mm")
+        val dateFormatter = SimpleDateFormat("EEEE, HH:mm")
         txCity.text = context?.let { Session(it).city }
         txTime.text =
-            "${dateFormatter.format(Date(selectedForecast.time * 1000))}, ${selectedForecast.description}"
+            "${dateFormatter.format(Date(selectedForecast.time * 1000)).capitalize()}, ${selectedForecast.description}"
         txTemperature.text = selectedForecast.temperature.toInt().toString()
         txPrecipation.text = "${selectedForecast.humidity.toString()}% ${getString(R.string.humidity)}"
         txWind.text = "${selectedForecast.windSpeed} m/s ${getString(R.string.winds)}"

@@ -24,12 +24,12 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/fragment_container"
         app:layout_constraintEnd_toEndOf="@+id/fragment_container"
         app:layout_constraintStart_toStartOf="@+id/fragment_container"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/custom_launcher_foreground" />
+        app:srcCompat="@drawable/logo" />
 </androidx.constraintlayout.widget.ConstraintLayout>

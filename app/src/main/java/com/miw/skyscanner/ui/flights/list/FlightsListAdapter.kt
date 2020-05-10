@@ -87,8 +87,8 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
 
             // Card icon
             val iconToUse: Int =
-                if (isArrivals) R.drawable.baseline_flight_land_black_24dp
-                else R.drawable.baseline_flight_takeoff_black_24dp
+                if (isArrivals) R.drawable.landing
+                else R.drawable.take_off
 
             this.cardIcon.setImageResource(iconToUse)
         }

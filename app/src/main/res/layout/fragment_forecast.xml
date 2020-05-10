@@ -106,8 +106,8 @@
 
                     <ImageView
                         android:id="@+id/imagePrecipitation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         android:adjustViewBounds="false"
                         android:cropToPadding="false"
@@ -115,15 +115,15 @@
 
                     <ImageView
                         android:id="@+id/imagePressure"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/pressure" />
 
                     <ImageView
                         android:id="@+id/imageTempMin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/temperature_min" />
                 </LinearLayout>
@@ -176,22 +176,22 @@
 
                     <ImageView
                         android:id="@+id/imageWind"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/wind" />
 
                     <ImageView
                         android:id="@+id/imageWindDir"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/wind_direction" />
 
                     <ImageView
                         android:id="@+id/imageTempMax"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/temperature_max" />
                 </LinearLayout>
