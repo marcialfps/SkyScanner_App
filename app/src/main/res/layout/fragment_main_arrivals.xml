@@ -48,8 +48,8 @@
                     android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="24sp"
-                    tools:text="@string/arrivals_arrivals" />
+                    android:textSize="20sp"
+                    tools:text="@string/arrivals_incoming" />
             </TableRow>
 
             <TableRow

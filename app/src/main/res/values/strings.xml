@@ -38,7 +38,7 @@
     <string name="arrivals_table_prefix_time" translatable="false">txArrivalTime</string>
 
     <string name="departures_departures">Departures</string>
-    <string name="departures_incoming">Upcoming departures</string>
+    <string name="departures_incoming">Next departures&#160;&#160;</string>
     <string name="departures_to">To</string>
     <string name="departures_time_departure">ETD</string>
     <string name="departures_distance_covered">%1$d km away from destination</string>

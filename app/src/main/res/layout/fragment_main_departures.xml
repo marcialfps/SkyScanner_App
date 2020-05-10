@@ -48,8 +48,8 @@
                     android:textAlignment="textStart"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="24sp"
-                    tools:text="@string/departures_departures" />
+                    android:textSize="20sp"
+                    tools:text="@string/departures_incoming" />
             </TableRow>
 
             <TableRow
@@ -99,7 +99,7 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/departuresRow"
+                android:id="@+id/departuresRow1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@drawable/table_border"
@@ -239,5 +239,6 @@
             </TableRow>
 
         </TableLayout>
+
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

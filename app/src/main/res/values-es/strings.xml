@@ -29,7 +29,7 @@
     <string name="arrivals_distance_left">%1$d km hasta el destino</string>
 
     <string name="departures_departures">Salidas</string>
-    <string name="departures_incoming">Próximas salidas</string>
+    <string name="departures_incoming">Próximas salidas&#160;</string>
     <string name="departures_to">Destino</string>
     <string name="departures_time_departure">Hora de salida</string>
     <string name="departures_distance_covered">%1$d km desde la salida</string>
