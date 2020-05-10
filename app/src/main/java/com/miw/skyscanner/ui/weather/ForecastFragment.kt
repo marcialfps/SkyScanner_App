@@ -18,9 +18,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.ksoap2.transport.HttpResponseException
-import java.lang.Exception
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -70,12 +67,12 @@ class ForecastFragment : Fragment() {
 
                             val day = dayFormatter.format(forecast.time*1000)
 
-                            if (day.toInt() === today.toInt()+1 && counterTomorrow === 0) {
+                            if (day.toInt() == today.toInt()+1 && counterTomorrow == 0) {
                                 Log.v("response", "${day.toInt()} === ${today.toInt()+1}")
                                 configureImage(forecast, imageTomorrow)
                                 configureWeekDay(forecast, txTomorrow)
                                 counterTomorrow++
-                            } else if (day.toInt() === today.toInt()+2 && counterTAfterTomorrow === 0) {
+                            } else if (day.toInt() == today.toInt()+2 && counterTAfterTomorrow == 0) {
                                 configureImage(forecast, imageAfterTomorrow)
                                 configureWeekDay(forecast, txAfterTomorrow)
                                 counterTAfterTomorrow++
@@ -90,8 +87,11 @@ class ForecastFragment : Fragment() {
                 }
             } catch (e1: Exception) {
                 withContext(Dispatchers.Main) {
-                    txErrorForecast.text = getString(R.string.error_forecast)
-                    progressBar.visibility = View.INVISIBLE
+                    if (txErrorForecast != null && progressBar != null)
+                    {
+                        txErrorForecast.text = getString(R.string.error_forecast)
+                        progressBar.visibility = View.INVISIBLE
+                    }
                 }
                 Log.e("forecastFragment", e1.toString())
             }

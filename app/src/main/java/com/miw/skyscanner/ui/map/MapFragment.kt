@@ -38,7 +38,7 @@ const val TIME_BETWEEN_REQUESTS:Long = 4500
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
-    var previousPlanesOnMap: List<MapPlane> = emptyList()
+    private var previousPlanesOnMap: List<MapPlane> = emptyList()
     var planesOnMap: List<MapPlane> by Delegates.observable(listOf()) {
         _, oldList, newList ->
         if (newList.isEmpty()) notifyError()

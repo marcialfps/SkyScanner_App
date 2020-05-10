@@ -3,7 +3,6 @@ package com.miw.skyscanner.ui.flights.list
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +24,7 @@ class FlightsListFragment (private val isArrivals: Boolean,
                            val parent: FlightsCollectionAdapter) : Fragment() {
 
     var isRefreshing = false
+    private var task: FetchPlanesTask? = null
 
     private var previousFlights: List<Plane> = emptyList()
     // List of items that the view must handle
@@ -50,11 +50,18 @@ class FlightsListFragment (private val isArrivals: Boolean,
         fetchFlights()
     }
 
+    override fun onStop() {
+        super.onStop()
+        task?.cancel(true)
+    }
+
     fun fetchFlights () {
         if (previousFlights.isNotEmpty())
             view?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.VISIBLE
-        if (flightsListRecyclerView != null)
-            FetchPlanesTask(this).execute(isArrivals)
+        if (flightsListRecyclerView != null) {
+            task = FetchPlanesTask(this)
+            task?.execute(isArrivals)
+        }
     }
 
     private fun showFlightList () {

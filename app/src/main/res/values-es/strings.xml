@@ -9,7 +9,6 @@
     <string name="bottom_menu_weather">Tiempo</string>
 
     <!--  Weather  -->
-    <!--  Weather  -->
     <string name="weather_default_city">-</string>
     <string name="weather_status">Estado del tiempo</string>
     <string name="error_forecast">No se pudo obtener el pronóstico del tiempo.</string>
@@ -66,7 +65,7 @@
     <string name="map_aircraft">Aeronave %1$s</string>
     <string name="map_aircraft_unknown">Aeronave desconocida</string>
     <string name="map_unavailable">Información no disponible</string>
-    <string name="map_speed">Velovidad: %1$.2f m/s</string>
+    <string name="map_speed">Velocidad: %1$.2f m/s</string>
 
     <!--  Other  -->
     <string name="icon_landing">Icono de avión aterrizando</string>
