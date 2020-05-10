@@ -3,6 +3,7 @@ package com.miw.skyscanner.ui.flights.list
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class FlightsListFragment (private val isArrivals: Boolean,
 
     var isRefreshing = false
 
-    var previousFlights: List<Plane> = emptyList()
+    private var previousFlights: List<Plane> = emptyList()
     // List of items that the view must handle
     var flights: List<Plane> by Delegates.observable(listOf()) {
             _, oldList, newList ->
@@ -50,28 +51,32 @@ class FlightsListFragment (private val isArrivals: Boolean,
     }
 
     fun fetchFlights () {
-        parent.innerFragments[parent.currentFragmentIndex]
-            .activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.VISIBLE
+        if (previousFlights.isNotEmpty())
+            view?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.VISIBLE
         if (flightsListRecyclerView != null)
             FetchPlanesTask(this).execute(isArrivals)
     }
 
     private fun showFlightList () {
-        parent.innerFragments.forEach {
-            it.activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
-        }
+        view?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
         flightsListRecyclerView?.adapter = FlightsListAdapter(activity!!, flights, isArrivals)
     }
 
     private fun notifyError (makeToast: Boolean) {
-        parent.innerFragments.forEach {
-            if (!makeToast)
-                it.activity?.findViewById<TextView>(R.id.txFlightsError)?.visibility = View.VISIBLE
-            it.activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
-        }
-        progressBarFlights?.visibility = View.INVISIBLE
+        if (!makeToast)
+            view?.findViewById<TextView>(R.id.txFlightsError)?.visibility = View.VISIBLE
+        else
+            view?.findViewById<TextView>(R.id.txFlightsError)?.visibility = View.INVISIBLE
+        view?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
+
         if (makeToast)
             Toast.makeText(context, getString(R.string.flights_error), Toast.LENGTH_SHORT).show()
+
+        // Set an adapter to the list but without any item
+        if (previousFlights.isEmpty()) {
+            Toast.makeText(context, getString(R.string.flights_error), Toast.LENGTH_SHORT).show()
+            flightsListRecyclerView?.adapter = FlightsListAdapter(activity!!, emptyList(), isArrivals)
+        }
     }
 
 
