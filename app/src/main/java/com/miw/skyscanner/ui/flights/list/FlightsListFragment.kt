@@ -46,7 +46,7 @@ class FlightsListFragment (private val isArrivals: Boolean,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        flightsListRecyclerView.layoutManager = SmoothScrollLayoutManager(context, 30f)
+        flightsListRecyclerView.layoutManager = SmoothScrollLayoutManager(context, 10f)
         fetchFlights()
     }
 
