@@ -3,6 +3,7 @@ package com.miw.skyscanner.model
 import com.miw.skyscanner.utils.ConversionHelper
 import org.ksoap2.serialization.SoapObject
 import java.time.LocalDateTime
+import java.util.*
 import kotlin.properties.Delegates
 
 class Plane (var planeStatus: PlaneStatus? = null, cIcao24: String? = null, private var departureAirport : Airport? = null,
@@ -12,13 +13,14 @@ class Plane (var planeStatus: PlaneStatus? = null, cIcao24: String? = null, priv
              var departureDistance: Int? = null, var arrivalDistance: Int? = null) {
 
     // Keep plane status in sync with the plane
-    var icao24: String? by Delegates.observable(cIcao24) { _, _, newCode ->
+    var icao24: String? by Delegates.observable(cIcao24?.toUpperCase(Locale.ROOT))
+    { _, _, newCode ->
         planeStatus?.icao24 = newCode
     }
 
     constructor(soapPlane: SoapObject, fullDetail: Boolean = false) : this() {
         // Fill basic properties
-        icao24 = soapPlane.getPrimitivePropertyAsString("Icao24")
+        icao24 = soapPlane.getPrimitivePropertyAsString("Icao24").toUpperCase(Locale.ROOT)
         if (soapPlane.hasProperty("DepartureAirportCode"))
             departureAirportCode = soapPlane.getPrimitivePropertyAsString("DepartureAirportCode")
 
