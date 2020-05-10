@@ -21,8 +21,6 @@ import kotlin.properties.Delegates
 
 class FlightsListFragment (private val isArrivals: Boolean) : Fragment() {
 
-    private val webService = CallWebService()
-
     // List of items that the view must handle
     var planes: List<Plane> by Delegates.observable(listOf()) {
             _, _, newList ->

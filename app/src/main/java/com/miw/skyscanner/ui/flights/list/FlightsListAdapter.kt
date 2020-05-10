@@ -2,6 +2,7 @@ package com.miw.skyscanner.ui.flights.list
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.provider.CalendarContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Plane
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 
 class FlightsListAdapter(context: Context, private val data: List<Plane>,
@@ -19,13 +22,18 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private val flightCardDescriptionArrivals = context.getString(R.string.arrivals_distance_left)
     private val flightCardDescriptionDepartures = context.getString(R.string.departures_distance_covered)
-    private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    private val flightCardDateToday = context.getString(R.string.flights_today)
+    private val primaryColor = context.getColor(R.color.colorPrimary)
+    private val altColor = context.getColor(android.R.color.secondary_text_light)
+    private val hourFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yy")
 
 
     class ViewHolder (view: View) : RecyclerView.ViewHolder(view) {
         val textAirport: TextView = view.findViewById(R.id.txFlightsArrivalsCardAirport)
         val textDescription: TextView = view.findViewById(R.id.txFlightsArrivalsCardDistance)
         val txTime: TextView = view.findViewById(R.id.txFlightsArrivalsCardTime)
+        val txDate: TextView = view.findViewById(R.id.txFlightsArrivalsCardDate)
         val cardIcon: ImageView = view.findViewById(R.id.flightsArrivalsCardImage)
     }
 
@@ -49,28 +57,35 @@ class FlightsListAdapter(context: Context, private val data: List<Plane>,
 
             val airportCode: String
             val distanceInformation: Int
-            val timeInformation: String
+            val date: LocalDateTime
             // If the plane has the data we need, we show it
             if (isArrivals){
                 // We have filtered the results after recovering the data from the API,
                 // so we can force calls
                 airportCode = plane.departureAirportCode!!
                 distanceInformation = plane.departureDistance!!
-                timeInformation = formatter.format(plane.departureTime)
+                date = plane.departureTime!!
             }
             else {
                 airportCode = plane.arrivalAirportCode!!
                 distanceInformation = plane.arrivalDistance!!
-                timeInformation = formatter.format(plane.arrivalTime)
+                date = plane.arrivalTime!!
             }
 
-            // If the date was formatted correctly, show the data
-            if (timeInformation != null) {
-                holder.textAirport.text = airportCode
-                holder.textDescription.text =
-                    if (isArrivals) String.format(flightCardDescriptionArrivals, distanceInformation)
-                    else String.format(flightCardDescriptionDepartures, distanceInformation)
-                holder.txTime.text = timeInformation
+            holder.textAirport.text = airportCode
+            holder.textDescription.text =
+                if (isArrivals) String.format(flightCardDescriptionArrivals, distanceInformation)
+                else String.format(flightCardDescriptionDepartures, distanceInformation)
+            holder.txTime.text = hourFormatter.format(date)
+
+            // If date is today, change appearance
+            if (date.truncatedTo(ChronoUnit.DAYS).isEqual(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS))) {
+                holder.txDate.text = flightCardDateToday
+                holder.txDate.setTextColor(primaryColor)
+            }
+            else {
+                holder.txDate.text = dateFormatter.format(date)
+                holder.txDate.setTextColor(altColor)
             }
 
             // Card icon

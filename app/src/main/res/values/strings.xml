@@ -21,6 +21,7 @@
     <!--  Arrivals / Departures -->
     <string name="airport_unknown">Unknown airport</string>
     <string name="flights_error">No flights available or found</string>
+    <string name="flights_today">Today</string>
 
     <string name="arrivals_arrivals">Arrivals</string>
     <string name="arrivals_incoming">Incoming arrivals</string>
