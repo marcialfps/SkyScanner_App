@@ -14,8 +14,12 @@ import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.utils.Session
+import com.miw.skyscanner.utils.isInternetAvailable
 import com.miw.skyscanner.ws.CallWebService
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.fragment_register.buttonRegister
+import kotlinx.android.synthetic.main.fragment_register.txPassword
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -91,6 +95,11 @@ class RegisterFragment : Fragment() {
         name = txName.text.toString()
         surname = txName.text.toString()
 
+        if (!isInternetAvailable(context!!)) {
+            txErrorRegister1.text = getString(R.string.no_internet_connection)
+            return
+        }
+
         when {
             username.isBlank() or name.isBlank() or surname.isBlank() -> {
                 txErrorRegister1.text = getString(R.string.error_register_empty)
@@ -109,6 +118,11 @@ class RegisterFragment : Fragment() {
         airportCode = txAirport.text.toString()
         password = txPassword.text.toString()
         val passwordRepeat = txPasswordRepeat.text.toString()
+
+        if (!isInternetAvailable(context!!)) {
+            txErrorRegister2.text = getString(R.string.no_internet_connection)
+            return
+        }
 
         when {
             email.isBlank() or airportCode.isBlank() or password.isBlank()
@@ -129,6 +143,7 @@ class RegisterFragment : Fragment() {
         changeFormEnabled(false)
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                val airport = CallWebService().callGetAirportByCode(airportCode)
                 val result = CallWebService().callRegister(username, name, surname, email,
                     airportCode, password)
                 withContext(Dispatchers.Main) {
@@ -145,6 +160,7 @@ class RegisterFragment : Fragment() {
             } catch (e1: HttpResponseException) {
                 withContext(Dispatchers.Main) {
                     txErrorRegister2.text = when(e1.statusCode) {
+                        404 -> getString(R.string.error_register_airport)
                         409 -> getString(R.string.error_register_user_exist)
                         else -> "Unexpected error (${e1.statusCode})"
                     }

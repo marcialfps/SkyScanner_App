@@ -16,26 +16,40 @@ class Plane (var planeStatus: PlaneStatus? = null, cIcao24: String? = null, var 
         planeStatus?.icao24 = newCode
     }
 
-    constructor(soapPlane: SoapObject) : this() {
-        planeStatus = PlaneStatus(soapPlane.getProperty("Status") as SoapObject)
+    constructor(soapPlane: SoapObject, fullDetail: Boolean = false) : this() {
+        // Fill basic properties
         icao24 = soapPlane.getPrimitivePropertyAsString("Icao24")
-        departureAirport = Airport(soapPlane.getProperty("DepartureAirport") as SoapObject)
-        arrivalAirport = Airport(soapPlane.getProperty("ArrivalAirport") as SoapObject)
-        departureAirportCode = soapPlane.getPrimitivePropertyAsString("DepartureAirportCode")
-        arrivalAirportCode = soapPlane.getPrimitivePropertyAsString("ArrivalAirportCode")
-        departureTime =
-            ConversionHelper.dateFromTimestamp(
+        if (soapPlane.hasProperty("DepartureAirportCode"))
+            departureAirportCode = soapPlane.getPrimitivePropertyAsString("DepartureAirportCode")
+
+        if (soapPlane.hasProperty("ArrivalAirportCode"))
+            arrivalAirportCode = soapPlane.getPrimitivePropertyAsString("ArrivalAirportCode")
+
+        if (soapPlane.hasProperty("DepartureTime"))
+            departureTime =
+                ConversionHelper.dateFromTimestamp(
                 soapPlane.getPrimitivePropertyAsString("DepartureTime").toIntOrNull())
 
-        arrivalTime =
-            ConversionHelper.dateFromTimestamp(
-                soapPlane.getPrimitivePropertyAsString("ArrivalTime").toIntOrNull())
 
-        departureDistance =
-            soapPlane.getPrimitivePropertyAsString("DepartureDistance").toIntOrNull()
+        if (soapPlane.hasProperty("ArrivalTime"))
+            arrivalTime =
+                ConversionHelper.dateFromTimestamp(
+                    soapPlane.getPrimitivePropertyAsString("ArrivalTime").toIntOrNull())
 
-        arrivalDistance =
-            soapPlane.getPrimitivePropertyAsString("ArrivalDistance").toIntOrNull()
+        if (soapPlane.hasProperty("DepartureDistance"))
+            departureDistance =
+                soapPlane.getPrimitivePropertyAsString("DepartureDistance").toIntOrNull()
+
+        if (soapPlane.hasProperty("DepartureDistance"))
+            arrivalDistance =
+                soapPlane.getPrimitivePropertyAsString("ArrivalDistance").toIntOrNull()
+
+        // Fill complex properties if needed
+        if (fullDetail) {
+            planeStatus = PlaneStatus(soapPlane.getProperty("Status") as SoapObject)
+            arrivalAirport = Airport(soapPlane.getProperty("ArrivalAirport") as SoapObject)
+            departureAirport = Airport(soapPlane.getProperty("DepartureAirport") as SoapObject)
+        }
     }
 
 

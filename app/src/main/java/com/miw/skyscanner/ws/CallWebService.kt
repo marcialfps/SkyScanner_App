@@ -126,7 +126,7 @@ class CallWebService {
 
         for (i in 0 until planesCount) {
             val soapPlane: SoapObject = response.getProperty(i) as SoapObject
-            planes.add(Plane(soapPlane))
+            planes.add(Plane(soapPlane, fullDetail = false))
         }
         return planes.toList()
     }
@@ -149,7 +149,7 @@ class CallWebService {
         )
     }
 
-    private fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String): List<Plane> {
+    fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String): List<Plane> {
         return callAPIPlanesByAirport( isArrival,
             mapOf(
                 (if (isArrival)"arrivalAirportCode" else "departureAirportCode") to airportCode)

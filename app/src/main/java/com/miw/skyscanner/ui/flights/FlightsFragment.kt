@@ -1,10 +1,10 @@
 package com.miw.skyscanner.ui.flights
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
@@ -24,15 +24,11 @@ class FlightsFragment : Fragment() {
         override fun onPageScrollStateChanged(state: Int) {
             // Do not allow refresh while changing tabs for usability
             val enabled: Boolean = state == ViewPager2.SCROLL_STATE_IDLE
-            flightsSwipeLayout.isEnabled = enabled
+            flightsSwipeLayout?.isEnabled = enabled
         }
 
         override fun onPageSelected(position: Int) {
-            flightsCollectionAdapter.currentFragment = position
-//            Toast.makeText(
-//                activity, "Tab selected: ${tabNames[position]}",
-//                Toast.LENGTH_SHORT
-//            ).show()
+            flightsCollectionAdapter.currentFragmentIndex = position
         }
     }
 
@@ -61,7 +57,7 @@ class FlightsFragment : Fragment() {
 
     private fun setUpViewPager () {
         if (activity != null){
-            flightsCollectionAdapter = FlightsCollectionAdapter(activity!!, NUMBER_OF_TABS)
+            flightsCollectionAdapter = FlightsCollectionAdapter(this, NUMBER_OF_TABS)
             flightsViewPager.adapter = flightsCollectionAdapter
             flightsViewPager.registerOnPageChangeCallback (flightsPageChangeCallback)
         }
@@ -80,16 +76,19 @@ class FlightsFragment : Fragment() {
 
     private fun setUpRefresh () {
 
-        flightsSwipeLayout.setOnRefreshListener {
-            onRefreshed()
-            flightsSwipeLayout.isRefreshing = false
+        flightsSwipeLayout?.setOnRefreshListener {
+            onRefreshStart()
         }
     }
 
-    private fun onRefreshed (): Boolean {
-        Toast.makeText(activity, "Refreshed",
-            Toast.LENGTH_SHORT).show()
-        return true
+    private fun onRefreshStart () {
+        // Request information again
+        flightsCollectionAdapter.currentFragment()?.fetchFlights()
+    }
+
+    public fun onRefreshEnd () {
+        // Stop refresh spinner
+        flightsSwipeLayout?.isRefreshing = false
     }
 
 }
