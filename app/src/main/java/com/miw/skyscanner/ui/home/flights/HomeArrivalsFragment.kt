@@ -9,13 +9,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Plane
+import com.miw.skyscanner.ui.flights.list.FetchPlanesTask
 import com.miw.skyscanner.utils.ConversionHelper
 
 class HomeArrivalsFragment(override var isRefreshing: Boolean = false) : Fragment(), HomeFlightsFragment {
 
-    private lateinit var table: TableLayout
-    private val columnNamesPrefix = context?.getString(R.string.arrivals_table_prefix_name)
-    private val columnHoursPrefix = context?.getString(R.string.arrivals_table_prefix_time)
+    override val isArrivals = true
+    private lateinit var columnNamesPrefix: String
+    private lateinit var columnHoursPrefix: String
+    override var task: FetchPlanesTask? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,14 +27,16 @@ class HomeArrivalsFragment(override var isRefreshing: Boolean = false) : Fragmen
         return inflater.inflate(R.layout.fragment_main_arrivals, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        table = view.findViewById(R.id.arrivalsTable)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        columnNamesPrefix = resources.getString(R.string.arrivals_table_prefix_name)
+        columnHoursPrefix = resources.getString(R.string.arrivals_table_prefix_time)
+        updateFlights()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        task?.cancel(true)
     }
 
 

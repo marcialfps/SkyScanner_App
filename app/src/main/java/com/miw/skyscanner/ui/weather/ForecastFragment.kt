@@ -94,8 +94,11 @@ class ForecastFragment : Fragment() {
                 }
             } catch (e1: Exception) {
                 withContext(Dispatchers.Main) {
-                    txErrorForecast.text = getString(R.string.error_forecast)
-                    progressBar.visibility = View.INVISIBLE
+                    if (txErrorForecast != null && progressBar != null)
+                    {
+                        txErrorForecast.text = getString(R.string.error_forecast)
+                        progressBar.visibility = View.INVISIBLE
+                    }
                 }
                 Log.e("forecastFragment", e1.toString())
             }

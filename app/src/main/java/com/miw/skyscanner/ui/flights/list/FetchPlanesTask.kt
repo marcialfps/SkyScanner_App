@@ -23,17 +23,20 @@ class FetchPlanesTask(private var parentFragment: Fragment) :
         if (!parentIsHomeScreen) {
             with(parentFragment as FlightsListFragment) {
                 if (this.isRefreshing) return emptyList()
-                this.isRefreshing = true
+                else this.isRefreshing = true
             }
         }
         else {
-            return emptyList()
+            with(parentFragment as HomeFlightsFragment) {
+                if (this.isRefreshing) return emptyList()
+                else this.isRefreshing = true
+            }
         }
 
-        return try {
+        try {
             val isArrival = params[0]!!
 
-            webService.callGetPlanesByAirport(isArrival, EXAMPLE_AIRPORT_CODE, planesLimit)
+            var planes = webService.callGetPlanesByAirport(isArrival, EXAMPLE_AIRPORT_CODE)
                 // Filter incomplete flights that we will not show
                 .filter {
                     it.arrivalAirportCode != null && it.departureAirportCode != null &&
@@ -55,9 +58,11 @@ class FetchPlanesTask(private var parentFragment: Fragment) :
                 // Sort flights by date
                 .sortedWith(PlaneComparator(isArrival))
 
+            if (planesLimit > 0 && planesLimit < planes.size) planes = planes.subList(0, planesLimit)
+            return planes
+
         } catch (e: Exception){
-            onPostExecute(null)
-            emptyList()
+            return emptyList()
         }
     }
 
@@ -67,12 +72,13 @@ class FetchPlanesTask(private var parentFragment: Fragment) :
             if (!parentIsHomeScreen) {
                 with(parentFragment as FlightsListFragment) {
                     this.flights = result
-                    this.parent.currentFragment()?.isRefreshing = false
+                    this.isRefreshing = false
                 }
             }
             else {
                 with(parentFragment as HomeFlightsFragment) {
                     this.fillTableRows(result)
+                    this.isRefreshing = false
                 }
             }
         }
@@ -83,6 +89,4 @@ class FetchPlanesTask(private var parentFragment: Fragment) :
         parentIsHomeScreen = parentFragment !is FlightsListFragment
         if (parentIsHomeScreen) planesLimit = NUMBER_OF_FLIGHTS_IN_HOME
     }
-
-
 }

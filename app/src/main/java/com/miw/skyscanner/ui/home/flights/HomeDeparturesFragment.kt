@@ -8,12 +8,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Plane
+import com.miw.skyscanner.ui.flights.list.FetchPlanesTask
 import com.miw.skyscanner.utils.ConversionHelper
 
 class HomeDeparturesFragment(override var isRefreshing: Boolean = false) : Fragment(), HomeFlightsFragment {
 
-    private val columnNamesPrefix = context?.getString(R.string.departures_table_prefix_name)
-    private val columnHoursPrefix = context?.getString(R.string.departures_table_prefix_time)
+    override val isArrivals = false
+    private lateinit var columnNamesPrefix: String
+    private lateinit var columnHoursPrefix: String
+    override var task: FetchPlanesTask? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,17 +26,29 @@ class HomeDeparturesFragment(override var isRefreshing: Boolean = false) : Fragm
         return inflater.inflate(R.layout.fragment_main_departures, container, false)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        columnNamesPrefix = resources.getString(R.string.departures_table_prefix_name)
+        columnHoursPrefix = resources.getString(R.string.departures_table_prefix_time)
+        updateFlights()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        task?.cancel(true)
+    }
+
     // Add data programmatically
     override fun fillTableRows (flights: List<Plane>) {
         flights.forEachIndexed { index, plane ->
             val nameCellId = context?.resources?.getIdentifier(
-                "$columnNamesPrefix$index", "id", context?.packageName)
+                "$columnNamesPrefix$index", "id", activity?.packageName)
 
             val timeCellId = context?.resources?.getIdentifier(
-                "$columnHoursPrefix$index", "id", context?.packageName)
+                "$columnHoursPrefix$index", "id", activity?.packageName)
 
             if (nameCellId != null && timeCellId != null) {
-                view?.findViewById<TextView>(nameCellId)?.text = plane.departureAirportCode
+                view?.findViewById<TextView>(nameCellId)?.text = plane.arrivalAirportCode
                 view?.findViewById<TextView>(timeCellId)?.text =
                     plane.arrivalTime?.let { ConversionHelper.formatDateTimeToHour(it) }
             }

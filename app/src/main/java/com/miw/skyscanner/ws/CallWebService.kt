@@ -111,8 +111,7 @@ class CallWebService {
         return planes.toList()
     }
 
-    private fun callAPIPlanesByAirport(isArrival: Boolean, propertiesMap: Map<String, Any>,
-                                       limit: Int): List<Plane> {
+    private fun callAPIPlanesByAirport(isArrival: Boolean, propertiesMap: Map<String, Any>): List<Plane> {
 
         // Fetch arrivals or departures depending on what we need
         val envelope: SoapSerializationEnvelope =
@@ -129,8 +128,6 @@ class CallWebService {
             val soapPlane: SoapObject = response.getProperty(i) as SoapObject
             planes.add(Plane(soapPlane, fullDetail = false))
         }
-        // Truncate list if needed
-        if (limit > 0 && planes.size > limit) planes = planes.subList(0, limit + 1)
         return planes.toList()
     }
 
@@ -152,10 +149,9 @@ class CallWebService {
         )
     }
 
-    fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String, limit: Int = 0): List<Plane> {
+    fun callGetPlanesByAirport(isArrival: Boolean, airportCode: String): List<Plane> {
         return callAPIPlanesByAirport( isArrival,
-            mapOf((if (isArrival)"arrivalAirportCode" else "departureAirportCode") to airportCode),
-            limit
+            mapOf((if (isArrival)"arrivalAirportCode" else "departureAirportCode") to airportCode)
         )
     }
 
