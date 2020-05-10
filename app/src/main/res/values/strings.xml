@@ -8,11 +8,11 @@
     <string name="bottom_menu_weather">Weather</string>
 
     <!--  Weather  -->
-    <string name="weather_default_temperature" translatable="false">24ºc</string>
-    <string name="weather_default_city">London</string>
-    <string name="weather_default_time" translatable="false">12:00</string>
+    <string name="weather_default_temperature" translatable="false">-ºc</string>
+    <string name="weather_default_city">-</string>
+    <string name="weather_default_time" translatable="false">-</string>
     <string name="weather_status">Weather Status</string>
-    <string name="error_forecast">We can not obtain the forecast now. Try it later.</string>
+    <string name="error_forecast">Could not obtain the forecast</string>
     <string name="humidity">humidity</string>
     <string name="winds">winds</string>
     <string name="degrees">degrees</string>

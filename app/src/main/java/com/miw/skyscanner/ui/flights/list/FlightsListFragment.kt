@@ -21,12 +21,17 @@ import kotlin.properties.Delegates
 
 
 class FlightsListFragment (private val isArrivals: Boolean,
-                           private val parent: FlightsCollectionAdapter) : Fragment() {
+                           val parent: FlightsCollectionAdapter) : Fragment() {
 
+    var isRefreshing = false
+
+    var previousFlights: List<Plane> = emptyList()
     // List of items that the view must handle
-    var planes: List<Plane> by Delegates.observable(listOf()) {
-            _, _, newList ->
-        if (newList.isEmpty()) notifyError()
+    var flights: List<Plane> by Delegates.observable(listOf()) {
+            _, oldList, newList ->
+        parent.parent.onRefreshEnd()
+        if (oldList.isNotEmpty()) previousFlights = oldList
+        if (newList.isEmpty()) notifyError(previousFlights.isNotEmpty())
         else showFlightList()
     }
 
@@ -41,21 +46,32 @@ class FlightsListFragment (private val isArrivals: Boolean,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         flightsListRecyclerView.layoutManager = SmoothScrollLayoutManager(context, 30f)
-        FetchPlanesTask(this).execute(isArrivals)
+        fetchFlights()
+    }
+
+    fun fetchFlights () {
+        parent.innerFragments[parent.currentFragmentIndex]
+            .activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.VISIBLE
+        if (flightsListRecyclerView != null)
+            FetchPlanesTask(this).execute(isArrivals)
     }
 
     private fun showFlightList () {
-        parent.innerFragments[parent.currentFragment]
-            .activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
-        flightsListRecyclerView.adapter = FlightsListAdapter(activity!!, planes, isArrivals)
+        parent.innerFragments.forEach {
+            it.activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
+        }
+        flightsListRecyclerView?.adapter = FlightsListAdapter(activity!!, flights, isArrivals)
     }
 
-    private fun notifyError () {
-        parent.innerFragments[parent.currentFragment]
-            .activity?.findViewById<TextView>(R.id.txFlightsError)?.visibility = View.VISIBLE
-        parent.innerFragments[parent.currentFragment]
-            .activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
-        progressBarFlights.visibility = View.INVISIBLE
+    private fun notifyError (makeToast: Boolean) {
+        parent.innerFragments.forEach {
+            if (!makeToast)
+                it.activity?.findViewById<TextView>(R.id.txFlightsError)?.visibility = View.VISIBLE
+            it.activity?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.INVISIBLE
+        }
+        progressBarFlights?.visibility = View.INVISIBLE
+        if (makeToast)
+            Toast.makeText(context, getString(R.string.flights_error), Toast.LENGTH_SHORT).show()
     }
 
 

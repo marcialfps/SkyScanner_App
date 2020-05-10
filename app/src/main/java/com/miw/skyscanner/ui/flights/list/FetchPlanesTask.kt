@@ -5,13 +5,15 @@ import com.miw.skyscanner.model.Plane
 import com.miw.skyscanner.ui.map.EXAMPLE_AIRPORT_CODE
 import com.miw.skyscanner.utils.PlaneComparator
 import com.miw.skyscanner.ws.CallWebService
-import java.time.format.DateTimeFormatter
 
 class FetchPlanesTask(private val flightsListFragment: FlightsListFragment) :
     AsyncTask<Boolean, Void, List<Plane>>() {
 
     private val webService = CallWebService()
     override fun doInBackground(vararg params: Boolean?): List<Plane> {
+
+        if (flightsListFragment.isRefreshing) return emptyList()
+        flightsListFragment.isRefreshing = true
         return try {
             val isArrival = params[0]!!
             // Use the thread to also filter incomplete flights that we will not show
@@ -32,6 +34,7 @@ class FetchPlanesTask(private val flightsListFragment: FlightsListFragment) :
                 .sortedWith(PlaneComparator(isArrival))
 
         } catch (e: Exception){
+            onPostExecute(null)
             emptyList()
         }
     }
@@ -39,7 +42,8 @@ class FetchPlanesTask(private val flightsListFragment: FlightsListFragment) :
     override fun onPostExecute(result: List<Plane>?) {
         super.onPostExecute(result)
         if (result != null)
-            flightsListFragment.planes = result
+            flightsListFragment.flights = result
+        flightsListFragment.parent.currentFragment()?.isRefreshing = false
     }
 
 
