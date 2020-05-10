@@ -40,7 +40,7 @@ class PlaneServer : PlaneDataSource {
             // Sort flights by date
             .sortedWith(PlaneComparator(isArrivals))
 
-        planeRepository.savePlanes(planesInfo, resetTable = resetTable)
+        planeRepository.savePlanes(planesInfo, resetArrivals = isArrivals, resetDepartures = !isArrivals)
         return planesInfo
     }
 

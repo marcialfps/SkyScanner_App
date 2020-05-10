@@ -44,6 +44,7 @@ class FetchPlanesTask(private var parentFragment: Fragment,
             planes
 
         } catch (e: Exception){
+            throw e
             emptyList()
         }
     }
