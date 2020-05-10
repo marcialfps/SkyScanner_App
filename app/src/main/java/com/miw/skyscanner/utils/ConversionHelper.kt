@@ -1,8 +1,10 @@
 package com.miw.skyscanner.utils
 
+import java.sql.Timestamp
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 // Additional methods to help when building model entities from SOAP responses
@@ -26,6 +28,11 @@ class ConversionHelper {
             if (input == null) return input
             return Instant.ofEpochSecond(input.toLong())
                 .atZone(ZoneId.systemDefault()).toLocalDateTime()
+        }
+
+        fun timestampFromDate (input: LocalDateTime?): Int? {
+            if (input == null) return input
+            return input.toEpochSecond(ZoneId.systemDefault().rules.getOffset(Instant.now())).toInt()
         }
 
         fun formatDateTimeToHour (input: LocalDateTime): String {

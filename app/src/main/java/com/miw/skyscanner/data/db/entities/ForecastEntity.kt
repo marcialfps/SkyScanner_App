@@ -1,9 +1,6 @@
 package com.miw.skyscanner.data.db.entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import org.jetbrains.annotations.NotNull
 
 object ForecastTable {
@@ -25,6 +22,7 @@ object ForecastTable {
 
 @Entity(
     tableName = ForecastTable.TABLE_NAME,
+    indices = [Index(ForecastTable.AIRPORT_ID)],
     foreignKeys = [ForeignKey(
         entity = AirportEntity::class,
         parentColumns = [AirportTable.AIRPORT_CODE],

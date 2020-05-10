@@ -16,7 +16,6 @@ class FetchPlanesTask(private var parentFragment: Fragment) :
     private var parentIsHomeScreen: Boolean = false
     private val webService = CallWebService()
     private var planesLimit = 0
-    private val currentTime = LocalDateTime.now()
 
     override fun doInBackground(vararg params: Boolean?): List<Plane> {
 
@@ -39,25 +38,6 @@ class FetchPlanesTask(private var parentFragment: Fragment) :
             // and sort them by date
             var planes =
                 webService.callGetPlanesByAirport(isArrival, Session(parentFragment.context!!).airport)
-                .filter {
-                    it.arrivalAirportCode != null && it.departureAirportCode != null &&
-                        it.arrivalTime != null && it.departureTime != null &&
-                            it.arrivalDistance != null && it.departureDistance != null
-                }
-                // The API returns flights 2 days old. Alter the date on purpose
-                // to show flights today or tomorrow and be more realistic
-                .map {
-                    if (isArrival) it.arrivalTime = it.arrivalTime?.plusDays((1..2).random().toLong())
-                    else it.departureTime = it.departureTime?.plusDays((1..2).random().toLong())
-                    it
-                }
-                // Show only present and future flights
-                .filter {
-                    if (isArrival) it.arrivalTime!!.isAfter(currentTime)
-                    else it.departureTime!!.isAfter(currentTime)
-                }
-                // Sort flights by date
-                .sortedWith(PlaneComparator(isArrival))
 
             if (planesLimit > 0 && planesLimit < planes.size) planes = planes.subList(0, planesLimit)
             return planes

@@ -3,18 +3,21 @@ package com.miw.skyscanner.data.datasources
 import android.util.Log
 import com.miw.skyscanner.data.db.AirportRepository
 import com.miw.skyscanner.data.db.ForecastRepository
+import com.miw.skyscanner.data.db.PlaneRepository
 import com.miw.skyscanner.data.server.AirportServer
 import com.miw.skyscanner.data.server.ForecastServer
+import com.miw.skyscanner.data.server.PlaneServer
 import com.miw.skyscanner.model.Airport
-import com.miw.skyscanner.model.Forecast
 import com.miw.skyscanner.model.AirportForecastList
+import com.miw.skyscanner.model.Forecast
+import com.miw.skyscanner.model.Plane
 import java.text.SimpleDateFormat
 import java.util.*
 
 object DataProvider {
-    private const val DAYS = 3
     private val SOURCES_FORECAST = listOf(ForecastRepository(), ForecastServer())
     private val SOURCES_AIRPORT = listOf(AirportRepository(), AirportServer())
+    private val SOURCES_PLANE = listOf(PlaneRepository(), PlaneServer())
 
     fun requestForecastByAirportCode(airportCode: String): AirportForecastList? {
         for (source in SOURCES_FORECAST) {
@@ -28,7 +31,7 @@ object DataProvider {
                 result.forecasts?.forEach {
                     val day = dayFormatter.format(it.time * 1000)
                     //At least we have the two next days
-                    if (day.toInt() === today.toInt() + 2) {
+                    if (day.toInt() == today.toInt() + 2) {
                         return result
                     }
                 }
@@ -60,7 +63,16 @@ object DataProvider {
     fun requestAirportByAirportCode(airportCode: String): Airport? {
         for (source in SOURCES_AIRPORT) {
             val result = source.requestAirportByAirportCode(airportCode)
-            Log.v("forecastProvider", result.toString() ?: "null")
+            Log.v("forecastProvider", result.toString())
+            if (result != null)
+                return result
+        }
+        return null
+    }
+
+    fun requestPlanesByAirportCode(airportCode: String, isArrivals: Boolean = false): List<Plane>? {
+        for (source in SOURCES_PLANE) {
+            val result = source.requestPlanesByAirportCode(airportCode, isArrivals)
             if (result != null)
                 return result
         }

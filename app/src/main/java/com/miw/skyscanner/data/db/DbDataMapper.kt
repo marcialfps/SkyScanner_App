@@ -3,10 +3,9 @@ package com.miw.skyscanner.data.db
 import android.util.Log
 import com.miw.skyscanner.data.db.entities.AirportEntity
 import com.miw.skyscanner.data.db.entities.ForecastEntity
-import com.miw.skyscanner.model.Airport
-import com.miw.skyscanner.model.Coordinate
-import com.miw.skyscanner.model.Forecast
-import com.miw.skyscanner.model.AirportForecastList
+import com.miw.skyscanner.data.db.entities.PlaneEntity
+import com.miw.skyscanner.model.*
+import com.miw.skyscanner.utils.ConversionHelper
 
 object DbDataMapper {
     fun convertToDomain(airportCode: String, airportName: String, forecasts: List<ForecastEntity>) =
@@ -39,6 +38,25 @@ object DbDataMapper {
             airport.name ?: "", airport.city ?: "", airport.country ?: "",
             airport.phone ?: "", airport.postalCode ?: "",
             airport.location?.latitude ?: 0.0, airport.location?.longitude ?: 0.0
+        )
+    }
+
+    fun convertToDomain(plane: PlaneEntity) = Plane(null, plane.icao24, null,
+        plane.departureAirportCode, null, plane.arrivalAirportCode, null,
+        ConversionHelper.dateFromTimestamp(plane.departureTime),
+        ConversionHelper.dateFromTimestamp(plane.arrivalTime),
+        plane.departureDistance, plane.departureDistance)
+
+    fun convertPlaneFromDomain(plane: Plane): PlaneEntity {
+        Log.v("dbdatamapper", plane.toString())
+        return PlaneEntity(
+            plane.icao24 ?: "",
+            plane.departureAirportCode ?: "",
+            plane.arrivalAirportCode ?: "",
+            ConversionHelper.timestampFromDate(plane.departureTime) ?: 0,
+            ConversionHelper.timestampFromDate(plane.arrivalTime) ?: 0,
+            plane.departureDistance ?: 0,
+            plane.arrivalDistance ?: 0
         )
     }
 }
