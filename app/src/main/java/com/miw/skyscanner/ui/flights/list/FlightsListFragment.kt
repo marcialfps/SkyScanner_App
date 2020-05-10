@@ -55,11 +55,11 @@ class FlightsListFragment (private val isArrivals: Boolean,
         task?.cancel(true)
     }
 
-    fun fetchFlights () {
+    fun fetchFlights (forceQueryServer: Boolean = false) {
         if (previousFlights.isNotEmpty())
             view?.findViewById<ProgressBar>(R.id.progressBarFlights)?.visibility = View.VISIBLE
         if (flightsListRecyclerView != null) {
-            task = FetchPlanesTask(this)
+            task = FetchPlanesTask(this, forceQueryServer)
             task?.execute(isArrivals)
         }
     }

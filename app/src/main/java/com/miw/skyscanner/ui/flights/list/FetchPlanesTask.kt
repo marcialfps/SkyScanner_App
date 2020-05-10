@@ -2,6 +2,7 @@ package com.miw.skyscanner.ui.flights.list
 
 import android.os.AsyncTask
 import androidx.fragment.app.Fragment
+import com.miw.skyscanner.data.datasources.DataProvider
 import com.miw.skyscanner.model.Plane
 import com.miw.skyscanner.ui.home.flights.HomeFlightsFragment
 import com.miw.skyscanner.ui.home.flights.NUMBER_OF_FLIGHTS_IN_HOME
@@ -10,11 +11,11 @@ import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.ws.CallWebService
 import java.time.LocalDateTime
 
-class FetchPlanesTask(private var parentFragment: Fragment) :
+class FetchPlanesTask(private var parentFragment: Fragment,
+                      private val forceQueryServer: Boolean = false) :
     AsyncTask<Boolean, Void, List<Plane>>() {
 
     private var parentIsHomeScreen: Boolean = false
-    private val webService = CallWebService()
     private var planesLimit = 0
 
     override fun doInBackground(vararg params: Boolean?): List<Plane> {
@@ -32,18 +33,18 @@ class FetchPlanesTask(private var parentFragment: Fragment) :
             }
         }
 
-        try {
+        return try {
             val isArrival = params[0]!!
-            // Use the thread to also filter incomplete flights that we will not show
-            // and sort them by date
-            var planes =
-                webService.callGetPlanesByAirport(isArrival, Session(parentFragment.context!!).airport)
+            var planes = DataProvider.requestPlanesByAirportCode(
+                Session(parentFragment.context!!).airport, isArrival, forceQueryServer) ?: emptyList()
 
-            if (planesLimit > 0 && planesLimit < planes.size) planes = planes.subList(0, planesLimit)
-            return planes
+            if (planes.isNotEmpty() && planesLimit > 0 && planesLimit < planes.size)
+                planes = planes.subList(0, planesLimit)
+
+            planes
 
         } catch (e: Exception){
-            return emptyList()
+            emptyList()
         }
     }
 

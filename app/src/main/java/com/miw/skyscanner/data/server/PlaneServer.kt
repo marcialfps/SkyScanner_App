@@ -7,16 +7,21 @@ import com.miw.skyscanner.utils.PlaneComparator
 import com.miw.skyscanner.ws.CallWebService
 import java.time.LocalDateTime
 
-class PlaneServer() : PlaneDataSource {
+class PlaneServer : PlaneDataSource {
     private val planeRepository: PlaneRepository = PlaneRepository()
     private val currentTime = LocalDateTime.now()
 
-    override fun requestPlanesByAirportCode(airportCode: String, isArrivals:Boolean): List<Plane>? {
+    override fun requestPlanesByAirportCode(
+        airportCode: String,
+        isArrivals: Boolean,
+        resetTable: Boolean
+    ): List<Plane>? {
         val planesInfo =
             CallWebService().callGetPlanesByAirport(isArrivals, airportCode)
             // Filter planes with valid data
             .filter {
-                it.arrivalAirportCode != null && it.departureAirportCode != null &&
+                it.icao24 != null &&
+                        it.arrivalAirportCode != null && it.departureAirportCode != null &&
                         it.arrivalTime != null && it.departureTime != null &&
                         it.arrivalDistance != null && it.departureDistance != null
             }
@@ -35,8 +40,8 @@ class PlaneServer() : PlaneDataSource {
             // Sort flights by date
             .sortedWith(PlaneComparator(isArrivals))
 
-        planesInfo.forEach{ planeRepository.savePlane(it) }
-        return planeRepository.requestPlanesByAirportCode(airportCode, isArrivals)
+        planeRepository.savePlanes(planesInfo, resetTable = resetTable)
+        return planesInfo
     }
 
 }

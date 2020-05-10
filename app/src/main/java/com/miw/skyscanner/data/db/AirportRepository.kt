@@ -5,7 +5,7 @@ import com.miw.skyscanner.data.db.daos.AirportDao
 import com.miw.skyscanner.model.Airport
 
 class AirportRepository: AirportDataSource {
-    private val airportDao: AirportDao? = ForecastDb.instance.airportDao()
+    private val airportDao: AirportDao? = AppDb.instance.airportDao()
 
     override fun requestAirportByAirportCode(airportCode: String): Airport? {
         val airport = airportDao?.getAirportByAirportCode(airportCode)

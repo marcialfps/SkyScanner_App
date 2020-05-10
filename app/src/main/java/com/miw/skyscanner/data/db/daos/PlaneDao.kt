@@ -18,19 +18,25 @@ interface PlaneDao {
     @Query("DELETE FROM ${PlaneTable.TABLE_NAME}")
     fun clear()
 
+
     @Query(
         "SELECT *" +
                 " FROM ${PlaneTable.TABLE_NAME}" +
-                " WHERE ${PlaneTable.DEPARTURE_AIRPORT_CODE} LIKE :airportCode" +
-                " LIMIT 1"
+                " WHERE ${PlaneTable.DEPARTURE_AIRPORT_CODE} LIKE :icao24"
+    )
+    fun getPlaneByIcao24(icao24: String): PlaneEntity
+
+    @Query(
+        "SELECT *" +
+                " FROM ${PlaneTable.TABLE_NAME}" +
+                " WHERE ${PlaneTable.DEPARTURE_AIRPORT_CODE} LIKE :airportCode"
     )
     fun getPlanesByDepartureAirportCode(airportCode: String): List<PlaneEntity>
 
     @Query(
         "SELECT *" +
                 " FROM ${PlaneTable.TABLE_NAME}" +
-                " WHERE ${PlaneTable.ARRIVAL_AIRPORT_CODE} LIKE :airportCode" +
-                " LIMIT 1"
+                " WHERE ${PlaneTable.ARRIVAL_AIRPORT_CODE} LIKE :airportCode"
     )
     fun getPlanesByArrivalAirportCode(airportCode: String): List<PlaneEntity>
 }

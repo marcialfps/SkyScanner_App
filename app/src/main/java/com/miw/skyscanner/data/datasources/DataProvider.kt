@@ -70,9 +70,17 @@ object DataProvider {
         return null
     }
 
-    fun requestPlanesByAirportCode(airportCode: String, isArrivals: Boolean = false): List<Plane>? {
-        for (source in SOURCES_PLANE) {
-            val result = source.requestPlanesByAirportCode(airportCode, isArrivals)
+    fun requestPlanesByAirportCode(airportCode: String, isArrivals: Boolean = false,
+                                   forceQueryServer: Boolean = false): List<Plane>? {
+
+        var sources = SOURCES_PLANE
+
+        // Only use the server sources if querying the server is forced
+        if (forceQueryServer) sources = sources.filterIsInstance<PlaneServer>()
+
+        for (source in sources) {
+            val result = source.requestPlanesByAirportCode(airportCode, isArrivals,
+                resetTable = forceQueryServer)
             if (result != null)
                 return result
         }

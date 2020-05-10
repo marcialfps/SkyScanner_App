@@ -82,7 +82,7 @@ class FlightsFragment : Fragment() {
 
     private fun onRefreshStart () {
         // Request information again
-        flightsCollectionAdapter.currentFragment()?.fetchFlights()
+        flightsCollectionAdapter.currentFragment()?.fetchFlights(forceQueryServer = true)
     }
 
     fun onRefreshEnd () {

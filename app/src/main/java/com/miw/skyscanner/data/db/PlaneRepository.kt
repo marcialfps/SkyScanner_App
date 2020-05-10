@@ -5,24 +5,36 @@ import com.miw.skyscanner.data.db.daos.PlaneDao
 import com.miw.skyscanner.model.Plane
 
 class PlaneRepository: PlaneDataSource {
-    private val planeDao: PlaneDao? = ForecastDb.instance.planeDao()
+    private val planeDao: PlaneDao? = AppDb.instance.planeDao()
 
-    override fun requestPlanesByAirportCode(airportCode: String, isArrivals:Boolean): List<Plane>? {
+    override fun requestPlanesByAirportCode(
+        airportCode: String,
+        isArrivals: Boolean,
+        resetTable: Boolean
+    ): List<Plane>? {
         val planeEntities =
             if (isArrivals) planeDao?.getPlanesByArrivalAirportCode(airportCode)
             else planeDao?.getPlanesByDepartureAirportCode(airportCode)
 
-        if (planeEntities != null) {
+        if (planeEntities != null && planeEntities.isNotEmpty()) {
             return planeEntities.map{ DbDataMapper.convertToDomain(it) }
         }
         return null
     }
 
-    fun savePlane(plane: Plane) {
+    private fun savePlane(plane: Plane) {
         if (planeDao != null) {
-            planeDao.clear()
-            val planeEntity = DbDataMapper.convertPlaneFromDomain(plane)
-            planeDao.insert(planeEntity)
+            val newPlaneEntity = DbDataMapper.convertPlaneFromDomain(plane)
+            val oldPlane = planeDao.getPlaneByIcao24(plane.icao24!!)
+            if (oldPlane != null) // DB can return null anyway
+                planeDao.update(newPlaneEntity)
+            else
+                planeDao.insert(newPlaneEntity)
         }
+    }
+
+    fun savePlanes (planes: List<Plane>, resetTable: Boolean){
+        if (resetTable) planeDao?.clear()
+        planes.forEach { savePlane(it) }
     }
 }
