@@ -8,15 +8,12 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.autofill.AutofillValue
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.utils.Session
-import com.miw.skyscanner.utils.WSUtils
 import com.miw.skyscanner.utils.isInternetAvailable
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -25,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
+import java.lang.Exception
 
 class LoginFragment : Fragment() {
 
@@ -58,22 +56,16 @@ class LoginFragment : Fragment() {
         txPassword.setOnEditorActionListener (SubmitOnEditorActionListener(this))
         txUser.setAutofillHints(View.AUTOFILL_HINT_USERNAME)
         txPassword.setAutofillHints(View.AUTOFILL_HINT_PASSWORD)
-
-        CoroutineScope(Dispatchers.IO).launch {
-            context?.let {
-                if(!isInternetAvailable(it)) {
-                    withContext(Dispatchers.Main) {
-                        txError.text = getString(R.string.no_internet_connection)
-                        changeFormEnabled(false)
-                    }
-                }
-            }
-        }
     }
 
     private fun login() {
         val user = txUser.text.toString()
         val password = txPassword.text.toString()
+
+        if (!isInternetAvailable(context!!)) {
+            txError.text = getString(R.string.no_internet_connection)
+            return
+        }
 
         if (user.isEmpty() or password.isEmpty()) {
             txError.text = getString(R.string.error_login_empty)

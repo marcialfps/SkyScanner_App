@@ -45,7 +45,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
     private var markersOnMap: MutableList<Marker> = mutableListOf()
     var dataNeedsRefresh: Boolean = true
-    private lateinit var interval: Timer
+    private var interval: Timer? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +66,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onStop() {
         super.onStop()
-        interval.cancel()
+        interval?.cancel()
     }
 
     override fun onMapReady(map: GoogleMap?) {
@@ -179,9 +179,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     private fun notifyError () {
         // Error info toast
-        if (planesOnMap.isEmpty()) {
+        if (planesOnMap.isEmpty() && context != null) {
             Toast.makeText(activity, getString(R.string.map_loading_error), Toast.LENGTH_LONG).show()
-//            googleMap.clear()
         }
     }
 

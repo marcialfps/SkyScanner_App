@@ -21,6 +21,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
+import java.lang.Exception
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,7 +92,7 @@ class ForecastFragment : Fragment() {
                         layoutContent.visibility = View.VISIBLE
                     }
                 }
-            } catch (e1: HttpResponseException) {
+            } catch (e1: Exception) {
                 withContext(Dispatchers.Main) {
                     txErrorForecast.text = getString(R.string.error_forecast)
                     progressBar.visibility = View.INVISIBLE

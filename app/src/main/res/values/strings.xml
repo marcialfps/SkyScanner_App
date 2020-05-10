@@ -8,29 +8,33 @@
     <string name="bottom_menu_weather">Weather</string>
 
     <!--  Weather  -->
-    <string name="weather_default_temperature" translatable="false">24ºc</string>
-    <string name="weather_default_city">London</string>
-    <string name="weather_default_time" translatable="false">12:00</string>
+    <string name="weather_default_temperature" translatable="false">-ºc</string>
+    <string name="weather_default_city">-</string>
+    <string name="weather_default_time" translatable="false">-</string>
     <string name="weather_status">Weather Status</string>
-    <string name="error_forecast">We can not obtain the forecast now. Try it later.</string>
+    <string name="error_forecast">Could not obtain the forecast</string>
     <string name="humidity">humidity</string>
     <string name="winds">winds</string>
     <string name="degrees">degrees</string>
 
 
-    <!--  Arrivals  -->
+    <!--  Arrivals / Departures -->
+    <string name="airport_unknown">Unknown airport</string>
+    <string name="flights_fetching">Downloading flight data…</string>
+    <string name="flights_error">No flights available or found</string>
+    <string name="flights_today">Today</string>
+
     <string name="arrivals_arrivals">Arrivals</string>
     <string name="arrivals_incoming">Incoming arrivals</string>
     <string name="arrivals_from">From</string>
     <string name="arrivals_time_arrival">ETA</string>
-    <string name="arrivals_distance_left">%1$f km to destination</string>
+    <string name="arrivals_distance_left">%1$d km to destination</string>
 
-    <!--  Departures  -->
     <string name="departures_departures">Departures</string>
     <string name="departures_incoming">Upcoming departures</string>
     <string name="departures_to">To</string>
     <string name="departures_time_departure">ETD</string>
-    <string name="departures_distance_covered">%1$f km from destination</string>
+    <string name="departures_distance_covered">%1$d km away from destination</string>
 
     <!-- Login and register -->
     <string name="login">Login</string>
@@ -55,6 +59,7 @@
     <string name="error_register_user_exist">The user already exists</string>
     <string name="error_register_username_short">User names must contain at least %1$d characters</string>
     <string name="error_register_email">Introduce a valid email</string>
+    <string name="error_register_airport">The airport code you entered is invalid, check the help link</string>
 
     <!--  Map  -->
     <string name="map_loading">Fetching airplanes nearby…</string>
@@ -68,7 +73,7 @@
     <string name="icon_landing">Plane landing icon</string>
     <string name="icon_takeoff">Plane taking off icon</string>
     <string name="hello">Hello</string>
-    <string name="no_internet_connection">You are not connected to Internet</string>
+    <string name="no_internet_connection">No internet connection</string>
     <string name="logout">Log out</string>
 
 </resources>

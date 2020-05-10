@@ -1,15 +1,19 @@
 package com.miw.skyscanner.ui.flights
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.miw.skyscanner.ui.flights.list.FlightsListFragment
 
-class FlightsCollectionAdapter (activity: FragmentActivity, private val itemsCount: Int) :
-    FragmentStateAdapter(activity) {
+class FlightsCollectionAdapter (val parent: FlightsFragment, private val itemsCount: Int) :
+    FragmentStateAdapter(parent) {
 
-    var currentFragment: Int = 0
+    var currentFragmentIndex: Int = 0
     var innerFragments: MutableList<FlightsListFragment> = mutableListOf()
+    var currentFragment: () -> FlightsListFragment? = {
+        if (innerFragments.isNotEmpty())
+            innerFragments[currentFragmentIndex]
+        else null
+    }
 
     override fun getItemCount(): Int {
         return itemsCount
@@ -17,8 +21,8 @@ class FlightsCollectionAdapter (activity: FragmentActivity, private val itemsCou
 
     override fun createFragment(position: Int): Fragment {
         val fragment = when (position) {
-            0 -> FlightsListFragment(isArrivals = true)
-            else -> FlightsListFragment(isArrivals = false)
+            0 -> FlightsListFragment(true, this)
+            else -> FlightsListFragment(false, this)
         }
         innerFragments.add(fragment)
         return fragment

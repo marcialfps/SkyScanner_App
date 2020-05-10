@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
@@ -41,9 +42,7 @@ class HomeWeatherFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val result = context?.let { Session(it).airport }?.let {
-                    CallWebService().callCurrentWeather(
-                        it
-                    )
+                    CallWebService().callCurrentWeather(it)
                 }
                 if (result != null) {
                     withContext(Dispatchers.Main) {
@@ -55,11 +54,10 @@ class HomeWeatherFragment : Fragment() {
                         configureImage(result, weatherImage)
                     }
                 }
-            } catch (e1: HttpResponseException) {
+            } catch (e1: Exception) {
                 withContext(Dispatchers.Main) {
-
+                    Toast.makeText(context, getString(R.string.error_forecast), Toast.LENGTH_LONG).show()
                 }
-                Log.e("homeWeatherFragment", e1.toString())
             }
         }
     }

@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnLogoutClickListener {
                     adapter.innerFragments.forEachIndexed { index, list ->
                         val listManager =
                             list.flightsListRecyclerView.layoutManager!!
-                        if (index == adapter.currentFragment)
+                        if (index == adapter.currentFragmentIndex)
                             listManager.smoothScrollToPosition(flightsListRecyclerView, RecyclerView.State(), 0)
                         else
                             listManager.scrollToPosition(0)
