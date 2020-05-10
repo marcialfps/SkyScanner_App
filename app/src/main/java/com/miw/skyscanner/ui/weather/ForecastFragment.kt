@@ -1,12 +1,10 @@
 package com.miw.skyscanner.ui.weather
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -20,9 +18,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.ksoap2.transport.HttpResponseException
-import java.lang.Exception
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -74,12 +69,12 @@ class ForecastFragment : Fragment() {
 
                             val day = dayFormatter.format(forecast.time*1000)
 
-                            if (day.toInt() === today.toInt()+1 && counterTomorrow === 0) {
+                            if (day.toInt() == today.toInt()+1 && counterTomorrow == 0) {
                                 Log.v("response", "${day.toInt()} === ${today.toInt()+1}")
                                 configureImage(forecast, imageTomorrow)
                                 configureWeekDay(forecast, txTomorrow)
                                 counterTomorrow++
-                            } else if (day.toInt() === today.toInt()+2 && counterTAfterTomorrow === 0) {
+                            } else if (day.toInt() == today.toInt()+2 && counterTAfterTomorrow == 0) {
                                 configureImage(forecast, imageAfterTomorrow)
                                 configureWeekDay(forecast, txAfterTomorrow)
                                 counterTAfterTomorrow++

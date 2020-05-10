@@ -19,4 +19,5 @@
     <color name="lightGrey">#EEE</color>
     <color name="lightBlack">#37000000</color>
     <color name="inactive">#ccc</color>
+    <color name="secondaryTextLight">#444</color>
 </resources>

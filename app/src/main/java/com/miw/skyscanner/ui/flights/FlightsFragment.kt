@@ -1,7 +1,6 @@
 package com.miw.skyscanner.ui.flights
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,7 +85,7 @@ class FlightsFragment : Fragment() {
         flightsCollectionAdapter.currentFragment()?.fetchFlights()
     }
 
-    public fun onRefreshEnd () {
+    fun onRefreshEnd () {
         // Stop refresh spinner
         flightsSwipeLayout?.isRefreshing = false
     }

@@ -16,10 +16,7 @@ import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.utils.isInternetAvailable
 import com.miw.skyscanner.ws.CallWebService
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
-import kotlinx.android.synthetic.main.fragment_register.buttonRegister
-import kotlinx.android.synthetic.main.fragment_register.txPassword
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

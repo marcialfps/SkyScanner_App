@@ -3,7 +3,6 @@ package com.miw.skyscanner.ui.flights.list
 import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
