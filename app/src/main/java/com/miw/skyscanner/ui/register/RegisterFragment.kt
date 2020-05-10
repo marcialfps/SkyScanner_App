@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
+import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.utils.isInternetAvailable
@@ -140,9 +141,11 @@ class RegisterFragment : Fragment() {
         changeFormEnabled(false)
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val airport = CallWebService().callGetAirportByCode(airportCode)
                 val result = CallWebService().callRegister(username, name, surname, email,
                     airportCode, password)
+                val airportInfo = context?.let { Session(it).airport }?.let {
+                    AirportForecastList.requestAirportInfo(result.airportCode)
+                }
                 withContext(Dispatchers.Main) {
                     context?.let {
                         Session(it).username = result.username
@@ -150,6 +153,8 @@ class RegisterFragment : Fragment() {
                         Session(it).surname = result.surname
                         Session(it).email = result.email
                         Session(it).airport = result.airportCode
+                        Session(it).airportName = airportInfo?.name ?: ""
+                        Session(it).city = airportInfo?.city ?: ""
                     }
                     val intent = Intent(context, MainActivity::class.java)
                     startActivity(intent)

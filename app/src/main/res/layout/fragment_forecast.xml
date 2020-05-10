@@ -41,7 +41,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:orientation="vertical"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <TextView
                 android:id="@+id/txCity"
@@ -84,9 +84,10 @@
 
                 <ImageView
                     android:id="@+id/imageSky"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
                     app:srcCompat="@drawable/few_clouds" />
             </LinearLayout>
 
@@ -326,8 +327,8 @@
 
                     <ImageView
                         android:id="@+id/imageTomorrow"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
                         app:srcCompat="@drawable/rain" />
                 </LinearLayout>
 
@@ -348,8 +349,8 @@
 
                     <ImageView
                         android:id="@+id/imageAfterTomorrow"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="100dp"
                         app:srcCompat="@drawable/shower_rain" />
                 </LinearLayout>
             </LinearLayout>
