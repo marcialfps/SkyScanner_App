@@ -5,20 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
-import com.miw.skyscanner.model.User
+import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.utils.configureImage
-import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_main_weather.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -40,10 +37,13 @@ class HomeWeatherFragment : Fragment() {
     private fun getWeather() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val result = context?.let { Session(it).airport }?.let {
+                /*val result = context?.let { Session(it).airport }?.let {
                     CallWebService().callCurrentWeather(
                         it
                     )
+                }*/
+                val result = context?.let { Session(it).airport }?.let {
+                    AirportForecastList.requestCurrentWeather(it);
                 }
                 if (result != null) {
                     withContext(Dispatchers.Main) {

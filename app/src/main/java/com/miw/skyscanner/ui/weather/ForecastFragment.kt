@@ -1,27 +1,24 @@
 package com.miw.skyscanner.ui.weather
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
 import com.miw.skyscanner.model.Forecast
+import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.utils.configureImage
-import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_forecast.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.ksoap2.transport.HttpResponseException
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,9 +44,10 @@ class ForecastFragment : Fragment() {
        CoroutineScope(Dispatchers.IO).launch {
             try {
                 val result = context?.let { Session(it).airport }?.let {
-                    CallWebService().callWeather(
+                    /*CallWebService().callWeather(
                         it
-                    )
+                    )*/
+                    AirportForecastList.requestForecast(it)?.forecasts
                 }
                 if (result != null) {
                     withContext(Dispatchers.Main) {

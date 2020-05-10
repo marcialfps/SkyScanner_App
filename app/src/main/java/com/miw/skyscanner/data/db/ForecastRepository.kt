@@ -3,40 +3,31 @@ package com.miw.skyscanner.data.db
 import com.miw.skyscanner.data.datasources.ForecastDataSource
 import com.miw.skyscanner.data.db.daos.AirportDao
 import com.miw.skyscanner.data.db.daos.ForecastDao
-import com.miw.skyscanner.model.ForecastList
-import java.util.*
+import com.miw.skyscanner.model.AirportForecastList
 
 class ForecastRepository: ForecastDataSource {
     private val forecastDao: ForecastDao? = ForecastDb.instance.forecastDao()
     private val airportDao: AirportDao? = ForecastDb.instance.airportDao()
 
-    override fun requestForecastByAirportCode(airportCode: String, date: Long): ForecastList? {
+    override fun requestForecastByAirportCode(airportCode: String): AirportForecastList? {
         val airport = airportDao?.getAirportByAirportCode(airportCode)
         if (airport != null) {
-            val cal = Calendar.getInstance()
-            cal.timeInMillis = date
-            cal.set(Calendar.HOUR_OF_DAY, 0)
-            cal.set(Calendar.MINUTE, 0)
-            cal.set(Calendar.SECOND, 0)
-            cal.set(Calendar.MILLISECOND, 0)
-            val timeInMillis = cal.timeInMillis
-            val airportId = airport.airportCode
-            val forecasts = forecastDao?.getForecastByAirportCodeAndDate(airportId, timeInMillis)
-            if (forecasts != null) {
+            val forecasts = forecastDao?.getForecastByAirportCode(airport.airportCode)
+            if (forecasts != null && forecasts.isNotEmpty()) {
                 return DbDataMapper.convertToDomain(airportCode, airport.name, forecasts)
             }
         }
         return null
     }
 
-    fun saveForecast(forecastList: ForecastList) {
+    fun saveForecast(airportForecastList: AirportForecastList) {
         if (airportDao != null && forecastDao != null) {
+            val airport = airportDao.getAirportByAirportCode(airportForecastList.airportCode)
             airportDao.clear()
-
-            val airport = DbDataMapper.convertFromDomain(forecastList)
-            val airportId = airportDao.insert(airport)
+            AirportRepository().saveAirport(DbDataMapper.convertToDomain(
+                DbDataMapper.convertForecastFromDomain(airportForecastList, airport)))
             airport.forecasts.forEach {
-                it.airportId = airportId
+                it.airportIdCode = airport.airportCode
                 forecastDao.insert(it)
             }
         }

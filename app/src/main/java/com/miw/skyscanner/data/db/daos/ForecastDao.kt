@@ -21,8 +21,7 @@ interface ForecastDao {
     @Query(
         "SELECT *" +
                 " FROM ${ForecastTable.TABLE_NAME}" +
-                " WHERE ${ForecastTable.AIRPORT_ID} LIKE :airportCode" +
-                " AND ${ForecastTable.TIME} >= :date"
+                " WHERE ${ForecastTable.AIRPORT_ID} LIKE :airportCode"
     )
-    fun getForecastByAirportCodeAndDate(airportCode: String, date: Long): List<ForecastEntity>
+    fun getForecastByAirportCode(airportCode: String): List<ForecastEntity>
 }

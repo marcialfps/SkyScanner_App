@@ -8,15 +8,13 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.autofill.AutofillValue
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
+import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.ui.MainActivity
 import com.miw.skyscanner.utils.Session
-import com.miw.skyscanner.utils.WSUtils
 import com.miw.skyscanner.utils.isInternetAvailable
 import com.miw.skyscanner.ws.CallWebService
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -82,8 +80,12 @@ class LoginFragment : Fragment() {
             changeFormEnabled(false)
             CoroutineScope(Dispatchers.IO).launch {
                 try {
+                    //First we call to login
                     val login = CallWebService().callLogin(user, password)
-                    val airport = CallWebService().callGetAirportByCode(login.airportCode)
+                    val airportInfo = context?.let { Session(it).airport }?.let {
+                        AirportForecastList.requestAirportInfo(login.airportCode)
+                    }
+                    //val airport = CallWebService().callGetAirportByCode(login.airportCode)
                     withContext(Dispatchers.Main) {
                         context?.let {
                             Session(it).username = login.username
@@ -91,8 +93,7 @@ class LoginFragment : Fragment() {
                             Session(it).surname = login.surname
                             Session(it).email = login.email
                             Session(it).airport = login.airportCode
-                            Session(it).airportName = airport.name ?: ""
-                            Session(it).city = airport.city ?: ""
+                            Session(it).airportName = airportInfo?.name ?: ""
                         }
                         val intent = Intent(context, MainActivity::class.java)
                         startActivity(intent)

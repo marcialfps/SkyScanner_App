@@ -20,7 +20,7 @@ object ForecastTable {
     const val WIND_SPEED = "windSpeed"
     const val WIND_DIRECTION = "windDirection"
     const val CLOUDINESS = "cloudiness"
-    const val AIRPORT_ID = "airportId"
+    const val AIRPORT_ID = "airportIdCode"
 }
 
 @Entity(
@@ -51,5 +51,5 @@ data class ForecastEntity(
 
     @ColumnInfo(name = ForecastTable.AIRPORT_ID)
     @NotNull
-    var airportId: Long = 0
+    var airportIdCode: String = ""
 }
