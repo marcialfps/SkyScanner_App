@@ -19,7 +19,7 @@
     <!--  Arrivals / Departures  -->
     <string name="airport_unknown">Aeropuerto desconocido</string>
     <string name="flights_fetching">Descargando últimos vuelos…</string>
-    <string name="flights_error">No hay ningún vuelo disponible</string>
+    <string name="flights_error">No hay nuevos vuelos disponibles</string>
     <string name="flights_today">Hoy</string>
 
     <string name="arrivals_arrivals">Llegadas</string>

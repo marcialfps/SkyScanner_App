@@ -30,14 +30,16 @@ interface PlaneDao {
     @Query(
         "SELECT *" +
                 " FROM ${PlaneTable.TABLE_NAME}" +
-                " WHERE ${PlaneTable.DEPARTURE_AIRPORT_CODE} LIKE :airportCode"
+                " WHERE ${PlaneTable.DEPARTURE_AIRPORT_CODE} LIKE :airportCode" +
+                " ORDER BY ${PlaneTable.DEPARTURE_TIME} ASC"
     )
     fun getPlanesByDepartureAirportCode(airportCode: String): List<PlaneEntity>
 
     @Query(
         "SELECT *" +
                 " FROM ${PlaneTable.TABLE_NAME}" +
-                " WHERE ${PlaneTable.ARRIVAL_AIRPORT_CODE} LIKE :airportCode"
+                " WHERE ${PlaneTable.ARRIVAL_AIRPORT_CODE} LIKE :airportCode " +
+                " ORDER BY ${PlaneTable.ARRIVAL_TIME} ASC"
     )
     fun getPlanesByArrivalAirportCode(airportCode: String): List<PlaneEntity>
 

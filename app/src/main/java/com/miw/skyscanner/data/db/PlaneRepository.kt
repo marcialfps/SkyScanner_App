@@ -26,16 +26,16 @@ class PlaneRepository: PlaneDataSource {
         if (planeDao != null) {
             val newPlaneEntity = DbDataMapper.convertPlaneFromDomain(plane)
             val oldPlane = planeDao.getPlaneByIcao24(newPlaneEntity.icao24)
-            if (oldPlane != null) // DB can return null anyway
-                planeDao.update(newPlaneEntity)
-            else
+            if (oldPlane == null) // DB can return null anyway
                 planeDao.insert(newPlaneEntity)
         }
     }
 
     fun savePlanes (planes: List<Plane>, resetArrivals: Boolean, resetDepartures: Boolean){
-        if (resetArrivals) planeDao?.removeAllPlanesByArrivalCode(planes[0].arrivalAirportCode!!)
-        if (resetDepartures) planeDao?.removeAllPlanesByDepartureCode(planes[0].departureAirportCode!!)
+        if (resetArrivals && planes.isNotEmpty())
+            planeDao?.removeAllPlanesByArrivalCode(planes[0].arrivalAirportCode!!)
+        if (resetDepartures && planes.isNotEmpty())
+            planeDao?.removeAllPlanesByDepartureCode(planes[0].departureAirportCode!!)
         planes.forEach { savePlane(it) }
     }
 }

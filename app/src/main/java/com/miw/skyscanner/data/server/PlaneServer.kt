@@ -28,14 +28,13 @@ class PlaneServer : PlaneDataSource {
             // The API returns flights 2 days old. Alter the date on purpose
             // to show flights today or tomorrow and be more realistic
             .map {
-                if (isArrivals) it.arrivalTime = it.arrivalTime?.plusDays((1..2).random().toLong())
-                else it.departureTime = it.departureTime?.plusDays((1..2).random().toLong())
+                it.arrivalTime = it.arrivalTime?.plusDays(1.1.toLong())
+                it.departureTime = it.departureTime?.plusDays(1.1.toLong())
                 it
             }
             // Show only present and future flights
             .filter {
-                if (isArrivals) it.arrivalTime!!.isAfter(currentTime)
-                else it.departureTime!!.isAfter(currentTime)
+                it.arrivalTime!!.isAfter(currentTime) && it.departureTime!!.isAfter(currentTime)
             }
             // Sort flights by date
             .sortedWith(PlaneComparator(isArrivals))

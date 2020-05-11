@@ -93,7 +93,8 @@ object DataProvider {
                     if (!dateToEarly)
                         return result
                 }
-                else return result
+                else
+                    return result
         }
         return null
     }
