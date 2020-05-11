@@ -18,6 +18,7 @@
     <string name="winds">winds</string>
     <string name="degrees">degrees</string>
     <string name="weather_degrees_celsius" translatable="false">ºC</string>
+    <string name="weather_home_demo_date">19:30, sáb. 09 may. 2020</string>
 
 
     <!--  Arrivals / Departures -->

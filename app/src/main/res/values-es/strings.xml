@@ -15,6 +15,7 @@
     <string name="humidity">humedad</string>
     <string name="winds">vientos</string>
     <string name="degrees">grados</string>
+    <string name="weather_home_demo_date">19:30, sat. 09 may. 2020</string>
 
     <!--  Arrivals / Departures  -->
     <string name="airport_unknown">Aeropuerto desconocido</string>

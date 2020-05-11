@@ -31,8 +31,8 @@ object DataProvider {
     fun requestForecastByAirportCode(airportCode: String): AirportForecastList? {
         for (source in SOURCES_FORECAST) {
             //First we try to obtain the forecast from the repo
-            var result = source.requestForecastByAirportCode(airportCode)
-            val dayFormatter = SimpleDateFormat("dd")
+            val result = source.requestForecastByAirportCode(airportCode)
+            val dayFormatter = SimpleDateFormat("dd", Locale.getDefault())
             val currentTime = getCurrentTimeMillis()
             val today = dayFormatter.format(currentTime*1000)
             Log.v("response", today)

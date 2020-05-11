@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:id="@+id/weatherInfo"
@@ -51,7 +52,7 @@
                     android:id="@+id/txDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="19:30, sáb. 09 may. 2020"
+                    android:text="@string/weather_home_demo_date"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                     android:textColor="@color/colorSecondaryLight" />
 
@@ -82,6 +83,7 @@
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/weather_default_temperature"
+                    android:gravity="end"
                     android:textAlignment="viewEnd"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display2"
                     android:textColor="@color/colorSecondaryLight"

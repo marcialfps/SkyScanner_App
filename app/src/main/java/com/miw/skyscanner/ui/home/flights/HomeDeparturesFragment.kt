@@ -61,11 +61,11 @@ class HomeDeparturesFragment(override var isRefreshing: Boolean = false) : Fragm
                 val dateText = view?.findViewById<TextView>(dateCellId)
                 if (ConversionHelper.isDateToday(plane.departureTime!!)) {
 //                    dateText?.text = resources.getString(R.string.flights_today)
-                    dateText?.setTextColor(resources.getColor(R.color.colorPrimary))
+                    dateText?.setTextColor(resources.getColor(R.color.colorPrimary, null))
                 }
                 else {
                     dateText?.text = plane.departureTime?.let { ConversionHelper.formatDateTimeToDate(it) }
-                    dateText?.setTextColor(resources.getColor(R.color.secondaryTextLight))
+                    dateText?.setTextColor(resources.getColor(R.color.secondaryTextLight, null))
                 }
             }
         }

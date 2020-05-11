@@ -37,12 +37,12 @@ class HomeWeatherFragment : Fragment() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val result = context?.let { Session(it).airport }?.let {
-                    AirportForecastList.requestCurrentWeather(it);
+                    AirportForecastList.requestCurrentWeather(it)
                 }
                 if (result != null) {
                     withContext(Dispatchers.Main) {
                         txWeatherTemperature.text = "${result.temperature.toInt()} ºc"
-                        val dateFormatter = SimpleDateFormat("HH:mm, EEE dd MMM YYYY")
+                        val dateFormatter = SimpleDateFormat("HH:mm, EEE dd MMM YYYY", Locale.getDefault())
                         txDate.text = dateFormatter.format(Date())
                         txWeatherLocation.text = context?.let {
                             val city = Session(it).city
