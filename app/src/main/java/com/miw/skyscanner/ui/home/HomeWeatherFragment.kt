@@ -45,7 +45,11 @@ class HomeWeatherFragment : Fragment() {
                         txWeatherTemperature.text = "${result.temperature.toInt()} ºc"
                         val dateFormatter = SimpleDateFormat("HH:mm, EEE dd MMM YYYY")
                         txDate.text = dateFormatter.format(Date())
-                        txWeatherLocation.text = context?.let { Session(it).city }
+                        txWeatherLocation.text = context?.let {
+                            val city = Session(it).city
+                            if (city.isBlank()) getString(R.string.weather_alternate_text)
+                            else city
+                        }
                         configureImage(result, weatherImage)
                     }
                 }

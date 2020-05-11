@@ -9,7 +9,8 @@
 
     <!--  Weather  -->
     <string name="weather_default_temperature" translatable="false">-ºc</string>
-    <string name="weather_default_city">-</string>
+    <string name="weather_default_city" translatable="false">-</string>
+    <string name="weather_alternate_text">Weather</string>
     <string name="weather_default_time" translatable="false">-</string>
     <string name="weather_status">Weather Status</string>
     <string name="error_forecast">Could not obtain the forecast</string>
