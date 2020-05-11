@@ -164,7 +164,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         .width(POLYLINE_STROKE_WIDTH_PX)
                         .color(R.color.colorPrimary)
                         .jointType(JointType.ROUND)
-                        .endCap(RoundCap())
+                        .endCap(ButtCap())
                         .add(
                             outdatedPlane.status?.location?.getLatLng(),
                             updatedPlane.status?.location?.getLatLng()
