@@ -31,6 +31,7 @@ const val MIN_PASSWORD_LENGTH = 5
 class RegisterFragment : Fragment() {
 
     private val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
+    private var isOnSubmitPage: Boolean = false
 
     private lateinit var listener: OnRegisterFragmentInteractionListener
     var username = ""
@@ -60,6 +61,11 @@ class RegisterFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initialize()
+    }
+
+    fun onBackPressed () {
+        if (isOnSubmitPage) back()
+        else listener.onLoginButtonClick()
     }
 
     private fun initialize() {
@@ -109,6 +115,7 @@ class RegisterFragment : Fragment() {
             else -> {
                 layoutFirst.visibility = View.INVISIBLE
                 layoutSecond.visibility = View.VISIBLE
+                isOnSubmitPage = true
             }
         }
     }
@@ -117,6 +124,7 @@ class RegisterFragment : Fragment() {
         resetErrorTexts()
         layoutFirst.visibility = View.VISIBLE
         layoutSecond.visibility = View.INVISIBLE
+        isOnSubmitPage = false
     }
 
     private fun register() {
