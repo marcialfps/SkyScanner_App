@@ -74,6 +74,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         interval?.cancel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        startUpdateInterval()
+    }
+
     override fun onMapReady(map: GoogleMap?) {
         if (map != null) {
             googleMap = map
