@@ -17,6 +17,7 @@
     <string name="humidity">humidity</string>
     <string name="winds">winds</string>
     <string name="degrees">degrees</string>
+    <string name="weather_degrees_celsius" translatable="false">ºC</string>
 
 
     <!--  Arrivals / Departures -->

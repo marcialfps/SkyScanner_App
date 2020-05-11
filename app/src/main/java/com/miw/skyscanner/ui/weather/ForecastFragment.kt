@@ -9,8 +9,8 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.miw.skyscanner.R
-import com.miw.skyscanner.model.Forecast
 import com.miw.skyscanner.model.AirportForecastList
+import com.miw.skyscanner.model.Forecast
 import com.miw.skyscanner.utils.Session
 import com.miw.skyscanner.utils.configureImage
 import kotlinx.android.synthetic.main.fragment_forecast.*
@@ -49,13 +49,13 @@ class ForecastFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         forecasts = result
                         selectedForecast = forecasts[0]
-                        val dayFormatter = SimpleDateFormat("dd")
+                        val dayFormatter = SimpleDateFormat("dd", Locale.ROOT)
                         val today = dayFormatter.format(selectedForecast.time*1000)
                         var counterTomorrow = 0
                         var counterTAfterTomorrow = 0
                         forecasts.forEachIndexed { index, forecast ->
                             if (index < 5) {
-                                val formatter = SimpleDateFormat("HH:mm")
+                                val formatter = SimpleDateFormat("HH:mm", Locale.ROOT)
                                 when (index) {
                                     0 -> txHour1.text = formatter.format(Date(forecast.time*1000))
                                     1 -> txHour2.text = formatter.format(Date(forecast.time*1000))
@@ -112,7 +112,7 @@ class ForecastFragment : Fragment() {
     }
 
     private fun showForecast() {
-        val dateFormatter = SimpleDateFormat("EEEE, HH:mm")
+        val dateFormatter = SimpleDateFormat("EEEE, HH:mm", Locale.ROOT)
         txCity.text = context?.let {
             // If we have no city, show a generic "Weather" text
             val city = Session(it).city
@@ -122,17 +122,17 @@ class ForecastFragment : Fragment() {
         txTime.text =
             "${dateFormatter.format(Date(selectedForecast.time * 1000)).capitalize()}, ${selectedForecast.description}"
         txTemperature.text = selectedForecast.temperature.toInt().toString()
-        txPrecipation.text = "${selectedForecast.humidity.toString()}% ${getString(R.string.humidity)}"
+        txPrecipation.text = "${selectedForecast.humidity}% ${getString(R.string.humidity)}"
         txWind.text = "${selectedForecast.windSpeed} m/s ${getString(R.string.winds)}"
         txPressure.text = "${selectedForecast.pressure} hPa"
         txWindDirection.text = "${selectedForecast.windDirection} ${getString(R.string.degrees)}"
-        txTempMin.text = "${selectedForecast.temperatureMin} ºC"
-        txTempMax.text = "${selectedForecast.temperatureMax} ºC"
+        txTempMin.text = "${selectedForecast.temperatureMin} ${getString(R.string.weather_degrees_celsius)}"
+        txTempMax.text = "${selectedForecast.temperatureMax} ${getString(R.string.weather_degrees_celsius)}"
         configureImage(selectedForecast, imageSky)
     }
 
     private fun configureWeekDay(forecast: Forecast, textWeekDay: TextView) {
-        val weekDayFormatter = SimpleDateFormat("EEEE")
-        textWeekDay.text = weekDayFormatter.format(forecast.time*1000).toUpperCase()
+        val weekDayFormatter = SimpleDateFormat("EEEE", Locale.ROOT)
+        textWeekDay.text = weekDayFormatter.format(forecast.time*1000).toUpperCase(Locale.ROOT)
     }
 }
