@@ -113,7 +113,12 @@ class ForecastFragment : Fragment() {
 
     private fun showForecast() {
         val dateFormatter = SimpleDateFormat("EEEE, HH:mm")
-        txCity.text = context?.let { Session(it).city }
+        txCity.text = context?.let {
+            // If we have no city, show a generic "Weather" text
+            val city = Session(it).city
+            if (city.isBlank()) getString(R.string.weather_alternate_text)
+            else city
+        }
         txTime.text =
             "${dateFormatter.format(Date(selectedForecast.time * 1000)).capitalize()}, ${selectedForecast.description}"
         txTemperature.text = selectedForecast.temperature.toInt().toString()
