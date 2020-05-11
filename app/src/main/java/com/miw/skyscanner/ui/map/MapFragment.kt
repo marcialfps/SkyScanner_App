@@ -162,7 +162,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         .clickable(false)
                         .visible(true)
                         .width(POLYLINE_STROKE_WIDTH_PX)
-                        .color(R.color.colorPrimary)
+                        .color(resources.getColor(R.color.planeTrail, null))
+                        .geodesic(true)
                         .jointType(JointType.ROUND)
                         .endCap(ButtCap())
                         .add(

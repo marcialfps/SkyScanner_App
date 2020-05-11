@@ -20,4 +20,5 @@
     <color name="lightBlack">#37000000</color>
     <color name="inactive">#ccc</color>
     <color name="secondaryTextLight">#444</color>
+    <color name="planeTrail">#B31976D2</color>
 </resources>
