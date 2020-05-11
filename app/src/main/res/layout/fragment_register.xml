@@ -156,7 +156,7 @@
                 android:ems="10"
                 android:hint="@string/name"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|text|textCapSentences" />
 
             <EditText
                 android:id="@+id/txSurname"
@@ -166,7 +166,7 @@
                 android:ems="10"
                 android:hint="@string/surname"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName|text|textCapSentences" />
 
             <TextView
                 android:id="@+id/txErrorRegister1"
