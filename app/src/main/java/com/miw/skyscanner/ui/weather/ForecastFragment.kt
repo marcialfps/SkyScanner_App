@@ -49,13 +49,13 @@ class ForecastFragment : Fragment() {
                     withContext(Dispatchers.Main) {
                         forecasts = result
                         selectedForecast = forecasts[0]
-                        val dayFormatter = SimpleDateFormat("dd", Locale.ROOT)
+                        val dayFormatter = SimpleDateFormat("dd", Locale.getDefault())
                         val today = dayFormatter.format(selectedForecast.time*1000)
                         var counterTomorrow = 0
                         var counterTAfterTomorrow = 0
                         forecasts.forEachIndexed { index, forecast ->
                             if (index < 5) {
-                                val formatter = SimpleDateFormat("HH:mm", Locale.ROOT)
+                                val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
                                 when (index) {
                                     0 -> txHour1.text = formatter.format(Date(forecast.time*1000))
                                     1 -> txHour2.text = formatter.format(Date(forecast.time*1000))
@@ -112,7 +112,7 @@ class ForecastFragment : Fragment() {
     }
 
     private fun showForecast() {
-        val dateFormatter = SimpleDateFormat("EEEE, HH:mm", Locale.ROOT)
+        val dateFormatter = SimpleDateFormat("EEEE, HH:mm", Locale.getDefault())
         txCity.text = context?.let {
             // If we have no city, show a generic "Weather" text
             val city = Session(it).city
@@ -132,7 +132,7 @@ class ForecastFragment : Fragment() {
     }
 
     private fun configureWeekDay(forecast: Forecast, textWeekDay: TextView) {
-        val weekDayFormatter = SimpleDateFormat("EEEE", Locale.ROOT)
-        textWeekDay.text = weekDayFormatter.format(forecast.time*1000).toUpperCase(Locale.ROOT)
+        val weekDayFormatter = SimpleDateFormat("EEEE", Locale.getDefault())
+        textWeekDay.text = weekDayFormatter.format(forecast.time*1000).toUpperCase(Locale.getDefault())
     }
 }
