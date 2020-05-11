@@ -116,6 +116,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 MarkerOptions().position(Coordinate(it.status?.location?.latitude,
                     it.status?.location?.longitude).getLatLng())
                     .rotation(it.rotation)
+                    .flat(true)
                     .title(it.markerTitle()).snippet(it.markerDescription())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker_2)                    )
             )
