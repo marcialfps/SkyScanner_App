@@ -11,6 +11,7 @@ import com.miw.skyscanner.model.Airport
 import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.model.Forecast
 import com.miw.skyscanner.model.Plane
+import com.miw.skyscanner.utils.ConversionHelper
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -82,7 +83,17 @@ object DataProvider {
             val result = source.requestPlanesByAirportCode(airportCode, isArrivals,
                 resetTable = forceQueryServer)
             if (result != null)
-                return result
+                if (source is PlaneRepository) {
+                    // If the earliest record record we have cached is already from yesterday,
+                    // we should update the planes from the server and not for cache
+                    val dateToEarly =
+                        if (isArrivals) ConversionHelper.isHoursBeforeNow(result[0].arrivalTime, 0)
+                        else ConversionHelper.isHoursBeforeNow(result[0].departureTime, 0)
+
+                    if (!dateToEarly)
+                        return result
+                }
+                else return result
         }
         return null
     }

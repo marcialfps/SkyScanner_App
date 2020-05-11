@@ -32,7 +32,7 @@ const val EXAMPLE_LATITUDE: Double = 40.6413111
 const val EXAMPLE_LONGITUDE: Double = -73.7781391
 const val ZOOM_LEVEL: Float = 8f
 const val POLYLINE_STROKE_WIDTH_PX = 12f
-const val TIME_BETWEEN_REQUESTS:Long = 4500
+const val TIME_BETWEEN_REQUESTS:Long = 5000
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 

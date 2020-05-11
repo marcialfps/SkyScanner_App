@@ -46,5 +46,13 @@ class ConversionHelper {
             return input
                 .truncatedTo(ChronoUnit.DAYS).isEqual(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS))
         }
+
+        fun isHoursBeforeNow (input: LocalDateTime?, hours: Int): Boolean {
+            if (input == null) return false
+            val dateBefore =
+                LocalDateTime.now().minusHours(hours.toLong())
+
+            return input.isBefore(dateBefore)
+        }
     }
 }
