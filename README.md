@@ -11,7 +11,7 @@ The app is capable of fetching different information related to the selected air
 <img alt="Home screen" src="https://user-images.githubusercontent.com/35763574/81565097-17651000-9399-11ea-940d-a727cb412ed4.jpg" height="370"/>
 </div>
 
-- Detailed arrivals and departures list
+- Detailed arrivals and departures list (this is NOT real time data due to limitations with the free APIs)
 <div style="display: flex;">
 <img alt="Flights Screen - Arrivals" src="https://user-images.githubusercontent.com/35763574/81565234-5004e980-9399-11ea-8ac5-f90d0ce360b0.jpg" height="370"/>
 <img alt="Flights Screen - Departures" src="https://user-images.githubusercontent.com/35763574/81565241-51361680-9399-11ea-94b7-fc078ce0c32d.jpg" height="370"/>
