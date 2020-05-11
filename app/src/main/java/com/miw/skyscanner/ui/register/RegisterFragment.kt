@@ -72,7 +72,7 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    fun EditText.onRightDrawableClicked(onClicked: (view: EditText) -> Unit) {
+        fun EditText.onRightDrawableClicked(onClicked: (view: EditText) -> Unit) {
         this.setOnTouchListener { v, event ->
             var hasConsumed = false
             if (v is EditText) {

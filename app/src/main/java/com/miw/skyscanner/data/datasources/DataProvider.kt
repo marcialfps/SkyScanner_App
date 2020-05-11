@@ -20,16 +20,29 @@ object DataProvider {
     private val SOURCES_AIRPORT = listOf(AirportRepository(), AirportServer())
     private val SOURCES_PLANE = listOf(PlaneRepository(), PlaneServer())
 
+    private fun getCurrentTimeMillis(): Long {
+        val cal = Calendar.getInstance()
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.SECOND, 0)
+        cal.set(Calendar.MILLISECOND, 0)
+        return cal.timeInMillis/1000
+    }
+
     fun requestForecastByAirportCode(airportCode: String): AirportForecastList? {
         for (source in SOURCES_FORECAST) {
             //First we try to obtain the forecast from the repo
-            val result = source.requestForecastByAirportCode(airportCode)
+            var result = source.requestForecastByAirportCode(airportCode)
             val dayFormatter = SimpleDateFormat("dd")
-            val today = dayFormatter.format(requestCurrentForecastByAirportCode(airportCode)?.time?.times(
-                1000
-            ))
+            val currentTime = getCurrentTimeMillis()
+            val today = dayFormatter.format(currentTime*1000)
+            Log.v("response", today)
+
             if (result != null) {
+                //We filter the weather to have online the once after now
+                Log.v("response",currentTime.toString())
+                result.forecasts = result.forecasts?.filter { it.time >= currentTime }
                 result.forecasts?.forEach {
+                    Log.v("response", it.time.toString())
                     val day = dayFormatter.format(it.time * 1000)
                     //At least we have the two next days
                     if (day.toInt() == today.toInt() + 2) {
@@ -43,11 +56,7 @@ object DataProvider {
 
     fun requestCurrentForecastByAirportCode(airportCode: String): Forecast? {
         //We obtain the current time rounded to the hour
-        val cal = Calendar.getInstance()
-        cal.set(Calendar.MINUTE, 0)
-        cal.set(Calendar.SECOND, 0)
-        cal.set(Calendar.MILLISECOND, 0)
-        val currentTime = cal.timeInMillis/1000
+        val currentTime = getCurrentTimeMillis()
         for (source in SOURCES_FORECAST) {
             val result = source.requestForecastByAirportCode(airportCode)
             if (result != null) {

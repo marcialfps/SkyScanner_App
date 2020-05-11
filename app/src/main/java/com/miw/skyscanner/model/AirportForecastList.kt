@@ -2,7 +2,7 @@ package com.miw.skyscanner.model
 
 import com.miw.skyscanner.data.datasources.DataProvider
 
-data class AirportForecastList(val airportCode: String, val forecasts: List<Forecast>) {
+data class AirportForecastList(val airportCode: String, var forecasts: List<Forecast>) {
     companion object {
         fun requestForecast(airportCode: String): AirportForecastList? {
             return DataProvider.requestForecastByAirportCode(airportCode)
