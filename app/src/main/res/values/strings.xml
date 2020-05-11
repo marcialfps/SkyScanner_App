@@ -81,6 +81,7 @@
     <string name="map_aircraft_unknown">Unknown aircraft</string>
     <string name="map_unavailable">Information unavailable</string>
     <string name="map_speed">Speed: %1$.2f m/s</string>
+    <string name="map_default_airport_name">Airport</string>
 
     <!--  Other  -->
     <string name="icon_landing">Plane landing icon</string>

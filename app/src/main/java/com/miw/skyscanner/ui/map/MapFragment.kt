@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.miw.skyscanner.R
+import com.miw.skyscanner.model.Airport
 import com.miw.skyscanner.model.AirportForecastList
 import com.miw.skyscanner.model.Coordinate
 import com.miw.skyscanner.model.Plane
@@ -49,6 +50,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
     private var markersOnMap: MutableList<Marker> = mutableListOf()
+    private lateinit var airportMarker: Marker
     var dataNeedsRefresh: Boolean = true
     private var interval: Timer? = null
 
@@ -99,10 +101,36 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     // Fetching info toast
                     Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG)
                         .show()
-                    googleMap.setOnMapLoadedCallback { startUpdateInterval() }
+                    googleMap.setOnMapLoadedCallback { onMapLoaded(airport) }
                 }
             }
         }
+    }
+
+    private fun onMapLoaded(airport: Airport?) {
+        addAirportMarker(airport)
+        startUpdateInterval()
+    }
+
+    private fun addAirportMarker (airport: Airport?) {
+        val airportLatitude = airport?.location?.latitude
+        val airportLongitude = airport?.location?.longitude
+        val airportMarkerOptions =
+            MarkerOptions().position(Coordinate(
+                airportLatitude ?: EXAMPLE_LATITUDE,
+                airportLongitude ?: EXAMPLE_LONGITUDE
+            ).getLatLng())
+                .flat(true)
+                .title(
+                    airport?.name ?: resources.getString(R.string.map_default_airport_name)
+                )
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.control_tower)
+            )
+
+        if (airport?.code != null) airportMarkerOptions.snippet(airport.code)
+
+        // Store airport marker
+        airportMarker = googleMap.addMarker(airportMarkerOptions)
     }
 
     private fun startUpdateInterval () {
@@ -165,7 +193,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         .color(resources.getColor(R.color.planeTrail, null))
                         .geodesic(true)
                         .jointType(JointType.ROUND)
-                        .endCap(ButtCap())
+                        .endCap(SquareCap())
                         .add(
                             outdatedPlane.status?.location?.getLatLng(),
                             updatedPlane.status?.location?.getLatLng()
