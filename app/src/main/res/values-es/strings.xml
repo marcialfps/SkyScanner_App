@@ -49,6 +49,7 @@
     <string name="password_repeat">Repetir contraseña</string>
     <string name="have_account">Ya tengo cuenta</string>
     <string name="next">Siguiente</string>
+    <string name="back">Atrás</string>
     <string name="register">Registro</string>
     <string name="error_login_empty">Debes introducir usuario y contraseña</string>
     <string name="error_login_credentials">Las credenciales no son correctas</string>

@@ -70,6 +70,7 @@ class LoginFragment : Fragment() {
         if (user.isEmpty() or password.isEmpty()) {
             txError.text = getString(R.string.error_login_empty)
         } else {
+            txError.text = ""
             layoutLoading.visibility = View.VISIBLE
             changeFormEnabled(false)
             CoroutineScope(Dispatchers.IO).launch {
@@ -102,7 +103,9 @@ class LoginFragment : Fragment() {
                     }
                     Log.v("response", e1.toString())
                 } finally {
-                    layoutLoading.visibility = View.INVISIBLE
+                    withContext(Dispatchers.Main) {
+                        layoutLoading.visibility = View.INVISIBLE
+                    }
                 }
             }
         }
@@ -113,6 +116,7 @@ class LoginFragment : Fragment() {
         txPassword.isEnabled = isEnabled
         buttonGo.isEnabled = isEnabled
         buttonRegister.isEnabled = isEnabled
+        checkBoxSession.isEnabled = isEnabled
     }
 
     interface OnLoginFragmentInteractionListener {

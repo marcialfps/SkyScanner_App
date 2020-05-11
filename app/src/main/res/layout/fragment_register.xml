@@ -107,6 +107,15 @@
                 android:textColor="@color/colorError" />
 
             <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="@string/back"
+                android:textColor="@color/colorSecondaryLight" />
+
+            <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

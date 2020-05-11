@@ -65,6 +65,7 @@ class RegisterFragment : Fragment() {
     private fun initialize() {
         buttonLogin.setOnClickListener { listener.onLoginButtonClick() }
         buttonNext.setOnClickListener { next() }
+        buttonBack.setOnClickListener { back() }
         buttonRegister.setOnClickListener { register() }
         txAirport.onRightDrawableClicked {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.world-airport-codes.com/"))
@@ -89,6 +90,7 @@ class RegisterFragment : Fragment() {
 
 
     private fun next() {
+        resetErrorTexts()
         username = txUsername.text.toString()
         name = txName.text.toString()
         surname = txName.text.toString()
@@ -109,6 +111,12 @@ class RegisterFragment : Fragment() {
                 layoutSecond.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun back () {
+        resetErrorTexts()
+        layoutFirst.visibility = View.VISIBLE
+        layoutSecond.visibility = View.INVISIBLE
     }
 
     private fun register() {
@@ -137,6 +145,7 @@ class RegisterFragment : Fragment() {
     }
 
     private fun callToRegister() {
+        resetErrorTexts()
         layoutLoadingRegister.visibility = View.VISIBLE
         changeFormEnabled(false)
         CoroutineScope(Dispatchers.IO).launch {
@@ -170,7 +179,9 @@ class RegisterFragment : Fragment() {
                 }
                 Log.v("response", e1.toString())
             } finally {
-                layoutLoadingRegister.visibility = View.INVISIBLE
+                withContext(Dispatchers.Main) {
+                    layoutLoadingRegister.visibility = View.INVISIBLE
+                }
             }
         }
     }
@@ -181,6 +192,12 @@ class RegisterFragment : Fragment() {
         txPassword.isEnabled = isEnabled
         txPasswordRepeat.isEnabled = isEnabled
         buttonRegister.isEnabled = isEnabled
+    }
+
+
+    private fun resetErrorTexts () {
+        txErrorRegister1.text = ""
+        txErrorRegister2.text = ""
     }
 
     interface OnRegisterFragmentInteractionListener {
