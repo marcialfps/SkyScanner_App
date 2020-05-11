@@ -41,7 +41,6 @@ class HomeWeatherFragment : Fragment() {
                 }
                 if (result != null) {
                     withContext(Dispatchers.Main) {
-                        // TODO me cascó una vez la app porque se ve que era null el text asignado
                         txWeatherTemperature.text = "${result.temperature.toInt()} ºc"
                         val dateFormatter = SimpleDateFormat("HH:mm, EEE dd MMM YYYY")
                         txDate.text = dateFormatter.format(Date())
