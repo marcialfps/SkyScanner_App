@@ -78,5 +78,7 @@
     <string name="hello">Hola</string>
     <string name="no_internet_connection">No estás conectado a Internet</string>
     <string name="logout">Cerrar sesión</string>
+    <string name="about">Sobre nosotros</string>
+    <string name="about_message">App %1$s desarrollada por Trominox™ \n\n © %2$s</string>
 
 </resources>

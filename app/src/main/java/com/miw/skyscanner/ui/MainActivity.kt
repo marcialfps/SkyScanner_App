@@ -3,6 +3,7 @@ package com.miw.skyscanner.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -18,6 +19,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_flights.*
 import kotlinx.android.synthetic.main.fragment_flights_list.*
 import kotlinx.android.synthetic.main.fragment_main.*
+import java.time.LocalDate
+import java.util.*
 
 class MainActivity : AppCompatActivity(), HomeFragment.OnLogoutClickListener {
 
@@ -134,8 +137,22 @@ class MainActivity : AppCompatActivity(), HomeFragment.OnLogoutClickListener {
                 finish()
                 true
             }
+            R.id.about -> {
+                openAboutDialog()
+                true
+            }
             else -> false
         }
+    }
+
+    private fun openAboutDialog () {
+        val dialogBuilder = AlertDialog.Builder(this@MainActivity)
+        val appName = getString(R.string.app_name)
+        val aboutMessage =
+            getString(R.string.about_message, appName, LocalDate.now().year.toString())
+        dialogBuilder.setTitle(appName)
+        dialogBuilder.setMessage(aboutMessage)
+        dialogBuilder.create().show()
     }
 
 }

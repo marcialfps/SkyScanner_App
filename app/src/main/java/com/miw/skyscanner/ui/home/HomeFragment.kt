@@ -37,13 +37,9 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Create child fragments: weather, arrivals and departures summary
         val transaction: FragmentTransaction = childFragmentManager.beginTransaction()
+        transaction.add(R.id.arrivalsFragmentContainer, HomeArrivalsFragment())
+        transaction.add(R.id.departuresFragmentContainer, HomeDeparturesFragment())
         transaction.add(R.id.weatherFragmentContainer, HomeWeatherFragment())
-        transaction.add(R.id.arrivalsFragmentContainer,
-            HomeArrivalsFragment()
-        )
-        transaction.add(R.id.departuresFragmentContainer,
-            HomeDeparturesFragment()
-        )
         transaction.commit()
         initialize()
     }
