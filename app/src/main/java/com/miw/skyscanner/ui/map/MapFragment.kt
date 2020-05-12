@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.github.pengrad.mapscaleview.MapScaleView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -33,20 +34,19 @@ const val EXAMPLE_LATITUDE: Double = 40.6413111
 const val EXAMPLE_LONGITUDE: Double = -73.7781391
 const val ZOOM_LEVEL: Float = 8f
 const val POLYLINE_STROKE_WIDTH_PX = 12f
-const val TIME_BETWEEN_REQUESTS:Long = 5000
+const val TIME_BETWEEN_REQUESTS: Long = 5000
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var googleMap: GoogleMap
+    private var googleMapScaleView: MapScaleView? = null
     private var previousPlanesOnMap: List<MapPlane> = emptyList()
-    var planesOnMap: List<MapPlane> by Delegates.observable(listOf()) {
-        _, oldList, newList ->
+    var planesOnMap: List<MapPlane> by Delegates.observable(listOf()) { _, oldList, newList ->
         if (newList.isEmpty()) notifyError()
         else {
             if (oldList.isNotEmpty())
                 previousPlanesOnMap = oldList
-            updateTrailsAndRotation (previousPlanesOnMap)
-            updateMarkers()
+            updateMapData()
         }
     }
     private var markersOnMap: MutableList<Marker> = mutableListOf()
@@ -64,7 +64,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        googleMapScaleView = view?.findViewById(R.id.scaleView)
         mapView.onCreate(savedInstanceState)
         mapView.onResume() // Display the map immediately
 
@@ -98,12 +98,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         )
                     )
                     map.uiSettings.isCompassEnabled = true
+                    map.uiSettings.isZoomControlsEnabled = true
+                    map.uiSettings.isRotateGesturesEnabled = true
                     // Fetching info toast
                     Toast.makeText(activity, getString(R.string.map_loading), Toast.LENGTH_LONG)
                         .show()
                     googleMap.setOnMapLoadedCallback { onMapLoaded(airport) }
+                    googleMap.setOnCameraMoveListener { updateMapScale() }
+                    googleMap.setOnCameraIdleListener { updateMapScale() }
                 }
             }
+        }
+    }
+
+    private fun updateMapScale () {
+        if (googleMapScaleView != null) {
+            val cameraPosition = googleMap.cameraPosition
+            scaleView.update(cameraPosition.zoom, cameraPosition.target.latitude)
         }
     }
 
@@ -112,20 +123,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         startUpdateInterval()
     }
 
-    private fun addAirportMarker (airport: Airport?) {
+    private fun addAirportMarker(airport: Airport?) {
         val airportLatitude = airport?.location?.latitude
         val airportLongitude = airport?.location?.longitude
         val airportMarkerOptions =
-            MarkerOptions().position(Coordinate(
-                airportLatitude ?: EXAMPLE_LATITUDE,
-                airportLongitude ?: EXAMPLE_LONGITUDE
-            ).getLatLng())
+            MarkerOptions().position(
+                Coordinate(
+                    airportLatitude ?: EXAMPLE_LATITUDE,
+                    airportLongitude ?: EXAMPLE_LONGITUDE
+                ).getLatLng()
+            )
                 .flat(true)
                 .title(
                     airport?.name ?: resources.getString(R.string.map_default_airport_name)
                 )
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.control_tower)
-            )
+                .icon(
+                    BitmapDescriptorFactory.fromResource(R.drawable.control_tower)
+                )
 
         if (airport?.code != null) airportMarkerOptions.snippet(airport.code)
 
@@ -133,10 +147,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         airportMarker = googleMap.addMarker(airportMarkerOptions)
     }
 
-    private fun startUpdateInterval () {
-        interval = fixedRateTimer("refreshTimer", true, 0, TIME_BETWEEN_REQUESTS){
+    private fun startUpdateInterval() {
+        interval = fixedRateTimer("refreshTimer", true, 0, TIME_BETWEEN_REQUESTS) {
             if (dataNeedsRefresh) UpdateMapTask(this@MapFragment).execute()
         }
+    }
+
+    private fun updateMapData() {
+        updateTrailsAndRotation(previousPlanesOnMap)
+        updateMarkers()
     }
 
     private fun updateMarkers() {
@@ -146,12 +165,16 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Place all new markers adn add them to the list for future removal
         planesOnMap.forEach {
             val marker: Marker = googleMap.addMarker(
-                MarkerOptions().position(Coordinate(it.status?.location?.latitude,
-                    it.status?.location?.longitude).getLatLng())
+                MarkerOptions().position(
+                    Coordinate(
+                        it.status?.location?.latitude,
+                        it.status?.location?.longitude
+                    ).getLatLng()
+                )
                     .rotation(it.rotation)
                     .flat(true)
                     .title(it.markerTitle()).snippet(it.markerDescription())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker_2)                    )
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.plane_marker_2))
             )
             markersOnMap.add(marker)
         }
@@ -167,20 +190,24 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    private fun updateTrails(oldPositions: List<MapPlane>, updatedPlanes: Set<MapPlane>,
-                             missingPlanes: Set<MapPlane>) {
+    private fun updateTrails(
+        oldPositions: List<MapPlane>, updatedPlanes: Set<MapPlane>,
+        missingPlanes: Set<MapPlane>
+    ) {
 
         // Purge old trails
-        missingPlanes.forEach {it.clearTrail()}
+        missingPlanes.forEach { it.clearTrail() }
 
         // Create new trails
-        updatedPlanes.forEach {plane ->
+        updatedPlanes.forEach { plane ->
 
             val outdatedPlane: MapPlane? = oldPositions.find {
-                it.status?.icao24 == plane.status?.icao24 }
+                it.status?.icao24 == plane.status?.icao24
+            }
 
-            val updatedPlane:MapPlane? = planesOnMap.find {
-                it.status?.icao24 == plane.status?.icao24 }
+            val updatedPlane: MapPlane? = planesOnMap.find {
+                it.status?.icao24 == plane.status?.icao24
+            }
 
 
             if (outdatedPlane != null && updatedPlane != null) {
@@ -204,18 +231,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun updateRotations (oldPositions: List<MapPlane>, updatedPlanes: Set<MapPlane>) {
-        updatedPlanes.forEach {plane ->
+    private fun updateRotations(oldPositions: List<MapPlane>, updatedPlanes: Set<MapPlane>) {
+        updatedPlanes.forEach { plane ->
 
             // New and old positions
             val updatedPlane: MapPlane? = planesOnMap.find {
-                it.status?.icao24 == plane.status?.icao24 }
+                it.status?.icao24 == plane.status?.icao24
+            }
 
             val outdatedPlane: MapPlane? = oldPositions.find {
-                it.status?.icao24 == plane.status?.icao24 }
+                it.status?.icao24 == plane.status?.icao24
+            }
 
             // If we have enough info, calculate the rotation
-            if (updatedPlane?.status?.location != null && outdatedPlane?.status?.location != null){
+            if (updatedPlane?.status?.location != null && outdatedPlane?.status?.location != null) {
                 val deltaX =
                     updatedPlane.status.location!!.longitude!! - outdatedPlane.status.location!!.longitude!!
                 val deltaY =
@@ -230,14 +259,15 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun notifyError () {
+    private fun notifyError() {
         // Error info toast
         if (planesOnMap.isEmpty() && context != null) {
-            Toast.makeText(activity, getString(R.string.map_loading_error), Toast.LENGTH_LONG).show()
+            Toast.makeText(activity, getString(R.string.map_loading_error), Toast.LENGTH_LONG)
+                .show()
         }
     }
 
-    class MapPlane (val context: Context?, plane: Plane) {
+    class MapPlane(val context: Context?, plane: Plane) {
 
         val status = plane.planeStatus
         var rotation: Float = 0f
@@ -249,23 +279,21 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     context.getString(R.string.map_aircraft, status.icao24)
                 else
                     context.getString(R.string.map_aircraft_unknown)
-            }
-            else "Marker"
+            } else "Marker"
         }
 
         val markerDescription: () -> String? = {
 
             if (context != null) {
-                if (status?.speed != null){
-                    context.getString(R.string.map_speed, status.speed)}
-                else
+                if (status?.speed != null) {
+                    context.getString(R.string.map_speed, status.speed)
+                } else
                     context.getString(R.string.map_unavailable)
-            }
-            else ""
+            } else ""
         }
 
-        fun clearTrail () {
-            trail.forEach { it.remove()}
+        fun clearTrail() {
+            trail.forEach { it.remove() }
         }
 
         // Equals depends on the icao code

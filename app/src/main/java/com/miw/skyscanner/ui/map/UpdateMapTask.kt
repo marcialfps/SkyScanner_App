@@ -27,7 +27,7 @@ class UpdateMapTask(private val mapFragment: MapFragment) : AsyncTask<Void, Void
 
     override fun onPostExecute(result: List<MapPlane>?) {
         super.onPostExecute(result)
-        if (result != null)
+        if (result != null && mapFragment.isAdded)
             mapFragment.planesOnMap = result
 
         mapFragment.dataNeedsRefresh = true

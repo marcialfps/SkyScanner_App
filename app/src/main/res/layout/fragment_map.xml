@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mapContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -8,5 +9,20 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <com.github.pengrad.mapscaleview.MapScaleView
+        android:id="@+id/scaleView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="10dp"
+        app:scale_maxWidth="120dp"
+        app:scale_color="@color/colorPrimaryDark"
+        app:scale_miles="false"
+        app:scale_outline="false"
+        app:scale_strokeWidth="2dp"
+        app:scale_textSize="15sp"
+        />
 
 </FrameLayout>

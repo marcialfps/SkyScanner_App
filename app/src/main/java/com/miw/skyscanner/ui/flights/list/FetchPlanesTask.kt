@@ -47,7 +47,7 @@ class FetchPlanesTask(private var parentFragment: Fragment,
 
     override fun onPostExecute(result: List<Plane>?) {
         super.onPostExecute(result)
-        if (result != null) {
+        if (result != null && parentFragment.isAdded) {
             if (!parentIsHomeScreen) {
                 with(parentFragment as FlightsListFragment) {
                     this.flights = result
